@@ -1,0 +1,28 @@
+{
+  "korea": [
+    {
+      "pacakge_id": "6278ad6f927a0d0520ff626a",
+      "pacakge_name": "jejudo-456",
+      "continent_name": "korea",
+      "country_name": "korea",
+      "price": 500000,
+      "days": "0304",
+      "departure_date": "",
+      "arrival_date": "",
+      "total_number": 5,
+      "images": "../../../assets/images/product-korea-jejudo.jpg"
+    },
+    {
+      "pacakge_id": "6278ad6f927a0d0520ff626c",
+      "pacakge_name": "jejudo-458",
+      "continent_name": "korea",
+      "country_name": "korea",
+      "price": 700000,
+      "days": "0405",
+      "departure_date": "",
+      "arrival_date": "",
+      "total_number": 4,
+      "images": "../../../assets/images/product-korea-jejudo.jpg"
+    }
+  ]
+}
