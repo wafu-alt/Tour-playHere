@@ -2,20 +2,84 @@
 // 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
 // 코드 예시를 남겨 두었습니다.
 
-import * as Api from '/api.js';
-import { randomId } from '/useful-functions.js';
+const itemsData = [
+  {
+    name: "Seoul",
+    category: "국내",
+    description: "서울로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "유럽",
+    description: "프랑스로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://file.mk.co.kr/mkde/N0/2021/07/20210701_4899822_1625200068.jpg",
+  },
+  {
+    name: "Thailand",
+    category: "동아시아",
+    description: "태국으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "북미",
+    description: "대전으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "남미",
+    description: "대전으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "국내",
+    description: "대전으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "유럽",
+    description: "대전으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+];
+
+import renderImageItem from "/components/image-item.js";
+import renderItem from "/components/item.js";
+import * as Api from "/api.js";
+import { randomId } from "/useful-functions.js";
 
 // 요소(element), input 혹은 상수
-const landingDiv = document.querySelector('#landingDiv');
-const greetingDiv = document.querySelector('#greetingDiv');
+const itemScrollListDiv = document.querySelector(".item-scroll-list");
+const leftArrowBtn = document.querySelector("#left-arrow");
+const rightArrowBtn = document.querySelector("#right-arrow");
+
+const itemListDiv = document.querySelector(".item-list");
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
-  insertTextToLanding();
-  insertTextToGreeting();
+  insertItemsToScrollList();
+  insertItemsToList();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -24,37 +88,35 @@ function addAllEvents() {
   greetingDiv.addEventListener('click', alertGreetingText);
 }
 
-function insertTextToLanding() {
-  landingDiv.insertAdjacentHTML(
-    'beforeend',
-    `
-      <h2>n팀 쇼핑몰의 랜딩 페이지입니다. 자바스크립트 파일에서 삽입되었습니다.</h2>
-    `
-  );
+function insertItemsToScrollList() {
+  itemsData.forEach((data) => {
+    itemScrollListDiv.insertAdjacentElement("beforeend", renderImageItem(data));
+  });
 }
 
-function insertTextToGreeting() {
-  greetingDiv.insertAdjacentHTML(
-    'beforeend',
-    `
-      <h1>반갑습니다! 자바스크립트 파일에서 삽입되었습니다.</h1>
-    `
-  );
+function insertItemsToList() {
+  itemsData.forEach((data) => {
+    itemListDiv.insertAdjacentElement("beforeend", renderItem(data));
+  });
 }
 
-function alertLandingText() {
-  alert('n팀 쇼핑몰입니다. 안녕하세요.');
+function onHoverScrollArrow(direction) {
+  let distance;
+  switch (direction) {
+    case "right":
+      distance = 560;
+      break;
+    case "left":
+      distance = -560;
+  }
+  itemScrollListDiv.scrollBy({ left: distance, behavior: "smooth" });
 }
 
-function alertGreetingText() {
-  alert('n팀 쇼핑몰에 오신 것을 환영합니다');
-}
+// async function getDataFromApi() {
+//   // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
+//   const data = await Api.get("/api/user/data");
+//   const random = randomId();
 
-async function getDataFromApi() {
-  // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-  const data = await Api.get('/api/user/data');
-  const random = randomId();
-
-  console.log({ data });
-  console.log({ random });
-}
+//   console.log({ data });
+//   console.log({ random });
+// }
