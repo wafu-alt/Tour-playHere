@@ -2,20 +2,83 @@
 // 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
 // 코드 예시를 남겨 두었습니다.
 
-import renderItem from "/components/itemlist.js";
+const itemsData = [
+  {
+    name: "Seoul",
+    category: "국내",
+    description: "서울로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "유럽",
+    description: "프랑스로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://file.mk.co.kr/mkde/N0/2021/07/20210701_4899822_1625200068.jpg",
+  },
+  {
+    name: "Thailand",
+    category: "동아시아",
+    description: "태국으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "북미",
+    description: "대전으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "남미",
+    description: "대전으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "국내",
+    description: "대전으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+  {
+    name: "Paris",
+    category: "유럽",
+    description: "대전으로 떠나보세요!",
+    departureTime: "2022.5.31~",
+    image:
+      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
+  },
+];
+
+import renderImageItem from "/components/image-item.js";
+import renderItem from "/components/item.js";
 import * as Api from "/api.js";
 import { randomId } from "/useful-functions.js";
 
 // 요소(element), input 혹은 상수
-const itemListElement = document.querySelector(".item-list");
+const itemScrollListDiv = document.querySelector(".item-scroll-list");
 const leftArrowBtn = document.querySelector("#left-arrow");
 const rightArrowBtn = document.querySelector("#right-arrow");
+
+const itemListDiv = document.querySelector(".item-list");
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
+  insertItemsToScrollList();
   insertItemsToList();
 }
 
@@ -25,29 +88,16 @@ function addAllEvents() {
   rightArrowBtn.addEventListener("click", (e) => onHoverScrollArrow("right"));
 }
 
-function insertItemsToList() {
-  const itemsData = [
-    { name: "Seoul" },
-    { name: "Paris" },
-    { name: "Paris" },
-    { name: "Paris" },
-    { name: "Paris" },
-    { name: "Paris" },
-    { name: "Paris" },
-  ];
-
+function insertItemsToScrollList() {
   itemsData.forEach((data) => {
-    itemListElement.insertAdjacentHTML("afterbegin", renderItem(data));
+    itemScrollListDiv.insertAdjacentElement("beforeend", renderImageItem(data));
   });
 }
 
-async function getDataFromApi() {
-  // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-  const data = await Api.get("/api/user/data");
-  const random = randomId();
-
-  console.log({ data });
-  console.log({ random });
+function insertItemsToList() {
+  itemsData.forEach((data) => {
+    itemListDiv.insertAdjacentElement("beforeend", renderItem(data));
+  });
 }
 
 function onHoverScrollArrow(direction) {
@@ -59,5 +109,14 @@ function onHoverScrollArrow(direction) {
     case "left":
       distance = -560;
   }
-  itemListElement.scrollBy({ left: distance, behavior: "smooth" });
+  itemScrollListDiv.scrollBy({ left: distance, behavior: "smooth" });
 }
+
+// async function getDataFromApi() {
+//   // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
+//   const data = await Api.get("/api/user/data");
+//   const random = randomId();
+
+//   console.log({ data });
+//   console.log({ random });
+// }
