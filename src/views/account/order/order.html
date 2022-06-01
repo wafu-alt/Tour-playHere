@@ -35,7 +35,7 @@
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
             <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-데모</span>
+            <span class="has-text-link">쇼핑-n팀</span>
           </a>
 
           <a
@@ -53,6 +53,22 @@
 
         <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
           <ul id="navbar">
+
+            <li id="loginCheck">
+
+            </li>
+            <script>
+              let loginCheck = document.querySelector("#loginCheck");
+              
+              if(sessionStorage.getItem('token')){
+                loginCheck.innerHTML = `
+                <a href="/account">계정관리 </a> /
+                <a href="/logOut">로그아웃 </a> /
+                
+                `;
+              }
+            </script>
+
             <li>
               <a href="/cart" aria-current="page">
                 <span class="icon">

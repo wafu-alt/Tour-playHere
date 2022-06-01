@@ -61,3 +61,8 @@ function onHoverScrollArrow(direction) {
   }
   itemListElement.scrollBy({ left: distance, behavior: "smooth" });
 }
+
+
+
+
+

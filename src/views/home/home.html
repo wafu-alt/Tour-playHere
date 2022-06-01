@@ -51,7 +51,14 @@
 
           <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
             <ul id="navbar">
-              <li><a href="/login">로그인</a></li>
+              <li id="loginCheck"><a href="/login">로그인</a></li>
+              <script>
+                let loginCheck = document.querySelector("#loginCheck");
+                
+                if(sessionStorage.getItem('token')){
+                  loginCheck.innerHTML = `<a href="/account">계정관리</a>`;
+                }
+              </script>
               <li><a href="/register">회원가입</a></li>
               <li>
                 <a href="#cart" aria-current="page">
