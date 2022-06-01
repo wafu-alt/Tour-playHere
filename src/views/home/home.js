@@ -4,6 +4,7 @@
 
 const itemsData = [
   {
+    index: 1,
     name: "Seoul",
     category: "국내",
     description: "서울로 떠나보세요!",
@@ -12,6 +13,7 @@ const itemsData = [
       "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
   },
   {
+    index: 2,
     name: "Paris",
     category: "유럽",
     description: "프랑스로 떠나보세요!",
@@ -20,6 +22,7 @@ const itemsData = [
       "https://file.mk.co.kr/mkde/N0/2021/07/20210701_4899822_1625200068.jpg",
   },
   {
+    index: 3,
     name: "Thailand",
     category: "동아시아",
     description: "태국으로 떠나보세요!",
@@ -28,6 +31,7 @@ const itemsData = [
       "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
   },
   {
+    index: 4,
     name: "Paris",
     category: "북미",
     description: "대전으로 떠나보세요!",
@@ -36,6 +40,7 @@ const itemsData = [
       "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
   },
   {
+    index: 5,
     name: "Paris",
     category: "남미",
     description: "대전으로 떠나보세요!",
@@ -44,6 +49,7 @@ const itemsData = [
       "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
   },
   {
+    index: 6,
     name: "Paris",
     category: "국내",
     description: "대전으로 떠나보세요!",
@@ -52,6 +58,7 @@ const itemsData = [
       "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
   },
   {
+    index: 7,
     name: "Paris",
     category: "유럽",
     description: "대전으로 떠나보세요!",
@@ -61,8 +68,10 @@ const itemsData = [
   },
 ];
 
-import renderImageItem from "/components/image-item.js";
-import renderItem from "/components/item.js";
+import renderImageItem from "/components/list/image-item-card.js";
+import renderItem from "/components/list/item-card.js";
+import renderCategoryNavbar from "/components/category_navbar/category_navbar.js";
+
 import * as Api from "/api.js";
 import { randomId } from "/useful-functions.js";
 
@@ -73,6 +82,8 @@ const rightArrowBtn = document.querySelector("#right-arrow");
 
 const itemListDiv = document.querySelector(".item-list");
 
+const categoryNavbarDiv = document.querySelector(".category-navbar");
+
 addAllElements();
 addAllEvents();
 
@@ -80,6 +91,7 @@ addAllEvents();
 async function addAllElements() {
   insertItemsToScrollList();
   insertItemsToList();
+  insertCategoryNavbar();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -99,15 +111,18 @@ function insertItemsToList() {
     itemListDiv.insertAdjacentElement("beforeend", renderItem(data));
   });
 }
+function insertCategoryNavbar() {
+  categoryNavbarDiv.insertAdjacentElement("beforeend", renderCategoryNavbar());
+}
 
 function onHoverScrollArrow(direction) {
   let distance;
   switch (direction) {
     case "right":
-      distance = 560;
+      distance = 500;
       break;
     case "left":
-      distance = -560;
+      distance = -500;
   }
   itemScrollListDiv.scrollBy({ left: distance, behavior: "smooth" });
 }
