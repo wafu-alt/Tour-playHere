@@ -29,13 +29,13 @@
   display: flex;
   position: absolute;
   align-items: center;
-  height: 420px;
+  height: 330px;
   left: 0px;
   z-index: 1;
 }
 
 #left-arrow:hover {
-  color: lightblue;
+  color: black;
   cursor: pointer;
   transition: all 0.5s;
 }
@@ -44,22 +44,17 @@
   display: flex;
   position: absolute;
   align-items: center;
-  height: 420px;
+  height: 330px;
   right: 0px;
   z-index: 1;
 }
 
 #right-arrow:hover {
-  color: lightblue;
+  color: black;
   cursor: pointer;
   transition: all 0.5s;
 }
 
-/* .item-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-} */
 .item-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
