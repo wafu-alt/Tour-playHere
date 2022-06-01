@@ -84,8 +84,8 @@ async function addAllElements() {
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
-  landingDiv.addEventListener('click', alertLandingText);
-  greetingDiv.addEventListener('click', alertGreetingText);
+  leftArrowBtn.addEventListener("click", (e) => onHoverScrollArrow("left"));
+  rightArrowBtn.addEventListener("click", (e) => onHoverScrollArrow("right"));
 }
 
 function insertItemsToScrollList() {
