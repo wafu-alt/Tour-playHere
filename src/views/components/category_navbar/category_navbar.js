@@ -11,19 +11,25 @@ export const categories = [
   "아프리카",
 ];
 
-export default function renderCategoryNavbar(selectedCategory) {
-  const component = document.createElement("div");
+export default function renderCategoryNavbar(data) {
+  const element = document.createElement("div");
 
-  function onClick(type) {}
+  function onClick(type) {
+    alert(type);
+  }
 
-  component.innerHTML = `
+  element.innerHTML = `
   <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="/components/category_navbar/category_navbar.css">
+    <link rel="stylesheet" type="text/css" href="components/list/image-item-card.css">
 
+    <style type="text/css">
+      .category-navbar{
+        border-bottom: 1px solid #dee2e6;
+      }
+    </style>
   </head>
   <body>
-  
   <nav class="navbar category-navbar" role="navigation" aria-label="main navigation">
   <div class="container mt-3">
     <div class="navbar-start">   
@@ -33,19 +39,14 @@ export default function renderCategoryNavbar(selectedCategory) {
 </html>
 `;
 
-  const navbarContainer = component.querySelector(".navbar-start");
+  const navbarContainer = element.querySelector(".navbar-start");
   categories.forEach((category) => {
     const navMenuElement = document.createElement("a");
     navMenuElement.className = "navbar-item";
     navMenuElement.innerText = `${category}`;
     navMenuElement.onclick = () => onClick(category);
-    navMenuElement.href = `/list/?category=${category}`;
     navbarContainer.appendChild(navMenuElement);
-
-    if (category === selectedCategory) {
-      navMenuElement.classList.add("is-active");
-    }
   });
 
-  return component;
+  return element;
 }
