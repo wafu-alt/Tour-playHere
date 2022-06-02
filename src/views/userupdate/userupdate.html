@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-데모</title>
+    <title>쇼핑-n팀</title>
     <!-- 아이콘 -->
     <link
       rel="icon"
@@ -22,11 +22,11 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
-    <!-- Daum 주소 API 사용하기 위한 파일 -->
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="account-security.css" />
-    <script src="account-security.js" type="module" defer></script>
+    <link rel="stylesheet" href="userupdate.css" />
+    <script src="../components/account_navbar/account_in.js" type="module" defer></script>
+    <script src="userupdate.js" type="module" defer></script>
   </head>
   <body>
     <!-- 헤더 -->
@@ -35,7 +35,7 @@
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
             <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-데모</span>
+            <span class="has-text-link">쇼핑-n팀</span>
           </a>
 
           <a
@@ -53,14 +53,7 @@
 
           <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
             <ul id="navbar">
-              <li>
-                <a href="/cart" aria-current="page">
-                  <span class="icon">
-                    <i class="fas fa-cart-shopping"></i>
-                  </span>
-                  <span>카트</span>
-                </a>
-              </li>
+              
             </ul>
           </div>
         </div>
@@ -84,6 +77,7 @@
                     id="fullNameInput"
                     type="text"
                     autocomplete="off"
+                    disabled
                   />
                   <!-- 토클 스위치 -->
                   <label class="switch">
@@ -101,6 +95,7 @@
                     id="passwordInput"
                     type="password"
                     autocomplete="off"
+                    disabled
                   />
                   <!-- 토클 스위치 -->
                   <label class="switch">
@@ -123,6 +118,7 @@
                     id="passwordConfirmInput"
                     type="password"
                     autocomplete="off"
+                    disabled
                   />
                 </div>
               </div>
@@ -203,6 +199,7 @@
                     type="number"
                     placeholder="- 없이 입력해 주세요."
                     autocomplete="on"
+                    disabled
                   />
                   <!-- 토클 스위치 -->
                   <label class="switch">

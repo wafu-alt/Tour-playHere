@@ -2,72 +2,6 @@
 // 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
 // 코드 예시를 남겨 두었습니다.
 
-const itemsData = [
-  {
-    index: 1,
-    name: "Seoul",
-    category: "국내",
-    description: "서울로 떠나보세요!",
-    departureTime: "2022.5.31~",
-    image:
-      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
-  },
-  {
-    index: 2,
-    name: "Paris",
-    category: "유럽",
-    description: "프랑스로 떠나보세요!",
-    departureTime: "2022.5.31~",
-    image:
-      "https://file.mk.co.kr/mkde/N0/2021/07/20210701_4899822_1625200068.jpg",
-  },
-  {
-    index: 3,
-    name: "Thailand",
-    category: "동아시아",
-    description: "태국으로 떠나보세요!",
-    departureTime: "2022.5.31~",
-    image:
-      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
-  },
-  {
-    index: 4,
-    name: "Paris",
-    category: "북미",
-    description: "대전으로 떠나보세요!",
-    departureTime: "2022.5.31~",
-    image:
-      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
-  },
-  {
-    index: 5,
-    name: "Paris",
-    category: "남미",
-    description: "대전으로 떠나보세요!",
-    departureTime: "2022.5.31~",
-    image:
-      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
-  },
-  {
-    index: 6,
-    name: "Paris",
-    category: "국내",
-    description: "대전으로 떠나보세요!",
-    departureTime: "2022.5.31~",
-    image:
-      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
-  },
-  {
-    index: 7,
-    name: "Paris",
-    category: "유럽",
-    description: "대전으로 떠나보세요!",
-    departureTime: "2022.5.31~",
-    image:
-      "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg",
-  },
-];
-
 import renderImageItem from "/components/list/image-item-card.js";
 import renderItem from "/components/list/item-card.js";
 import renderCategoryNavbar from "/components/category_navbar/category_navbar.js";
@@ -100,13 +34,24 @@ function addAllEvents() {
   rightArrowBtn.addEventListener("click", (e) => onHoverScrollArrow("right"));
 }
 
-function insertItemsToScrollList() {
+async function insertItemsToScrollList() {
+  let itemsData = await fetch("recommended.json").then((response) =>
+    response.json()
+  );
   itemsData.forEach((data) => {
-    itemScrollListDiv.insertAdjacentElement("beforeend", renderImageItem(data));
+    itemScrollListDiv.insertAdjacentElement(
+      "beforeend",
+      renderImageItem(data, () => {
+        window.location.href = `/list/?category=${data.category}&subcategory=${data.name}`;
+      })
+    );
   });
 }
 
-function insertItemsToList() {
+async function insertItemsToList() {
+  let itemsData = await fetch("list_sample.json").then((response) =>
+    response.json()
+  );
   itemsData.forEach((data) => {
     itemListDiv.insertAdjacentElement("beforeend", renderItem(data));
   });
@@ -125,6 +70,23 @@ function onHoverScrollArrow(direction) {
       distance = -500;
   }
   itemScrollListDiv.scrollBy({ left: distance, behavior: "smooth" });
+}
+
+let loginCheck = document.querySelector("#navbar");
+
+if (sessionStorage.getItem("token")) {
+  loginCheck.innerHTML = `
+  <li><a href="/account">계정관리</a></li>
+  <li><a href="/account">로그아웃</a></li>
+  <li>
+      <a href="#cart" aria-current="page">
+        <span class="icon">
+          <i class="fas fa-cart-shopping"></i>
+        </span>
+        <span>카트</span>
+      </a>
+  </li>
+  `;
 }
 
 // async function getDataFromApi() {

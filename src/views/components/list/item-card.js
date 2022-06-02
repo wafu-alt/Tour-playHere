@@ -1,9 +1,9 @@
 export default function renderItem(data) {
   const component = document.createElement("div");
   component.class = "card";
-  component.onclick = onClick;
+  component.onclick = onClickHandler;
 
-  function onClick() {
+  function onClickHandler() {
     alert("Click");
   }
 
