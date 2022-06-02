@@ -18,7 +18,7 @@ async function Data() {
     (data) => data.pacakge_id === "6278ad6f927a0d0520ff626a"
   );
 
-  return data[0];
+  //return data[0];
   //console.log(data[0].images)
 
   const body = document.querySelector("body");
