@@ -9,23 +9,10 @@ class PackageService {
     this.packageModel = packageModel;
   }
 
-  // 회원가입
+  // 패키지 생성
   async addPackage(packageInfo) {
     // 객체 destructuring
     const { packageName, category, country, price, days, departure, arrival, totalNumber } = packageInfo;
-
-    // 이메일 중복 확인
-    // const user = await this.userModel.findByEmail(email);
-    // if (user) {
-    //   throw new Error(
-    //     '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.'
-    //   );
-    // }
-
-    // 이메일 중복은 이제 아니므로, 회원가입을 진행함
-
-    // 우선 비밀번호 해쉬화(암호화)
-    // const hashedPassword = await bcrypt.hash(password, 10);
 
     const newPackageInfo = { packageName, category, country, price, days, departure, arrival, totalNumber };
 
@@ -34,6 +21,44 @@ class PackageService {
 
     return createdNewPackage;
   }
+    // 상품 목록 전체 가져옴
+  async getPackages() {
+    const packages = await this.packageModel.findAll();
+    return packages;
+  }
+
+     // 상품 목록 수정
+  async setPackage(packageInfoRequired, toUpdate) {
+    // 객체 destructuring
+    const packageId  = packageInfoRequired;
+
+    // 우선 해당 id의 유저가 db에 있는지 확인
+    let packages = await this.packageModel.findById(packageId);
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!packages) {
+      throw new Error('상품 내역이 없습니다. 다시 한 번 확인해 주세요.');
+    }
+
+    // const PackageName = package.packageName;
+    // const Category = package.category;
+    // const Country = package.country;
+    // const Price = package.price;
+    // const Days = package.days;
+    // const Departure = package.departure;
+    // const Arrival = package.arrival;
+    // const TotalNumber = package.totalNumber;
+    
+    // 업데이트 진행
+    packages = await this.packageModel.update({
+      packageId,
+      update: toUpdate,
+    });
+
+    return packages;
+  }
+
+
 
 //   // 로그인
 //   async getUserToken(loginInfo) {

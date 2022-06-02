@@ -1,5 +1,8 @@
 import { model } from 'mongoose';
+const mongoose = require('mongoose');
 import { PackageSchema } from '../schemas/package-schema';
+// import { ObjectId } from 'mongoose';
+// import { ObjectId } from '..db';
 
 const Package = model('package', PackageSchema);
 
@@ -16,8 +19,24 @@ export class PackageModel {
 
     async findAll() {
     const packages = await Package.find({});
+    console.log(packages);
     return packages;
   }
+    async findById(packageId) {
+    const findpackage = await Package.findOne({ _id: packageId });
+    console.log(packageId);
+    return findpackage;
+  }
+  
+    async update({ packageId, update }) {
+    const filter = { _id: packageId };
+    
+
+    const updatedPackage = await Package.findOneAndUpdate(filter, update);
+    return updatedPackage;
+  }
+
+
 }
 
  
