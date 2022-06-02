@@ -10,57 +10,45 @@
 // })
 // .catch((err) => console.log(err))
 
-
-async function Data () {
-  let res = await fetch("./detail-sampleData.json")
-  
+async function Data() {
+  let res = await fetch("./detail-sampleData.json");
 
   let resData = await res.json();
-  const data = resData.filter(data => data.pacakge_id === "6278ad6f927a0d0520ff626a")
+  const data = resData.filter(
+    (data) => data.pacakge_id === "6278ad6f927a0d0520ff626a"
+  );
 
-
-  
   return data[0];
   //console.log(data[0].images)
 
-}
+  const body = document.querySelector("body");
 
+  // 여행 출발일 input값 현재 날짜로 고정
+  function date() {
+    let curDate = new Date();
+    let year = curDate.getFullYear();
+    let month = "";
+    let date = "";
+    if (curDate.getMonth() + 1 < 10) {
+      month = `0${curDate.getMonth() + 1}`;
+    } else {
+      month = curDate.getMonth();
+    }
 
+    if (curDate.getDate() < 10) {
+      date = `0${curDate.getDate()}`;
+    } else {
+      date = curDate.getDate();
+    }
 
-
-
-
-console.log(Promise.resolve(Data()))
-
-
-const body = document.querySelector("body");
-
-// 여행 출발일 input값 현재 날짜로 고정
-function date() {
-  let curDate = new Date();
-  let year = curDate.getFullYear();
-  let month = "";
-  let date = "";
-  if (curDate.getMonth() + 1 < 10) {
-    month = `0${curDate.getMonth() + 1}`;
-  } else {
-    month = curDate.getMonth();
+    return `${year}-${month}-${date}`;
   }
+  const curDate = date();
 
-  if (curDate.getDate() < 10) {
-    date = `0${curDate.getDate()}`;
-  } else {
-    date = curDate.getDate();
-  }
+  body.insertAdjacentHTML(
+    "beforeend",
 
-  return `${year}-${month}-${date}`;
-}
-const curDate = date();
-
-body.insertAdjacentHTML(
-  "beforeend",
-
-  `<article class="p-6" >
+    `<article class="p-6" >
   <section class="columns" >
     <div class="column is-half">
       <figure class="image is-400x400">
@@ -91,22 +79,27 @@ body.insertAdjacentHTML(
   </section>
 </article>
 `
-);
+  );
+  const cartAddBtn = document.querySelector("#cartAddBtn");
+  const orderBtn = document.querySelector("#orderBtn");
+  const tripStart = document.querySelector("#tripStart").value;
 
+  function cartAddFnc() {
+    alert("cartAddBtn을 클릭하셨습니다.");
+  }
 
-const cartAddBtn = document.querySelector("#cartAddBtn");
-const orderBtn = document.querySelector("#orderBtn");
-const tripStart = document.querySelector("#tripStart").value;
+  function orderFnc() {
+    alert("orderBtn을 클릭하셨습니다.");
+    console.log(tripStart);
+  }
 
-
-function cartAddFnc() {
-  alert("cartAddBtn을 클릭하셨습니다.");
+  cartAddBtn.addEventListener("click", cartAddFnc);
+  orderBtn.addEventListener("click", orderFnc);
 }
-
-function orderFnc() {
-  alert("orderBtn을 클릭하셨습니다.");
-  console.log(tripStart);
-}
-
-cartAddBtn.addEventListener("click", cartAddFnc);
-orderBtn.addEventListener("click", orderFnc);
+Data();
+// async function test() {
+//   const result = await Data();
+//   console.log(result);
+//   return result;
+// }
+// console.log(test());
