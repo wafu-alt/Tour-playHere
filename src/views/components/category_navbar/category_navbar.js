@@ -39,7 +39,7 @@ export default function renderCategoryNavbar(selectedCategory) {
     navMenuElement.className = "navbar-item";
     navMenuElement.innerText = `${category}`;
     navMenuElement.onclick = () => onClick(category);
-    navMenuElement.href = `/list/?category=${category}`;
+    navMenuElement.href = `/list/?category=${category}&subcategory=전체`;
     navbarContainer.appendChild(navMenuElement);
 
     if (category === selectedCategory) {

@@ -1,10 +1,10 @@
-export default function renderImageItem(data) {
+export default function renderImageItem(data, onClick) {
   const component = document.createElement("div");
   component.class = "card";
-  component.onclick = onClick;
+  component.onclick = onClickHandler;
 
-  function onClick() {
-    alert("Click");
+  function onClickHandler() {
+    onClick();
   }
 
   component.innerHTML = `
@@ -13,12 +13,12 @@ export default function renderImageItem(data) {
     <link rel="stylesheet" type="text/css" href="/components/list/image-item-card.css">
   </head>
   <body>
-  <div class="card image-card" onclick="this.onClick()">
+  <div class="card image-card">
   <div class="card-background">
       <img class="card-background-image" src=${data.image} alt="Placeholder image">
   </div>
   <div class="content-stack">
-    <h1>${data.name}</h1>
+    <h1>${data.name_en}</h1>
     <b>${data.description}</b>
   </div>
 </div>
