@@ -1,0 +1,59 @@
+[
+  {
+    "index": 1,
+    "name": "서울",
+    "name_en": "Seoul",
+    "category": "국내",
+    "description": "대한민국 서울로 떠나보세요!",
+    "image": "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg"
+  },
+  {
+    "index": 2,
+    "name": "파리",
+    "name_en": "Paris",
+    "category": "유럽",
+    "description": "유럽 파리로 떠나보세요!",
+    "image": "https://file.mk.co.kr/mkde/N0/2021/07/20210701_4899822_1625200068.jpg"
+  },
+  {
+    "index": 3,
+    "name": "태국",
+    "name_en": "Thailand",
+    "category": "동아시아",
+    "description": "태국으로 떠나보세요!",
+    "image": "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg"
+  },
+  {
+    "index": 4,
+    "name": "Paris",
+    "name_en": "Paris",
+    "category": "북미",
+    "description": "대전으로 떠나보세요!",
+    "image": "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg"
+  },
+  {
+    "index": 5,
+    "name": "멕시코",
+    "name_en": "Paris",
+    "category": "남미",
+    "description": "대전으로 떠나보세요!",
+    "image": "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg"
+  },
+  {
+    "index": 6,
+    "name": "대전",
+    "name_en": "Paris",
+    "category": "국내",
+    "description": "대전으로 떠나보세요!",
+    "image": "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg"
+  },
+  {
+    "index": 7,
+    "name": "대전",
+    "name_en": "Paris",
+    "category": "국내",
+    "description": "대전으로 떠나보세요!",
+    "departureTime": "2022.5.31~",
+    "image": "https://www.agoda.com/wp-content/uploads/2018/10/Experience-Seoul_attractions_Lotte-World.jpg"
+  }
+]

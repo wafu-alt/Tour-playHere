@@ -1,4 +1,4 @@
-export default function renderDropdown(list, onChange) {
+export default function renderDropdown(list, initalValue, onChange) {
   const component = document.createElement("div");
   component.className = "dropdown";
   component.addEventListener("focusin", onFocus);
@@ -10,21 +10,21 @@ export default function renderDropdown(list, onChange) {
   function unFocus(e) {
     setTimeout(() => {
       component.classList.remove(["is-active"]);
-    }, 100);
+    }, 300);
   }
-  function onClickChange(value) {
-    component.querySelector("#selected").innerText = value;
-    component.querySelectorAll(".dropdown-item").forEach((item) => {
-      item.classList.remove(["is-active"]);
-    });
-    component.querySelector(`#${value}`).classList.add(["is-active"]);
+  function onClickHandler(value) {
+    // component.querySelector("#selected").innerText = value;
+    // component.querySelectorAll(".dropdown-item").forEach((item) => {
+    //   item.classList.remove(["is-active"]);
+    // });
+    // component.querySelector(`#${value}`).classList.add(["is-active"]);
     onChange(value);
   }
 
   component.innerHTML = `
   <div class="dropdown-trigger">
     <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-      <span id="selected">전체</span>
+      <span id="selected">${initalValue}</span>
       <span class="icon is-small">
         <i class="fas fa-angle-down" aria-hidden="true"></i>
       </span>
@@ -41,8 +41,8 @@ export default function renderDropdown(list, onChange) {
     item.className = "dropdown-item";
     item.id = `${value}`;
     item.innerHTML = `${value}`;
-    item.onclick = () => onClickChange(value);
-    if (value === "전체") {
+    item.onclick = () => onClickHandler(value);
+    if (value === initalValue) {
       item.classList.add("is-active");
     }
     component.querySelector(".dropdown-content").appendChild(item);
