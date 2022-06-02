@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #inner {
   margin: 0 80%;
   background-color: aquamarine;
@@ -12,6 +13,8 @@
   height: 100%;
 }
 
+=======
+>>>>>>> 73f2f8ff92a61e378fa6043b506ae21d1c62eab1
 .header-search-input {
   width: 20rem;
 }
@@ -19,6 +22,7 @@
   box-shadow: none;
   outline: none;
 }
+<<<<<<< HEAD
 .cart-header {
   border-bottom: 1px solid #dbdbdb;
   display: flex;
@@ -197,4 +201,35 @@ input[type="number"]::-webkit-outer-spin-button {
   .delivery-info .select {
     height: 2.3rem;
   }
+=======
+.account-header {
+  border-bottom: 1px solid #ddd;
+  display: block;
+  padding-bottom: 0.7rem;
+}
+.orders-container {
+  margin: 5rem auto 2rem;
+  max-width: 1000px !important;
+}
+.orders-top {
+  border-bottom: 1px solid #aaa;
+  padding: 0;
+  text-align: center;
+}
+.orders-item {
+  align-items: center;
+  text-align: center;
+}
+.orders-item:not(:last-child) {
+  border-bottom: 1px solid #bbb;
+}
+.order-summary {
+  white-space: pre-line;
+}
+.modal .box {
+  text-align: center;
+}
+.modal .buttons {
+  justify-content: center;
+>>>>>>> 73f2f8ff92a61e378fa6043b506ae21d1c62eab1
 }
