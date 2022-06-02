@@ -23,8 +23,8 @@
       crossorigin="anonymous"
     ></script>
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="home.css" />
-    <script src="home.js" type="module" defer></script>
+    <link rel="stylesheet" href="list.css" />
+    <script src="list.js" type="module" defer></script>
   </head>
   <body>
     <!-- 헤더 -->
@@ -51,14 +51,7 @@
 
           <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
             <ul id="navbar">
-              <li id="loginCheck"><a href="/login">로그인</a></li>
-              <script>
-                let loginCheck = document.querySelector("#loginCheck");
-                
-                if(sessionStorage.getItem('token')){
-                  loginCheck.innerHTML = `<a href="/account">계정관리</a>`;
-                }
-              </script>
+              <li><a href="/login">로그인</a></li>
               <li><a href="/register">회원가입</a></li>
               <li>
                 <a href="#cart" aria-current="page">
@@ -77,18 +70,9 @@
     <div class="category-navbar"></div>
 
     <section class="content container mt-6">
-      <h1>추천 상품</h1>
-      <div id="item-scroll-list-container">
-        <article class="item-scroll-list">
-          <span id="left-scroll-list-move-icon">
-            <i class="fas fa-arrow-circle-left fa-xl" id="left-arrow"></i>
-          </span>
-          <span id="right-scroll-list-move-icon">
-            <i class="fas fa-arrow-circle-right fa-xl" id="right-arrow"></i>
-          </span>
-        </article>
-      </div> 
-      <h1>여행을 떠나보세요!</h1>
+      <div class="dropdown-container">
+      </div>
+      <h1 id="title">여행을 떠나보세요!</h1>
       <div id="item-list-container">
         <article class="item-list">
         </article>
