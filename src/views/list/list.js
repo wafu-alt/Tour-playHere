@@ -20,13 +20,12 @@ const titleText = document.getElementById("title");
 let params = getParams();
 addAllElements();
 addAllEvents();
-
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
   insertTitleText();
-  insertItemsToList();
+  insertItemsToList(params.subcategory);
   insertCategoryNavbar();
-  insertDropdown();
+  insertDropdown(params.subcategory);
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -38,7 +37,7 @@ function insertTitleText() {
 
 async function insertItemsToList(subCategory) {
   itemListDiv.innerHTML = "";
-  let data = await fetch("./list_sample.json");
+  let data = await fetch("/list_sample.json");
   data = await data.json();
   data
     .filter((e) =>
@@ -59,14 +58,14 @@ function insertCategoryNavbar() {
 }
 
 async function insertDropdown() {
-  let data = await fetch("./city_list_sample.json").then((response) =>
+  let data = await fetch("/city_list_sample.json").then((response) =>
     response.json()
   );
 
   dropdownDiv.insertAdjacentElement(
     "beforeend",
-    renderDropdown(data[params.category], (selected) => {
-      insertItemsToList(selected);
+    renderDropdown(data[params.category], params.subcategory, (selected) => {
+      window.location.href = `/list/?category=${params.category}&subcategory=${selected}`;
     })
   );
 }
