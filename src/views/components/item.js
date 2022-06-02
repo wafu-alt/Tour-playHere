@@ -10,13 +10,15 @@ export default function renderItem(data) {
   element.innerHTML = `
     <html>
     <head>
-     <link rel="stylesheet" type="text/css" href="components/list/item-card.css">
+        <style type="text/css">
+
+    </style>
     </head>
     <body>
-    <div class="card card-panel">
+    <div class="card">
   <div class="card-image">
     <figure class="image is-4by3">
-      <img class="card-panel-image" src=${data.image} alt="Placeholder image">
+      <img src=${data.image} alt="Placeholder image">
     </figure>
   </div>
   <div class="card-content">

@@ -1,16 +1,16 @@
 export default function renderImageItem(data) {
-  const component = document.createElement("div");
-  component.class = "card";
-  component.onclick = onClick;
+  const element = document.createElement("div");
+  element.class = "card";
+  element.onclick = onClick;
 
   function onClick() {
     alert("Click");
   }
 
-  component.innerHTML = `
+  element.innerHTML = `
   <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="/components/list/image-item-card.css">
+    <link rel="stylesheet" type="text/css" href="components/list/image-item-card.css">
   </head>
   <body>
   <div class="card image-card" onclick="this.onClick()">
@@ -26,5 +26,5 @@ export default function renderImageItem(data) {
 </html>
 `;
 
-  return component;
+  return element;
 }
