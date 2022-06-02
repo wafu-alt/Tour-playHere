@@ -127,7 +127,7 @@ function onHoverScrollArrow(direction) {
   itemScrollListDiv.scrollBy({ left: distance, behavior: "smooth" });
 }
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
 // async function getDataFromApi() {
 //   // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
 //   const data = await Api.get("/api/user/data");
@@ -136,9 +136,9 @@ function onHoverScrollArrow(direction) {
 //   console.log({ data });
 //   console.log({ random });
 // }
-=======
+// =======
 
 
 
 
->>>>>>> feature-frontend-account
+// >>>>>>> feature-frontend-account
