@@ -1,16 +1,16 @@
 export default function renderItem(data) {
-  const element = document.createElement("div");
-  element.class = "card";
-  element.onclick = onClick;
+  const component = document.createElement("div");
+  component.class = "card";
+  component.onclick = onClick;
 
   function onClick() {
     alert("Click");
   }
 
-  element.innerHTML = `
+  component.innerHTML = `
     <html>
     <head>
-     <link rel="stylesheet" type="text/css" href="components/list/item-card.css">
+     <link rel="stylesheet" type="text/css" href="/components/list/item-card.css">
     </head>
     <body>
     <div class="card card-panel">
@@ -23,7 +23,7 @@ export default function renderItem(data) {
     <div class="media">
       <div class="media-content">
         <p class="title is-4">${data.name}</p>
-        <p class="subtitle is-6">#${data.category}</p>
+        <p class="subtitle is-6">#${data.city}</p>
       </div>
     </div>
 
@@ -37,5 +37,5 @@ export default function renderItem(data) {
 </body>
 </html>`;
 
-  return element;
+  return component;
 }
