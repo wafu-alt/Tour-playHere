@@ -1,4 +1,10 @@
+// import mongoose from 'mongoose-auto-increment';
 import { Schema } from 'mongoose';
+
+// const mongoose = require('mongoose');
+// const autoIncrement = require('mongoose-auto-increment');
+
+// autoIncrement.initialize(mongoose.connection);
 
 const UserSchema = new Schema(
   {
