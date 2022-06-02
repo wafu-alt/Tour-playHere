@@ -5,10 +5,15 @@ const fetchPosts = function () {
   fetch(`${API_URL}`);
 };
 
-export function renderItemDetail() {
-  fetch("detail-sampleData.json")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    });
-}
+// app.get(‘/:id’, (req,res)=>{
+//   const {id} = req.parmas;
+//   res.redirect(“detail.html”, {id});
+// })
+
+// export function renderItemDetail() {
+//   fetch("detail-sampleData.json")
+//     .then((res) => res.json())
+//     .then((data) => {
+//       console.log(data);
+//     });
+// }

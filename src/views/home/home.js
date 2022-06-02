@@ -72,6 +72,8 @@ function onHoverScrollArrow(direction) {
   itemScrollListDiv.scrollBy({ left: distance, behavior: "smooth" });
 }
 
+<<<<<<< HEAD
+=======
 let loginCheck = document.querySelector("#navbar");
 
 if (sessionStorage.getItem("token")) {
@@ -89,6 +91,7 @@ if (sessionStorage.getItem("token")) {
   `;
 }
 
+>>>>>>> 73f2f8ff92a61e378fa6043b506ae21d1c62eab1
 // async function getDataFromApi() {
 //   // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
 //   const data = await Api.get("/api/user/data");
