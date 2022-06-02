@@ -11,7 +11,10 @@ const passwordConfirmInput = document.querySelector("#passwordConfirmInput");
 const postalCodeInput = document.querySelector("#postalCodeInput");
 
 fullNameToggle.addEventListener("click",function(){changeDisabled(nameInput)})
-passwordToggle.addEventListener("click",function(){changeDisabled(passwordInput)})
+passwordToggle.addEventListener("click",function(){
+    changeDisabled(passwordInput);
+    changeDisabled(passwordConfirmInput);
+})
 addressToggle.addEventListener("click",function(){changeDisabled(passwordConfirmInput)})
 phoneNumberToggle.addEventListener("click",function(){changeDisabled(postalCodeInput)})
 
