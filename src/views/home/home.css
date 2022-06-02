@@ -58,7 +58,7 @@
 .item-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 12px;
+  grid-gap: 24px;
   padding-bottom: 16px;
 }
 
