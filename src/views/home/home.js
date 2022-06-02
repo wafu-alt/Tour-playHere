@@ -72,7 +72,23 @@ function onHoverScrollArrow(direction) {
   itemScrollListDiv.scrollBy({ left: distance, behavior: "smooth" });
 }
 
-<<<<<<< HEAD
+let loginCheck = document.querySelector("#navbar");
+
+if (sessionStorage.getItem("token")) {
+  loginCheck.innerHTML = `
+  <li><a href="/account">계정관리</a></li>
+  <li><a href="/account">로그아웃</a></li>
+  <li>
+      <a href="#cart" aria-current="page">
+        <span class="icon">
+          <i class="fas fa-cart-shopping"></i>
+        </span>
+        <span>카트</span>
+      </a>
+  </li>
+  `;
+}
+
 // async function getDataFromApi() {
 //   // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
 //   const data = await Api.get("/api/user/data");
@@ -81,9 +97,3 @@ function onHoverScrollArrow(direction) {
 //   console.log({ data });
 //   console.log({ random });
 // }
-=======
-
-
-
-
->>>>>>> feature-frontend-account

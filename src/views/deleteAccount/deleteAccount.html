@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-데모</title>
+    <title>쇼핑-n팀</title>
     <!-- 아이콘 -->
     <link
       rel="icon"
@@ -22,13 +22,11 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
-    <!-- 구글 OAuth -->
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <!-- 카카오 OAuth -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="account-signout.css" />
-    <script src="account-signout.js" type="module" defer></script>
+    <link rel="stylesheet" href="deleteAccount.css" />
+    <script src="../components/account_navbar/account_in.js" type="module" defer></script>
+    <script src="deleteAccount.js" type="module" defer></script>
   </head>
   <body>
     <!-- 헤더 -->
@@ -37,7 +35,7 @@
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
             <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-데모</span>
+            <span class="has-text-link">쇼핑-n팀</span>
           </a>
 
           <a
@@ -56,14 +54,7 @@
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
             <ul id="navbar">
-              <li>
-                <a href="/cart" aria-current="page">
-                  <span class="icon">
-                    <i class="fas fa-cart-shopping"></i>
-                  </span>
-                  <span>카트</span>
-                </a>
-              </li>
+              
             </ul>
           </div>
         </div>
