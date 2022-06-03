@@ -15,10 +15,46 @@
 #infoBox {
   display: inline-block;
   width: 100%;
-  height: 500px;
   margin-left: 2%;
   margin-right: 2%;
 }
+
+#infoBox #cartBreadcrumb {
+  margin-bottom: 10px;
+}
+
+#infoBox #cartBreadcrumb ul li:first-child #allCheckSelect {
+  padding-left: 10px;
+}
+
+#onelineCartList ul {
+  padding-bottom: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #dbdbdb;
+}
+.lineElemetns {
+  display: flex;
+  justify-content: space-between;
+}
+.lineElemetns li {
+  display: inline-block;
+}
+
+.imgBox {
+  display: inline-block;
+  width: 100px;
+  height: auto;
+}
+.selectProductTitle {
+  width: 40%;
+  text-align: center;
+  padding-top: 2vh;
+}
+.selectProductPrice {
+  text-align: center;
+  padding-top: 2vh;
+}
+
 #paymentBox {
   width: 60%;
   height: 500px;
@@ -28,6 +64,7 @@
 
 #infoLabel {
   font-size: 2rem;
+  border-bottom: 1px solid #000;
 }
 .field-label .label {
   text-align: left;
@@ -38,11 +75,14 @@
 #paymentBox.field .label {
   font-size: 1.8rem;
 }
-
-.control.price {
-  text-align: right;
+@media screen and (min-width: 769px) {
+  .field-label {
+    margin-right: 0;
+  }
+  .field-body p {
+    text-align: right;
+  }
 }
-
 .field-label.labeInfo {
   flex-grow: 2;
   padding: 0;

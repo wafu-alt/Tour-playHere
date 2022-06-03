@@ -9,6 +9,7 @@ async function get(endpoint, params = "") {
       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
     },
   });
+  console.log(res);
 
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (!res.ok) {
