@@ -9,7 +9,7 @@
 // console.log(Api.get("api", packagelist));
 
 // async function call() {
-//   const res = await fetch("http://localhost:5000/api/packagelist");
+//   const res = await fetch("http://localhost:5000/api/packagelist"); //api지우고 해보기
 //   const data = await res.json();
 //   console.log(data);
 // }
