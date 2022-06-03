@@ -51,68 +51,59 @@
           </a>
         </div>
 
-        <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-          <ul id="navbar">
- 
-
-            
-          </ul>
+          <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+            <ul id="navbar">
+              <li><a href="/login">로그인</a></li>
+              <li><a href="/register">회원가입</a></li>
+              <li>
+                <a href="#cart" aria-current="page">
+                  <span class="icon">
+                    <i class="fas fa-cart-shopping"></i>
+                  </span>
+                  <span>카트</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
 
-    <!-- 주문조회 -->
-    <section class="section">
-      <div class="container">
-        <div class="block account-header">
-          <h1 class="subtitle is-4">주문조회</h1>
-        </div>
-        <div class="container orders-container" id="ordersContainer">
-          <div
-            class="columns notification is-info is-light is-mobile orders-top"
-          >
-            <div class="column is-2">날짜</div>
-            <div class="column is-6">주문정보</div>
-            <div class="column is-2">상태</div>
-            <div class="column is-2">신청</div>
+    <article  id="borderBox">
+
+      <div id="columns ">
+        <!-- 예약정보 -->
+        <section class="box column  is-half">
+          <div class="field">
+            <label class="label">이름</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="예약자 성함을 적어주세요.">
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 주문을 정말 취소할 지 묻는 Modal 창 -->
-    <div id="modal" class="modal">
-      <div class="modal-background" id="modalBackground"></div>
-      <div class="modal-content">
-        <div class="box">
-          <p class="mb-3">
-            주문 취소 시 복구할 수 없습니다. 정말로 취소하시겠습니까?
-          </p>
-
-          <div class="buttons">
-            <button
-              class="button mt-5"
-              id="deleteCompleteButton"
-              aria-label="close"
-            >
-              네
-            </button>
-            <button
-              class="button is-primary mt-5"
-              id="deleteCancelButton"
-              aria-label="close"
-            >
-              아니오
-            </button>
+          <div class="field">
+            <label class="label">이메일</label>
+            <div class="control">
+              <input class="input" type="email" placeholder="이메일을 적어주세요.">
+              
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <button
-        class="modal-close is-large"
-        id="modalCloseButton"
-        aria-label="close"
-      ></button>
-    </div>
+        <!-- 결제정보 -->
+        <section class="box column ">
+          결제정보
+
+주문상품
+
+상품총액
+
+유류할증료
+
+총 결제금액
+        </section>
+      </div>
+    </article>
+    
+    
   </body>
 </html>
