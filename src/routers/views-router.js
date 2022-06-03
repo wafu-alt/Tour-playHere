@@ -10,7 +10,14 @@ viewsRouter.use("/", serveStatic("home"));
 viewsRouter.use("/register", serveStatic("register"));
 viewsRouter.use("/login", serveStatic("login"));
 viewsRouter.use("/list", serveStatic("list"));
+
 viewsRouter.use("/account", serveStatic("account"));
+viewsRouter.use("/account/orders", serveStatic("account/orders"));
+viewsRouter.use("/account/deleteAccount", serveStatic("account/deleteAccount"));
+viewsRouter.use("/account/sell", serveStatic("account/sell"));
+viewsRouter.use("/account/userUpdate", serveStatic("account/userUpdate"));
+
+
 viewsRouter.use("/product/detail", serveStatic("product/detail"));
 viewsRouter.use("/order", serveStatic("order"));
 viewsRouter.use("/cart", serveStatic("cart"));
@@ -25,7 +32,10 @@ viewsRouter.use("/", serveStatic(""));
 // views폴더 내의 ${resource} 폴더 내의 모든 파일을 웹에 띄우며,
 // 이 때 ${resource}.html 을 기본 파일로 설정함.
 function serveStatic(resource) {
+
+  
   const resourcePath = path.join(__dirname, `../views/${resource}`);
+  // ../views/product/detail
   let option = { index: `${resource}.html` };
 
   // /product/detail라는 경로를 쓰기위함. detail.html으로 출력
@@ -33,6 +43,8 @@ function serveStatic(resource) {
     const resourceSplit = resource.split("/")[1];
     option = { index: `${resourceSplit}.html` };
   }
+
+  
 
   // express.static 은 express 가 기본으로 제공하는 함수임
   return express.static(resourcePath, option);
