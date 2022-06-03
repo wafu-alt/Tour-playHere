@@ -1,13 +1,16 @@
 // 계정관리 페이지에서 주문조회, 회원정보 관리, 제품 판매, 회원 탈퇴를 눌렀을때 보일 네비게이션 바 입니다.
-// navbar라는 아이디를 가진 부분에 innerHTML로 
+// navbar라는 아이디를 가진 부분에 innerHTML로
 // 누르면 연결된 페이지로 이동하는 li들을 만들어줍니다.
 
 // account_main.js와 다른점은 계정관리 li가 있다는 것입니다.
+async function navBarLoad() {
+  let loginCheck = document.querySelector("#navbar");
 
-let loginCheck = document.querySelector("#navbar");
+  // 브라우저에 저장된 sessionStoage에 token항목에 해당하는 값이 있다면,
+  // 내비게이션 바가 화며에 보인다.
 
-if (sessionStorage.getItem("token")) {
-  loginCheck.innerHTML = `
+  if (sessionStorage.getItem("token")) {
+    loginCheck.innerHTML = `
     <li><a href="/account">계정관리 </a></li>
     <li><a id="logOut"href="#"> 로그아웃 </a></li>
     <li>
@@ -19,10 +22,17 @@ if (sessionStorage.getItem("token")) {
               </a>
     </li>
     `;
+    const logOut = document.querySelector("#logOut");
+    logOut.addEventListener("click", () => {
+      sessionStorage.removeItem("token");
+      window.location.href = "/";
+    });
+  }
+  // sessionStorage에 token항목이 존재 하지 않는다면, 로그인 페이지로 이동한 후 로그인 하고난 다음, 원래 하려던 페이지로 이동한다.
+  //
+  else {
+    alert("로그인이 필요합니다.");
+    window.location.href = "/login";
+  }
 }
-
-const logOut = document.querySelector("#logOut");
-logOut.addEventListener("click",()=>{
-    sessionStorage.removeItem('token');
-    window.location.href='/';
-})
+navBarLoad();
