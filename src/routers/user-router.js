@@ -136,6 +136,7 @@ userRouter.patch(
       const password = req.body.password;
       const address = req.body.address;
       const phoneNumber = req.body.phoneNumber;
+      const telNumber = req.body.telNumber;
       const role = req.body.role;
 
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
@@ -155,6 +156,7 @@ userRouter.patch(
         ...(password && { password }),
         ...(address && { address }),
         ...(phoneNumber && { phoneNumber }),
+        ...(telNumber && { telNumber }),
         ...(role && { role }),
       };
 
