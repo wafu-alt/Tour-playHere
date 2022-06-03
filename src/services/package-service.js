@@ -57,8 +57,18 @@ class PackageService {
 
     return packages;
   }
+  // 상품 삭제
+  async DeletePackage(packagedata) {
+    // 객체 destructuring
+    const packageId = packagedata;
 
+    
 
+    // db에 저장
+    const deletePackage = await this.packageModel.delete(packageId);
+
+    return deletePackage;
+  }
 
 //   // 로그인
 //   async getUserToken(loginInfo) {

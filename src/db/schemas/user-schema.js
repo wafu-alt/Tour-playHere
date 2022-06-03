@@ -24,6 +24,11 @@ const UserSchema = new Schema(
       type: String,
       required: false,
     },
+    telNumber: {
+      type: String,
+      required: false,
+    },
+    
     address: {
       type: new Schema(
         {

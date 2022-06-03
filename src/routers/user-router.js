@@ -134,4 +134,19 @@ userRouter.patch(
   }
 );
 
+userRouter.delete('/userdelete/:userId', async function (req, res, next) {
+
+  try {
+    // 상품 Id 얻음
+    const userId = req.params.userId;
+
+    const deleteuser = await userService.DeleteUser(userId);
+
+    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(deleteuser);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { userRouter };

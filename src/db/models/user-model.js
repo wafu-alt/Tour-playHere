@@ -13,7 +13,14 @@ export class UserModel {
     const user = await User.findOne({ _id: userId });
     return user;
   }
-
+  async findByPhoneNumber(phoneNumber) {
+    const user = await User.findOne({ phoneNumber });
+    return user;
+  }
+  async findByTelNumber(telNumber) {
+    const user = await User.findOne({ telNumber });
+    return user;
+  }
   async create(userInfo) {
     const createdNewUser = await User.create(userInfo);
     return createdNewUser;
@@ -30,6 +37,10 @@ export class UserModel {
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
+  }
+  async delete(userId) {
+    const deleteuser = await User.findByIdAndDelete({ _id: userId });
+    return deleteuser;
   }
 }
 

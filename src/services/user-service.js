@@ -80,6 +80,14 @@ class UserService {
     return users;
   }
 
+  async getPhoneNumber() {
+    const users = await this.userModel.findPhoneNumber();
+    return users;
+  }
+  async getTelNumber() {
+    const users = await this.userModel.findTelNumber();
+    return users;
+  }
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring
@@ -125,6 +133,18 @@ class UserService {
     });
 
     return user;
+  }
+  // 상품 삭제
+  async DeleteUser(userdate) {
+    // 객체 destructuring
+    const userId = userdate;
+
+    
+
+    // db에 저장
+    const deleteUser = await this.userModel.delete(userId);
+
+    return deleteUser;
   }
 }
 
