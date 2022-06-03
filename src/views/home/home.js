@@ -77,7 +77,7 @@ let loginCheck = document.querySelector("#navbar");
 if (sessionStorage.getItem("token")) {
   loginCheck.innerHTML = `
   <li><a href="/account">계정관리</a></li>
-  <li><a href="/account">로그아웃</a></li>
+  <li><a id="logOut"href="#"> 로그아웃 </a></li>
   <li>
       <a href="#cart" aria-current="page">
         <span class="icon">
@@ -87,6 +87,12 @@ if (sessionStorage.getItem("token")) {
       </a>
   </li>
   `;
+
+  const logOut = document.querySelector("#logOut");
+    logOut.addEventListener("click", () => {
+      sessionStorage.removeItem("token");
+      alert("로그아웃")
+      window.location.href = "/";})
 }
 
 // async function getDataFromApi() {
