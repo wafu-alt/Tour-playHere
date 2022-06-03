@@ -11,7 +11,7 @@ export class SubCategoryModel {
   }
 
   async findByCategoryId(categoryId) {
-    const subCategories = await SubCategory.find({ categoryId:  categoryId });
+    const subCategories = await SubCategory.findOne({ categoryId });
     return subCategories;
   }
 
@@ -20,8 +20,11 @@ export class SubCategoryModel {
     return subCategories;
   }
 
-  async create(categoryId, subCategoryName) {
-    const createdNewSubCategory = await SubCategory.create({ categoryId: categoryId, subCategoryName: subCategoryName});
+  async create(categoryId, { subCategoryName }) {
+    console.log(categoryId);
+    console.log(subCategoryName);
+
+    const createdNewSubCategory = await SubCategory.create( {categoryId, subCategoryName});
     return createdNewSubCategory;
   }
 

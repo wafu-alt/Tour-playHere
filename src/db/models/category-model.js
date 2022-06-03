@@ -10,6 +10,12 @@ export class CategoryModel {
     return category;
   }
 
+  async findByName(categoryName) {
+    const category = await Category.findOne({ categoryName:  categoryName.categoryName });
+
+    return category;
+  }
+
   async create(categoryInfo) {
     const createdNewCategory = await Category.create({ categoryName: categoryInfo});
     return createdNewCategory;
