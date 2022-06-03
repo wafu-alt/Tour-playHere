@@ -19,14 +19,13 @@ export class PackageModel {
 
     async findAll() {
     const packages = await Package.find({});
-    console.log(packages);
     return packages;
   }
     async findById(packageId) {
     const findpackage = await Package.findOne({ _id: packageId });
-    console.log(packageId);
     return findpackage;
   }
+
   
     async update({ packageId, update }) {
     const filter = { _id: packageId };
@@ -36,6 +35,10 @@ export class PackageModel {
     return updatedPackage;
   }
 
+    async delete(packageId) {
+    const deletepackage = await Package.findByIdAndDelete({ _id: packageId });
+    return deletepackage;
+  }
 
 }
 

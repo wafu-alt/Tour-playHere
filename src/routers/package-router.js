@@ -62,6 +62,9 @@ packageRouter.get('/packagelist', async function (req, res, next) {
 });
 
 
+
+
+
 // 상품 정보 수정
 // (예를 들어 /api/package/abc12345 로 요청하면 req.params.packageId는 'abc12345' 문자열로 됨)
 packageRouter.patch(
@@ -77,7 +80,6 @@ packageRouter.patch(
       }
       // params로부터 id를 가져옴
       const packageId = req.params.packageId;
-      console.log(packageId);
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const packageName = req.body.packageName;
@@ -116,6 +118,22 @@ packageRouter.patch(
     }
   }
 );
+
+// 선택 상품 삭제
+packageRouter.delete('/packagedelete/:packageId', async function (req, res, next) {
+
+  try {
+    // 상품 Id 얻음
+    const packageId = req.params.packageId;
+
+    const deletepackage = await packageService.DeletePackage(packageId);
+
+    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(deletepackage);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
 // packageRouter.post('/package_add', async function (req, res, next) {
