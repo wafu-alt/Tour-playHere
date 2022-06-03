@@ -28,6 +28,10 @@ const UserSchema = new Schema(
       type: String,
       required: false,
     },
+    admin: {
+      type: Boolean,
+      required: false,
+    },
     
     address: {
       type: new Schema(

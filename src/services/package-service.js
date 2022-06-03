@@ -57,10 +57,11 @@ class PackageService {
 
     return packages;
   }
+
   // 상품 삭제
-  async DeletePackage(packagedata) {
+  async DeletePackage(packagedate) {
     // 객체 destructuring
-    const packageId = packagedata;
+    const packageId = packagedate;
 
     
 

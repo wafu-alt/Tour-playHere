@@ -13,13 +13,13 @@ export class UserModel {
     const user = await User.findOne({ _id: userId });
     return user;
   }
-  async findByPhoneNumber(phoneNumber) {
-    const user = await User.findOne({ phoneNumber });
-    return user;
+  async findByPhoneNumber(phone) {
+    const userphone = await User.findOne({ phoneNumber: phone });
+    return userphone;
   }
-  async findByTelNumber(telNumber) {
-    const user = await User.findOne({ telNumber });
-    return user;
+  async findByTelNumber(tel) {
+    const usertel = await User.findOne({ telNumber: tel });
+    return usertel;
   }
   async create(userInfo) {
     const createdNewUser = await User.create(userInfo);

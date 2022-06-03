@@ -21,12 +21,18 @@ userRouter.post('/register', async (req, res, next) => {
     const fullName = req.body.fullName;
     const email = req.body.email;
     const password = req.body.password;
+    const phoneNumber = req.body.phoneNumber;
+    const telNumber = req.body.telNumber;
+
+
 
     // 위 데이터를 유저 db에 추가하기
     const newUser = await userService.addUser({
       fullName,
       email,
       password,
+      phoneNumber,
+      telNumber,
     });
 
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
@@ -72,6 +78,38 @@ userRouter.get('/userlist', loginRequired, async function (req, res, next) {
     res.status(200).json(users);
   } catch (error) {
     next(error);
+  }
+});
+
+// 휴대폰 번호로 유저 데이터 가져옴
+// 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+userRouter.get('/userphone/:phoneNumber', async function (req, res, next) {
+  try {
+    // 전체 사용자 목록을 얻음
+    const phoneNumber = req.params.phoneNumber;
+
+    const userPhone = await userService.getPhoneNumber(phoneNumber);
+
+    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(userPhone);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 전화 번호로 유저 데이터 가져옴
+// 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+userRouter.get('/usertel/:telNumber', async function (req, res, next) {
+  try {
+    // 전체 사용자 목록을 얻음
+    const telNumber = req.params.telNumber;
+
+    const userTel = await userService.getTelNumber(telNumber);
+
+    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(userTel);
+  } catch (error) {
+    next(error); 
   }
 });
 
@@ -133,6 +171,55 @@ userRouter.patch(
     }
   }
 );
+
+
+// 관리자 권한 수정
+// (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
+userRouter.patch(
+  '/useradmin/:userId',
+  async function (req, res, next) {
+    try {
+      // content-type 을 application/json 로 프론트에서
+      // 설정 안 하고 요청하면, body가 비어 있게 됨.
+      if (is.emptyObject(req.body)) {
+        throw new Error(
+          'headers의 Content-Type을 application/json으로 설정해주세요'
+        );
+      }
+
+      // params로부터 id를 가져옴
+      const userId = req.params.userId;
+
+      // body data 로부터 업데이트할 사용자 정보를 추출함.
+      const admin = req.body.admin;
+      
+
+      // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
+      
+
+      const userInfodate = { userId };
+
+      // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
+      // 보내주었다면, 업데이트용 객체에 삽입함.
+      const admintoUpdate = {
+        ...(admin && { admin }),
+      };
+
+      // 사용자 정보를 업데이트함.
+      const updatedUseradmin = await userService.setAdmin(
+        userInfodate,
+        admintoUpdate
+      );
+
+      // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
+      res.status(200).json(updatedUseradmin);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+
 
 userRouter.delete('/userdelete/:userId', async function (req, res, next) {
 
