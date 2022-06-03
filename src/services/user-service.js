@@ -12,7 +12,7 @@ class UserService {
   // 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
-    const { email, fullName, password } = userInfo;
+    const { email, fullName, password, phoneNumber, telNumber } = userInfo;
 
     // 이메일 중복 확인
     const user = await this.userModel.findByEmail(email);
@@ -27,7 +27,7 @@ class UserService {
     // 우선 비밀번호 해쉬화(암호화)
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUserInfo = { fullName, email, password: hashedPassword };
+    const newUserInfo = { fullName, email, password: hashedPassword, phoneNumber, telNumber};
 
     // db에 저장
     const createdNewUser = await this.userModel.create(newUserInfo);
@@ -80,6 +80,15 @@ class UserService {
     return users;
   }
 
+  async getPhoneNumber(userPhone) {
+    const userphone = await this.userModel.findByPhoneNumber(userPhone);
+    // console.log(userPhone);
+    return userphone;
+  }
+  async getTelNumber(userTel) {
+    const usertel = await this.userModel.findByTelNumber(userTel);
+    return usertel;
+  }
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring
@@ -125,6 +134,45 @@ class UserService {
     });
 
     return user;
+  }
+
+
+  async setAdmin(userInfoRequired, toUpdate) {
+    // 객체 destructuring
+    const  userId = userInfoRequired;
+
+    // 우선 해당 id의 유저가 db에 있는지 확인
+    let user = await this.userModel.findById(userId);
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!user) {
+      throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
+    }
+
+    // 이제 드디어 업데이트 시작
+    const admin  = toUpdate;
+
+    // 업데이트 진행
+    user = await this.userModel.update({
+      userId,
+      update: toUpdate,
+    });
+
+    return user;
+  }
+
+
+  // 유저 삭제
+  async DeleteUser(userdate) {
+    // 객체 destructuring
+    const userId = userdate;
+
+    
+
+    // db에 저장
+    const deleteUser = await this.userModel.delete(userId);
+
+    return deleteUser;
   }
 }
 

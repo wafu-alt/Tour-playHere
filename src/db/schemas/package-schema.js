@@ -36,7 +36,10 @@ const PackageSchema = new Schema(
         type: Number,
         required: true,
       },
-     
+      imgUrl: {
+        type: String,
+        required: false,
+      },
     
     }
 
