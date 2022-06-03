@@ -1,28 +1,26 @@
-
-  
-   [ {
-      "pacakge_id": "6278ad6f927a0d0520ff626a",
-      "pacakge_name": "제주도 3박 4일 여행",
-      "continent_name": "korea",
-      "country_name": "korea",
-      "price": 500000,
-      "days": "0304",
-      "departure_date": "",
-      "arrival_date": "",
-      "total_number": 5,
-      "images": "https://img.freepik.com/free-photo/aerial-view-beautiful-koh-tao-island-surat-thani-thailand_335224-1066.jpg?t=st=1654161826~exp=1654162426~hmac=06c7b210e64dc7d10a20e30463c1381c0b84e9336e9b8b12dc763c28dea502a4&w=1380.jpg"
-    },
-    {
-      "pacakge_id": "6278ad6f927a0d0520ff626c",
-      "pacakge_name": "제주도 4박 5일 여행",
-      "continent_name": "korea",
-      "country_name": "korea",
-      "price": 700000,
-      "days": "0405",
-      "departure_date": "",
-      "arrival_date": "",
-      "total_number": 4,
-      "images": "https://img.freepik.com/free-photo/aerial-view-beautiful-koh-tao-island-surat-thani-thailand_335224-1066.jpg?t=st=1654161826~exp=1654162426~hmac=06c7b210e64dc7d10a20e30463c1381c0b84e9336e9b8b12dc763c28dea502a4&w=1380.jpg"
-    }]
-  
-
+[
+  {
+    "pacakge_id": "6278ad6f927a0d0520ff626a",
+    "pacakge_name": "제주도 3박 4일 여행",
+    "continent_name": "korea",
+    "country_name": "korea",
+    "price": 500000,
+    "days": "0304",
+    "departure_date": "",
+    "arrival_date": "",
+    "total_number": 5,
+    "images": "https://img.freepik.com/free-photo/aerial-view-beautiful-koh-tao-island-surat-thani-thailand_335224-1066.jpg?t=st=1654161826~exp=1654162426~hmac=06c7b210e64dc7d10a20e30463c1381c0b84e9336e9b8b12dc763c28dea502a4&w=1380.jpg"
+  },
+  {
+    "pacakge_id": "6278ad6f927a0d0520ff626c",
+    "pacakge_name": "제주도 4박 5일 여행",
+    "continent_name": "korea",
+    "country_name": "korea",
+    "price": 700000,
+    "days": "0405",
+    "departure_date": "",
+    "arrival_date": "",
+    "total_number": 4,
+    "images": "https://img.freepik.com/free-photo/aerial-view-beautiful-koh-tao-island-surat-thani-thailand_335224-1066.jpg?t=st=1654161826~exp=1654162426~hmac=06c7b210e64dc7d10a20e30463c1381c0b84e9336e9b8b12dc763c28dea502a4&w=1380.jpg"
+  }
+]

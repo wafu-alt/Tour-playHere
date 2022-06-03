@@ -9,7 +9,7 @@
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="/elice-rabbit-favicon.png"
+      href="/logo-favicon.png"
     />
     <!-- bulma css -->
     <link
@@ -22,10 +22,8 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
-   
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="order.css" />
-    <script src="../components/account_navbar/account_in.js" type="module" defer></script>
     <script src="order.js" type="module" defer></script>
   </head>
   <body>
@@ -34,7 +32,7 @@
       <div class="container mt-3">
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
+            <img src="/logo.png" width="30" height="30" />
             <span class="has-text-link">쇼핑-n팀</span>
           </a>
 
@@ -69,37 +67,100 @@
       </div>
     </nav>
 
-    <article  id="borderBox">
 
-      <div id="columns ">
+    <article  id="container">
+
+      <div id="inner" class="flexBox">
         <!-- 예약정보 -->
-        <section class="box column  is-half">
-          <div class="field">
-            <label class="label">이름</label>
-            <div class="control">
-              <input class="input" type="text" placeholder="예약자 성함을 적어주세요.">
+        <section id="infoBox" class="box">
+          <label id = "infoLabel" class="label ">예약정보</label>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">이름</label>
+            </div>
+            <div class="field-body">
+              <div class="control">
+                <input class="input" type="text" placeholder="예약자 성함을 적어주세요.">
+              </div>
             </div>
           </div>
-          <div class="field">
-            <label class="label">이메일</label>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">이메일</label>
+            </div>
+            <div class="field-body">
+              <div class="control">
+                <input class="input" type="email" placeholder="E-mail@Email.com">
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">휴대전화</label>
+            </div>
+            <div class="field-body">
+              <div class="control">
+                <input class="input"  placeholder="-없이 적어주세요">
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label">일반전화</label>
+            </div>
+            <div class="field-body">
+              <div class="control">
+                <input class="input"  placeholder="-없이 적어주세요">
+              </div>
+            </div>
+          </div>
+          
+    
+          <div class="field ">
+            <label class="label">요청사항</label>
             <div class="control">
-              <input class="input" type="email" placeholder="이메일을 적어주세요.">
-              
+              <textarea  class="textarea" rows="3" placeholder="요청사항을 적어주세요."></textarea>
             </div>
           </div>
         </section>
 
         <!-- 결제정보 -->
-        <section class="box column ">
-          결제정보
+        <section id="paymentBox" class="box">
+          <label id="infoLabel" class="label">결제정보</label>
+         
+          <div class="field">
+            <label class="label ">주문상품</label>
+            <p id="productInfo">상품 제목 상품 제목 상품 제목 상품 제목 상품 제목 상품 제목 상품 제목 상품 제목 상품 제목</p>
+          </div>
 
-주문상품
+          <div class="field is-horizontal">
+            <div class="field-label is-normal labeInfo">
+              <label class="label ">상품가격</label>
+            </div>
+            <div class="field-body">
+                <p id="productPrice" class="control price">500,000원</p>
+            </div>
+          </div>   
 
-상품총액
+          <div class="field is-horizontal">
+            <div class="field-label is-normal labeInfo">
+              <label class="label ">유류할증료</label>
+            </div>
+            <div class="field-body">
+                <p id="fuelSurcharge" class="control price">5,000원</p>
+            </div>
+          </div>   
+       
+          <div class="field">
+            <label class="label title is-4">총 결제금액</label>
+            <p id="productTotalPrice">505,000원</p>
+          </div>
 
-유류할증료
-
-총 결제금액
+          <button id="orderBtn" class="button is-success">예약하기</button>
         </section>
       </div>
     </article>
