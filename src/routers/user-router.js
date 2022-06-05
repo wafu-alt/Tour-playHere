@@ -222,7 +222,7 @@ userRouter.patch(
 );
 
 
-
+// 사용자 삭제
 userRouter.delete('/userdelete/:userId', async function (req, res, next) {
 
   try {
