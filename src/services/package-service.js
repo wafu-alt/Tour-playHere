@@ -26,6 +26,12 @@ class PackageService {
     const packages = await this.packageModel.findAll();
     return packages;
   }
+    // 상품 Id로 검색
+  async getPackageId(PackageId) {
+    const findPackage = await this.packageModel.findById(PackageId);
+    
+    return findPackage;
+  }
 
      // 상품 목록 수정
   async setPackage(packageInfoRequired, toUpdate) {
