@@ -15,6 +15,7 @@ class SubCategoryService {
         );
       } else {
         const subCategory = await this.subCategoryModel.findByCategoryId(categoryId);
+        // TODO: 이미 존재하는 카테고리인 경우, 예외를 던지도록 수정
         if (subCategory) {
           return subCategory;
         }
