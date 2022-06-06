@@ -12,7 +12,7 @@ db.on("connected", () =>
 );
 db.on("error", (error) =>
   console.error("\nMongoDB 연결에 실패하였습니다...\n" + DB_URL + "\n" + error)
-);
+)
 
 // user-model.js 에서 export { ~~ } 한 모듈을 그대로 다시 export해 줌
 // 이렇게 하면, 나중에 import 할 때 코드가 짧아짐
@@ -21,7 +21,4 @@ db.on("error", (error) =>
 export * from "./models/user-model";
 export * from "./models/category-model";
 export * from "./models/package-model";
-<<<<<<< HEAD
 export * from "./models/sub-category-model";
-=======
->>>>>>> feature/oh

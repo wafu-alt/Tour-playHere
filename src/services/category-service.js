@@ -6,19 +6,11 @@ class CategoryService {
   }
 
   async addCategory(categoryInfo) {
-<<<<<<< HEAD
-=======
-    // 중복확인 추가하기
-
->>>>>>> feature/oh
     // db에 저장
     const createdNewCategory = await this.categoryModel.create(
       categoryInfo.categoryName
     );
-<<<<<<< HEAD
     console.log(createdNewCategory);
-=======
->>>>>>> feature/oh
     return createdNewCategory;
   }
 }

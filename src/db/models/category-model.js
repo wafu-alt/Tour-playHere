@@ -5,7 +5,6 @@ const Category = model("categories", CategorySchema);
 
 export class CategoryModel {
   async findById(categoryId) {
-<<<<<<< HEAD
     const category = await Category.findOne({ categoryId: categoryId });
     return category;
   }
@@ -13,21 +12,12 @@ export class CategoryModel {
   async findByName(categoryName) {
     const category = await Category.findOne({ categoryName: categoryName });
 
-=======
-    const category = await Category.findOne({ _id: categoryId });
->>>>>>> feature/oh
     return category;
   }
 
   async create(categoryInfo) {
-<<<<<<< HEAD
     const createdNewCategory = await Category.create({ categoryName: categoryInfo});
 
-=======
-    const createdNewCategory = await Category.create({
-      categoryName: categoryInfo,
-    });
->>>>>>> feature/oh
     return createdNewCategory;
   }
 
@@ -40,16 +30,8 @@ export class CategoryModel {
     const filter = { categoryId: categoryId };
     const option = { returnOriginal: false };
 
-<<<<<<< HEAD
     const updatedCategory = await Category.findOneAndUpdate(filter, update, option);
 
-=======
-    const updatedCategory = await Category.findOneAndUpdate(
-      filter,
-      update,
-      option
-    );
->>>>>>> feature/oh
     return updatedCategory;
   }
 }
