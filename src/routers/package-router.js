@@ -7,7 +7,7 @@ import { packageService } from '../services';
 const packageRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-packageRouter.post('/packageadd', async (req, res, next) => {
+packageRouter.post('/package', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -49,7 +49,7 @@ packageRouter.post('/packageadd', async (req, res, next) => {
 });
 
 // 전체 상품 목록을 가져옴 (배열 형태임)
-packageRouter.get('/packagelist', async function (req, res, next) {
+packageRouter.get('/packages', async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const packages = await packageService.getPackages();
@@ -62,7 +62,7 @@ packageRouter.get('/packagelist', async function (req, res, next) {
 });
 
 //상품 ID로 정보가져오기
-packageRouter.get('/packagelist/:packageId', async function (req, res, next) {
+packageRouter.get('/package/:packageId', async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const packageId = req.params.packageId;
@@ -80,7 +80,7 @@ packageRouter.get('/packagelist/:packageId', async function (req, res, next) {
 // 상품 정보 수정
 // (예를 들어 /api/package/abc12345 로 요청하면 req.params.packageId는 'abc12345' 문자열로 됨)
 packageRouter.patch(
-  '/package/:packageId',
+  '/packages/:packageId',
   async function (req, res, next) {
     try {
       // content-type 을 application/json 로 프론트에서
@@ -99,8 +99,8 @@ packageRouter.patch(
       const country = req.body.country;
       const price = req.body.price;
       const days = req.body.days;
-      const departure = req.body.departure;
-      const arrival = req.body.arrival;
+      const departureAt = req.body.departureAt;
+      const arrivalAt = req.body.arrivalAt;
       const totalNumber = req.body.totalNumber;
       
 
@@ -112,8 +112,8 @@ packageRouter.patch(
         ...(country && { country }),
         ...(price && { price }),
         ...(days && { days }),
-        ...(departure && { departure }),
-        ...(arrival && { arrival }),
+        ...(departureAt && { departureAt }),
+        ...(arrivalAt && { arrivalAt }),
         ...(totalNumber && { totalNumber }),
       };
 
@@ -132,7 +132,7 @@ packageRouter.patch(
 );
 
 // 선택 상품 삭제
-packageRouter.delete('/packagedelete/:packageId', async function (req, res, next) {
+packageRouter.delete('/package/:packageId', async function (req, res, next) {
 
   try {
     // 상품 Id 얻음

@@ -12,9 +12,9 @@ class PackageService {
   // 패키지 생성
   async addPackage(packageInfo) {
     // 객체 destructuring
-    const { packageName, category, country, price, days, departure, arrival, totalNumber } = packageInfo;
+    const { packageName, category, country, price, days, departureAt, arrivalAt, totalNumber } = packageInfo;
 
-    const newPackageInfo = { packageName, category, country, price, days, departure, arrival, totalNumber };
+    const newPackageInfo = { packageName, category, country, price, days, departureAt, arrivalAt, totalNumber };
 
     // db에 저장
     const createdNewPackage = await this.packageModel.create(newPackageInfo);
