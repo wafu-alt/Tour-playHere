@@ -19,23 +19,23 @@
 
 ### 1. 프론트엔드
 
--   **Vanilla javascript**, html, css (**Bulma css**)
--   Font-awesome
--   Daum 도로명 주소 api
--   이외
+- **Vanilla javascript**, html, css (**Bulma css**)
+- Font-awesome
+- Daum 도로명 주소 api
+- 이외
 
 ### 2. 백엔드
 
--   **Express** (nodemon, babel-node로 실행됩니다.)
--   Mongodb, Mongoose
--   cors
--   이외
+- **Express** (nodemon, babel-node로 실행됩니다.)
+- Mongodb, Mongoose
+- cors
+- 이외
 
 ## 폴더 구조
 
--   프론트: `src/views` 폴더
--   백: src/views 이외 폴더 전체
--   실행: **프론트, 백 동시에, express로 실행**
+- 프론트: `src/views` 폴더
+- 백: src/views 이외 폴더 전체
+- 실행: **프론트, 백 동시에, express로 실행**
 
 good luck!!
 

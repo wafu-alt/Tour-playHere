@@ -1,5 +1,5 @@
 // import mongoose from 'mongoose-auto-increment';
-import { Schema } from 'mongoose';
+import { Schema } from "mongoose";
 
 // const mongoose = require('mongoose');
 // const autoIncrement = require('mongoose-auto-increment');
@@ -31,11 +31,11 @@ const UserSchema = new Schema(
     role: {
       type: String,
       required: false,
-      default: 'basic-user',
+      default: "basic-user",
     },
   },
   {
-    collection: 'users',
+    collection: "users",
     timestamps: true,
   }
 );
