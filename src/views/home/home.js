@@ -10,22 +10,28 @@ import * as Api from "/api.js";
 import { randomId } from "/useful-functions.js";
 
 // 요소(element), input 혹은 상수
-const landingDiv = document.querySelector("#landingDiv");
-const greetingDiv = document.querySelector("#greetingDiv");
+const itemScrollListDiv = document.querySelector(".item-scroll-list");
+const leftArrowBtn = document.querySelector("#left-arrow");
+const rightArrowBtn = document.querySelector("#right-arrow");
+
+const itemListDiv = document.querySelector(".item-list");
+
+const categoryNavbarDiv = document.querySelector(".category-navbar");
 
 addAllElements();
 addAllEvents();
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
-  insertTextToLanding();
-  insertTextToGreeting();
+  insertItemsToScrollList();
+  insertItemsToList();
+  insertCategoryNavbar();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
-  landingDiv.addEventListener("click", alertLandingText);
-  greetingDiv.addEventListener("click", alertGreetingText);
+  leftArrowBtn.addEventListener("click", (e) => onHoverScrollArrow("left"));
+  rightArrowBtn.addEventListener("click", (e) => onHoverScrollArrow("right"));
 }
 
 async function insertItemsToScrollList() {
@@ -54,8 +60,16 @@ function insertCategoryNavbar() {
   categoryNavbarDiv.insertAdjacentElement("beforeend", renderCategoryNavbar());
 }
 
-function alertLandingText() {
-  alert("n팀 쇼핑몰입니다. 안녕하세요.");
+function onHoverScrollArrow(direction) {
+  let distance;
+  switch (direction) {
+    case "right":
+      distance = 500;
+      break;
+    case "left":
+      distance = -500;
+  }
+  itemScrollListDiv.scrollBy({ left: distance, behavior: "smooth" });
 }
 
 let loginCheck = document.querySelector("#navbar");
@@ -63,7 +77,7 @@ let loginCheck = document.querySelector("#navbar");
 if (sessionStorage.getItem("token")) {
   loginCheck.innerHTML = `
   <li><a href="/account">계정관리</a></li>
-  <li><a id="logOut"href="#"> 로그아웃 </a></li>
+  <li><a href="/account">로그아웃</a></li>
   <li>
       <a href="#cart" aria-current="page">
         <span class="icon">
@@ -73,13 +87,6 @@ if (sessionStorage.getItem("token")) {
       </a>
   </li>
   `;
-
-  const logOut = document.querySelector("#logOut");
-  logOut.addEventListener("click", () => {
-    sessionStorage.removeItem("token");
-    alert("로그아웃");
-    window.location.href = "/";
-  });
 }
 
 // async function getDataFromApi() {

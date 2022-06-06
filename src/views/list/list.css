@@ -58,12 +58,10 @@
 .item-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 24px;
+  grid-gap: 12px;
   padding-bottom: 16px;
 }
 
-@media screen and (max-width: 768px) {
-  .item-list {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+.dropdown {
+  float: right;
 }
