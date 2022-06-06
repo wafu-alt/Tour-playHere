@@ -91,6 +91,7 @@ async function Data() {
   const howPersonInput = document.querySelector("#howPersonInput");
   const startDaysInput = document.querySelector("#startDaysInput").value;
 
+  //인원 체크하는 기능
   function personsCheck(persons, maxPersons) {
     if (persons === 0) {
       alert(`인원을 ${persons}명을 입력하셨습니다.`);
@@ -103,6 +104,7 @@ async function Data() {
     return true;
   }
 
+  //장바구니추가 버튼 기능
   function cartAddFnc() {
     // console.log(window.location);
     // console.log(window.location.href);
@@ -110,14 +112,17 @@ async function Data() {
     alert("cartAddBtn을 클릭하셨습니다.");
   }
 
+  //예약하러가기 버튼 기능
   function orderFnc() {
+    if (sessionStorage.getItem) {
+    }
     console.log(howPersonInput.value);
     console.log(startDaysInput);
 
     const persons = Number(howPersonInput.value);
     const maxPersons = 7; //todo : 최대인원에 대한 정보가 있을경우 연결해주기
-    const checking = personsCheck(persons, maxPersons);
-    if (checking === true) {
+    const personsChecking = personsCheck(persons, maxPersons);
+    if (personsChecking === true) {
       window.location.href = `/order`;
     }
     // alert("orderBtn을 클릭하셨습니다.");
