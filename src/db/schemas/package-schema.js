@@ -21,11 +21,11 @@ const PackageSchema = new Schema({
     type: Number,
     required: true,
   },
-  departure: {
+  departureAt: {
     type: Date,
     required: true,
   },
-  arrival: {
+  arrivalAt: {
     type: Date,
     required: true,
   },
