@@ -8,22 +8,58 @@ class SubCategoryService {
     }
     
     async addSubCategory(categoryName, subCategoryName) {
-      const { categoryId } = await this.categoryModel.findByName(categoryName);
+      const categoryId  = await this.categoryModel.findByName(categoryName);
+
       if (!categoryId) {
         throw new Error(
-          '메인 카테고리명이 올바르지 않습니다. 다시 확인해 주세요'
+          '메인 카테고리명이 올바르지 않습니다.'
         );
-      } else {
-        const subCategory = await this.subCategoryModel.findByCategoryId(categoryId);
-        // TODO: 이미 존재하는 카테고리인 경우, 예외를 던지도록 수정
-        if (subCategory) {
-          return subCategory;
-        }
-
-        const createdNewSubCategory = await this.subCategoryModel.create(categoryId, subCategoryName);
-        
-        return createdNewSubCategory;
       }
+
+      const subCategory  = await this.subCategoryModel.findBySubCategoryName(subCategoryName);
+      const subcategoryName  = subCategoryName.subCategoryName;
+      const categoryid = categoryId.categoryId;
+
+      if (subCategory) {
+        throw new Error(
+          `'${subcategoryName}'는 이미 등록된 서브카테고리 입니다.`
+        )
+      }
+
+      const createdNewSubCategory = await this.subCategoryModel.create(categoryid, subcategoryName);
+
+      return createdNewSubCategory;
+      
+    }
+    
+    async updateSubCategory(curSubCategoryName, updatedSubCategoryName) {
+      const subCategory = await this.subCategoryModel.findBySubCategoryName(curSubCategoryName);
+      if (!subCategory) {
+        throw new Error(
+          `'${curSubCategoryName}'는(은) 존재하지 않는 서브카테고리 입니다.`
+        )
+      }
+
+      const filter = { subCategoryId : subCategory.subCategoryId};
+      const update = { subCategoryName : updatedSubCategoryName };
+
+      const updatedSubCategory = await this.subCategoryModel.updateSubCategoryName(filter, update);
+
+      return updatedSubCategory;
+    }
+    async deleteSubCategory(subCategoryName) {
+      const subcategoryName = subCategoryName.subCategoryName;
+      const subCategory = await this.subCategoryModel.findBySubCategoryName(subcategoryName);
+
+      if (!subCategory) {
+        throw new Error(
+          `'${subcategoryName}'은(는) 존재하지 않는 서브카테고리 입니다.`
+        )
+      }
+      
+      const deletedSubCategory = await this.subCategoryModel.delete(subCategory.subCategoryId);
+
+      return deletedSubCategory;
     }
 }
 
