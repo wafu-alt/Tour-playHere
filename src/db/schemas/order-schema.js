@@ -22,7 +22,7 @@ const OrderSchema = new Schema(
       },
       category: {
         type: String,
-        required: true,
+        required: false,
       },
       country: {
         type: String,
@@ -32,15 +32,15 @@ const OrderSchema = new Schema(
         type: Number,
         required: true,
       },
-      departure: {
+      departureAt: {
         type: Date,
         required: true,
       },
-      arrival: {
+      arrivalAt: {
         type: Date,
         required: true,
       },
-      registerDate: {
+      registerDateAt: {
         type: Date,
         required: true,
       },
