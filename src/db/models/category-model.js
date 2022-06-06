@@ -1,23 +1,18 @@
-import { model } from 'mongoose';
-import { CategorySchema } from '../schemas/category-schema';
+import { model } from "mongoose";
+import { CategorySchema } from "../schemas/category-schema";
 
-const Category = model('categories', CategorySchema);
+const Category = model("categories", CategorySchema);
 
 export class CategoryModel {
-
   async findById(categoryId) {
-    const category = await Category.findOne({ categoryId:  categoryId});
-    return category;
-  }
-
-  async findByName(categoryName) {
-    const category = await Category.findOne({ categoryName: categoryName.categoryName });
-
+    const category = await Category.findOne({ _id: categoryId });
     return category;
   }
 
   async create(categoryInfo) {
-    const createdNewCategory = await Category.create({ categoryName: categoryInfo});
+    const createdNewCategory = await Category.create({
+      categoryName: categoryInfo,
+    });
     return createdNewCategory;
   }
 
@@ -27,13 +22,16 @@ export class CategoryModel {
   }
 
   async update({ categoryId, update }) {
-    const filter = { categoryId: categoryId };
+    const filter = { _id: categoryId };
     const option = { returnOriginal: false };
 
-    const updatedCategory = await Category.findOneAndUpdate(filter, update, option);
+    const updatedCategory = await Category.findOneAndUpdate(
+      filter,
+      update,
+      option
+    );
     return updatedCategory;
   }
-
 }
 
 const categoryModel = new CategoryModel();

@@ -1,49 +1,43 @@
-import { model } from 'mongoose';
-const mongoose = require('mongoose');
-import { PackageSchema } from '../schemas/package-schema';
+import { model } from "mongoose";
+const mongoose = require("mongoose");
+import { PackageSchema } from "../schemas/package-schema";
 // import { ObjectId } from 'mongoose';
 // import { ObjectId } from '..db';
 
-const Package = model('package', PackageSchema);
+const Package = model("package", PackageSchema);
 
 export class PackageModel {
-    async findByPackageName(packageName) {
-        const PackageName = await Package.findOne({ packageName });
-        return PackageName;
-    }
+  async findByPackageName(packageName) {
+    const PackageName = await Package.findOne({ packageName });
+    return PackageName;
+  }
 
-    async create(packageInfo) {
-        const createdNewPackage = await Package.create(packageInfo);
-        return createdNewPackage;
-    }
+  async create(packageInfo) {
+    const createdNewPackage = await Package.create(packageInfo);
+    return createdNewPackage;
+  }
 
-    async findAll() {
+  async findAll() {
     const packages = await Package.find({});
     return packages;
   }
-    async findById(packageId) {
+  async findById(packageId) {
     const findpackage = await Package.findOne({ _id: packageId });
     return findpackage;
   }
 
-  
-    async update({ packageId, update }) {
+  async update({ packageId, update }) {
     const filter = { _id: packageId };
-    
 
     const updatedPackage = await Package.findOneAndUpdate(filter, update);
     return updatedPackage;
   }
 
-    async delete(packageId) {
+  async delete(packageId) {
     const deletepackage = await Package.findByIdAndDelete({ _id: packageId });
     return deletepackage;
   }
-
 }
-
- 
-
 
 // export class UserModel {
 //   async findByEmail(email) {
