@@ -10,7 +10,7 @@ export class CategoryModel {
   }
 
   async findByName(categoryName) {
-    const category = await Category.findOne({ categoryName: categoryName.categoryName });
+    const category = await Category.findOne({ categoryName: categoryName });
 
     return category;
   }

@@ -18,8 +18,7 @@ export class SubCategoryModel {
   }
 
   async findBySubCategoryName(subCategoryName) {  
-    // console.log(subCategoryName);
-    const subCategory = await SubCategory.findOne({ subCategoryName });
+    const subCategory = await SubCategory.findOne({ subCategoryName:  subCategoryName});
 
     return subCategory;
   }

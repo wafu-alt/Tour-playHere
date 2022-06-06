@@ -20,8 +20,8 @@ subCategoryRouter.post('/subcategory/register', async (req, res, next) => {
     const subCategoryName = req.body.subCategoryName;
 
     const newCategory = await subCategoryService.addSubCategory(
-      { categoryName, },
-      { subCategoryName,}
+      categoryName,
+      subCategoryName,
     );
     
     // 추가된 서브카테고리의 db 데이터를 프론트에 다시 보내줌
@@ -32,8 +32,8 @@ subCategoryRouter.post('/subcategory/register', async (req, res, next) => {
   }
 });
 
-subCategoryRouter.patch('/subcategory', async (req, res, next) => {
 // subCategoryRouter.patch('/subcategory', adminRequired, async (req, res, next) => {
+subCategoryRouter.patch('/subcategory', async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
         throw new Error(
@@ -65,8 +65,8 @@ subCategoryRouter.patch('/subcategory', async (req, res, next) => {
 });
 
 // subcategory delete router
-subCategoryRouter.delete('/subcategory', async (req, res, next) => {
 // subCategoryRouter.delete('/subcategory', adminRequired, async (req, res, next) => {
+subCategoryRouter.delete('/subcategory', async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
         throw new Error(
