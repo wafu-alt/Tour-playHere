@@ -21,7 +21,4 @@ db.on("error", (error) =>
 export * from "./models/user-model";
 export * from "./models/category-model";
 export * from "./models/package-model";
-<<<<<<< HEAD
 export * from "./models/sub-category-model";
-=======
->>>>>>> feature/oh

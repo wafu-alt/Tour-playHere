@@ -18,17 +18,11 @@ class PackageService {
       country,
       price,
       days,
-<<<<<<< HEAD
-      departure,
-      arrival,
-      totalNumber,
-=======
       departureAt,
       arrivalAt,
       totalNumber,
       imgUrl,
       substance,
->>>>>>> feature/oh
     } = packageInfo;
 
     const newPackageInfo = {
@@ -37,17 +31,11 @@ class PackageService {
       country,
       price,
       days,
-<<<<<<< HEAD
-      departure,
-      arrival,
-      totalNumber,
-=======
       departureAt,
       arrivalAt,
       totalNumber,
       imgUrl,
       substance,
->>>>>>> feature/oh
     };
 
     // db에 저장
@@ -89,8 +77,6 @@ class PackageService {
     // const Arrival = package.arrival;
     // const TotalNumber = package.totalNumber;
 
-<<<<<<< HEAD
-=======
     // 업데이트 진행
     packages = await this.packageModel.update({
       packageId,
@@ -122,7 +108,6 @@ class PackageService {
     // const Arrival = package.arrival;
     // const TotalNumber = package.totalNumber;
 
->>>>>>> feature/oh
     // 업데이트 진행
     packages = await this.packageModel.update({
       packageId,

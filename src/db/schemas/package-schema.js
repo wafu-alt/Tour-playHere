@@ -37,13 +37,10 @@ const PackageSchema = new Schema({
     type: String,
     required: false,
   },
-<<<<<<< HEAD
-=======
   substance: {
     type: String,
     required: false,
   },
->>>>>>> feature/oh
 });
 
 export { PackageSchema };

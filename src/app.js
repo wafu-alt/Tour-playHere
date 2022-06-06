@@ -6,10 +6,7 @@ import {
   userRouter,
   packageRouter,
   categoryRouter,
-<<<<<<< HEAD
   subCategoryRouter,
-=======
->>>>>>> feature/oh
 } from "./routers";
 
 import { errorHandler } from "./middlewares";
