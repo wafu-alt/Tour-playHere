@@ -27,6 +27,7 @@ packageRouter.post('/package', async (req, res, next) => {
     const arrival = req.body.arrival;
     const totalNumber = req.body.totalNumber;
     const imgUrl = req.body.imgUrl;
+    const substance = req.body.substance;
 
 
     // 위 데이터를 유저 db에 추가하기
@@ -39,7 +40,8 @@ packageRouter.post('/package', async (req, res, next) => {
       departure,
       arrival,
       totalNumber,
-      imgUrl
+      imgUrl,
+      substance
     });
 
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌

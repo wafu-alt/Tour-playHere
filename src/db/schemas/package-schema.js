@@ -40,6 +40,10 @@ const PackageSchema = new Schema(
         type: String,
         required: false,
       },
+      substance: {
+        type: String,
+        required: false,
+      },
     
     }
 
