@@ -1,16 +1,14 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
-// 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-// import { loginRequired } from '../middlewares';
+import { adminRequired } from '../middlewares';
 import { categoryService } from "../services";
 
 const categoryRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-categoryRouter.post("/category/register", async (req, res, next) => {
+// categoryRouter.post("/category", adminRequired, async (req, res, next) => {
+categoryRouter.post("/category", async (req, res, next) => {
   try {
-    // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
-    // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
@@ -35,12 +33,6 @@ categoryRouter.post("/category/register", async (req, res, next) => {
 // categoryRouter.get("/category/list", adminRequired, async (req, res, next) => {
 categoryRouter.get("/category/list", async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
-    }
-  
     const allCategory = await categoryService.getAllCategory();
 
     res.status(201).json(allCategory);
