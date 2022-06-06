@@ -10,7 +10,6 @@ viewsRouter.use("/", serveStatic("home"));
 viewsRouter.use("/register", serveStatic("register"));
 viewsRouter.use("/login", serveStatic("login"));
 viewsRouter.use("/list", serveStatic("list"));
-<<<<<<< HEAD
 
 viewsRouter.use("/account", serveStatic("account"));
 viewsRouter.use("/account/orders", serveStatic("account/orders"));
@@ -22,11 +21,6 @@ viewsRouter.use("/product/detail", serveStatic("product/detail"));
 viewsRouter.use("/order", serveStatic("order"));
 viewsRouter.use("/cart", serveStatic("cart"));
 viewsRouter.use("/userupdate", serveStatic("userupdate"));
-=======
-viewsRouter.use("/account", serveStatic("account"));
-viewsRouter.use("/userupdate", serveStatic("userupdate"));
-viewsRouter.use("/order", serveStatic("order"));
->>>>>>> feature/oh
 viewsRouter.use("/sell", serveStatic("sell"));
 viewsRouter.use("/deleteAccount", serveStatic("deleteAccount"));
 
