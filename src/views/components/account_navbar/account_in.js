@@ -3,14 +3,11 @@
 // 누르면 연결된 페이지로 이동하는 li들을 만들어줍니다.
 
 // account_main.js와 다른점은 계정관리 li가 있다는 것입니다.
-async function navBarLoad() {
-  let loginCheck = document.querySelector("#navbar");
 
-  // 브라우저에 저장된 sessionStoage에 token항목에 해당하는 값이 있다면,
-  // 내비게이션 바가 화며에 보인다.
+let loginCheck = document.querySelector("#navbar");
 
-  if (sessionStorage.getItem("token")) {
-    loginCheck.innerHTML = `
+if (sessionStorage.getItem("token")) {
+  loginCheck.innerHTML = `
     <li><a href="/account">계정관리 </a></li>
     <li><a id="logOut"href="#"> 로그아웃 </a></li>
     <li>
@@ -22,17 +19,10 @@ async function navBarLoad() {
               </a>
     </li>
     `;
-    const logOut = document.querySelector("#logOut");
-    logOut.addEventListener("click", () => {
-      sessionStorage.removeItem("token");
-      window.location.href = "/";
-    });
-  }
-  // sessionStorage에 token항목이 존재 하지 않는다면, 로그인 페이지로 이동한 후 로그인 하고난 다음, 원래 하려던 페이지로 이동한다.
-  //
-  else {
-    alert("로그인이 필요합니다.");
-    window.location.href = "/login";
-  }
 }
-navBarLoad();
+
+const logOut = document.querySelector("#logOut");
+logOut.addEventListener("click", () => {
+  sessionStorage.removeItem("token");
+  window.location.href = "/";
+});

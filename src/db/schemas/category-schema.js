@@ -13,14 +13,14 @@ const CategorySchema = new Schema(
     categoryName: {
       type: String,
       required: true,
-    }
+    },
   },
   {
     collection: 'categories',
     versionKey: false,
     timestamps: true,
   }
-)
+);
 
 CategorySchema.plugin(autoIncrement.plugin, {
   model: 'Category',
