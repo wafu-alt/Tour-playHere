@@ -32,4 +32,23 @@ categoryRouter.post("/category/register", async (req, res, next) => {
   }
 });
 
+// categoryRouter.get("/category/list", adminRequired, async (req, res, next) => {
+categoryRouter.get("/category/list", async (req, res, next) => {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+      );
+    }
+  
+    const allCategory = await categoryService.getAllCategory();
+
+    res.status(201).json(allCategory);
+    
+  } catch (error) {
+    next(error);
+  }
+  
+});
+
 export { categoryRouter };
