@@ -23,8 +23,8 @@ packageRouter.post('/package', async (req, res, next) => {
     const country = req.body.country;
     const price = req.body.price;
     const days = req.body.days;
-    const departure = req.body.departure;
-    const arrival = req.body.arrival;
+    const departureAt = req.body.departureAt;
+    const arrivalAt = req.body.arrivalAt;
     const totalNumber = req.body.totalNumber;
     const imgUrl = req.body.imgUrl;
     const substance = req.body.substance;
@@ -37,8 +37,8 @@ packageRouter.post('/package', async (req, res, next) => {
       country,
       price,
       days,
-      departure,
-      arrival,
+      departureAt,
+      arrivalAt,
       totalNumber,
       imgUrl,
       substance
