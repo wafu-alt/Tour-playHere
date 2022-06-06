@@ -91,6 +91,17 @@ async function Data() {
   const howPersonInput = document.querySelector("#howPersonInput");
   const startDaysInput = document.querySelector("#startDaysInput").value;
 
+  //로그인 중인지 체크
+  function loginCheck() {
+    if (sessionStorage.getItem("token")) {
+      console.log("로그인 중");
+      return true;
+    }
+    alert(`로그인된 사용자만 사용 가능합니다.`);
+    window.location.href = `/login`; //-> veiws/login/login.html
+    return false;
+  }
+
   //인원 체크하는 기능
   function personsCheck(persons, maxPersons) {
     if (persons === 0) {
@@ -106,26 +117,29 @@ async function Data() {
 
   //장바구니추가 버튼 기능
   function cartAddFnc() {
-    // console.log(window.location);
-    // console.log(window.location.href);
-    window.location.href = `/cart`;
-    alert("cartAddBtn을 클릭하셨습니다.");
+    const loginChecking = loginCheck();
+
+    if (loginChecking) {
+      window.location.href = `/cart`; //-> veiws/cart/cart.html
+    }
   }
 
   //예약하러가기 버튼 기능
   function orderFnc() {
-    if (sessionStorage.getItem) {
-    }
+    const loginChecking = loginCheck();
+
+    //todo : 2개의 값을 넘겨야함 - 인원, 출발일, 오브젝트 아이디
     console.log(howPersonInput.value);
     console.log(startDaysInput);
 
-    const persons = Number(howPersonInput.value);
-    const maxPersons = 7; //todo : 최대인원에 대한 정보가 있을경우 연결해주기
-    const personsChecking = personsCheck(persons, maxPersons);
-    if (personsChecking === true) {
-      window.location.href = `/order`;
+    if (loginChecking) {
+      const persons = Number(howPersonInput.value);
+      const maxPersons = 7; //todo : 최대인원에 대한 정보가 있을경우 연결해주기
+      const personsChecking = personsCheck(persons, maxPersons);
+      if (personsChecking) {
+        window.location.href = `/order`; //-> veiws/order/order.html
+      }
     }
-    // alert("orderBtn을 클릭하셨습니다.");
   }
 
   cartAddBtn.addEventListener("click", cartAddFnc);
