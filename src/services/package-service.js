@@ -12,9 +12,9 @@ class PackageService {
   // 패키지 생성
   async addPackage(packageInfo) {
     // 객체 destructuring
-    const { packageName, category, country, price, days, departureAt, arrivalAt, totalNumber } = packageInfo;
+    const { packageName, category, country, price, days, departureAt, arrivalAt, totalNumber, imgUrl} = packageInfo;
 
-    const newPackageInfo = { packageName, category, country, price, days, departureAt, arrivalAt, totalNumber };
+    const newPackageInfo = { packageName, category, country, price, days, departureAt, arrivalAt, totalNumber, imgUrl };
 
     // db에 저장
     const createdNewPackage = await this.packageModel.create(newPackageInfo);
@@ -32,6 +32,38 @@ class PackageService {
     
     return findPackage;
   }
+
+     // 상품 목록 수정
+  async setPackage(packageInfoRequired, toUpdate) {
+    // 객체 destructuring
+    const packageId  = packageInfoRequired;
+
+    // 우선 해당 id의 유저가 db에 있는지 확인
+    let packages = await this.packageModel.findById(packageId);
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!packages) {
+      throw new Error('상품 내역이 없습니다. 다시 한 번 확인해 주세요.');
+    }
+
+    // const PackageName = package.packageName;
+    // const Category = package.category;
+    // const Country = package.country;
+    // const Price = package.price;
+    // const Days = package.days;
+    // const Departure = package.departure;
+    // const Arrival = package.arrival;
+    // const TotalNumber = package.totalNumber;
+    
+    // 업데이트 진행
+    packages = await this.packageModel.update({
+      packageId,
+      update: toUpdate,
+    });
+
+    return packages;
+  }
+
 
      // 상품 목록 수정
   async setPackage(packageInfoRequired, toUpdate) {
