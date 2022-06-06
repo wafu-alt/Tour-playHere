@@ -5,7 +5,9 @@ import { subCategoryService } from '../services';
 
 const  subCategoryRouter  = Router();
 
-subCategoryRouter.post('/subcategory/register', adminRequired, async (req, res, next) => {
+// subCategoryRouter.post('/subcategory/register', adminRequired, async (req, res, next) => {
+subCategoryRouter.post('/subcategory/register', async (req, res, next) => {
+
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -18,8 +20,8 @@ subCategoryRouter.post('/subcategory/register', adminRequired, async (req, res, 
     const subCategoryName = req.body.subCategoryName;
 
     const newCategory = await subCategoryService.addSubCategory(
-      { categoryName, },
-      { subCategoryName,}
+      categoryName,
+      subCategoryName,
     );
     
     // 추가된 서브카테고리의 db 데이터를 프론트에 다시 보내줌
@@ -30,8 +32,8 @@ subCategoryRouter.post('/subcategory/register', adminRequired, async (req, res, 
   }
 });
 
-subCategoryRouter.patch('/subcategory', async (req, res, next) => {
 // subCategoryRouter.patch('/subcategory', adminRequired, async (req, res, next) => {
+subCategoryRouter.patch('/subcategory', async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
         throw new Error(
@@ -63,8 +65,8 @@ subCategoryRouter.patch('/subcategory', async (req, res, next) => {
 });
 
 // subcategory delete router
-subCategoryRouter.delete('/subcategory', async (req, res, next) => {
 // subCategoryRouter.delete('/subcategory', adminRequired, async (req, res, next) => {
+subCategoryRouter.delete('/subcategory', async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
         throw new Error(
