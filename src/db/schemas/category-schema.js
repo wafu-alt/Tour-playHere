@@ -1,7 +1,10 @@
 import { Schema } from "mongoose";
+<<<<<<< HEAD
 import mongoose from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
 autoIncrement.initialize(mongoose.connection);
+=======
+>>>>>>> feature/oh
 
 const CategorySchema = new Schema(
   {
@@ -17,11 +20,15 @@ const CategorySchema = new Schema(
   },
   {
     collection: "categories",
+<<<<<<< HEAD
     versionKey: false,
+=======
+>>>>>>> feature/oh
     timestamps: true,
   }
 );
 
+<<<<<<< HEAD
 CategorySchema.plugin(autoIncrement.plugin, {
   model: "Category",
   field: "categoryId",
@@ -29,4 +36,6 @@ CategorySchema.plugin(autoIncrement.plugin, {
   increment: 1, // 증가
 });
 
+=======
+>>>>>>> feature/oh
 export { CategorySchema };

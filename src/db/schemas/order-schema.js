@@ -19,7 +19,11 @@ const OrderSchema = new Schema({
   },
   category: {
     type: String,
+<<<<<<< HEAD
     required: true,
+=======
+    required: false,
+>>>>>>> feature/oh
   },
   country: {
     type: String,
@@ -29,6 +33,7 @@ const OrderSchema = new Schema({
     type: Number,
     required: true,
   },
+<<<<<<< HEAD
   departure: {
     type: Date,
     required: true,
@@ -38,6 +43,17 @@ const OrderSchema = new Schema({
     required: true,
   },
   registerDate: {
+=======
+  departureAt: {
+    type: Date,
+    required: true,
+  },
+  arrivalAt: {
+    type: Date,
+    required: true,
+  },
+  registerDateAt: {
+>>>>>>> feature/oh
     type: Date,
     required: true,
   },

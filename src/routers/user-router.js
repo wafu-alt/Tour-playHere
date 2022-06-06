@@ -67,7 +67,11 @@ userRouter.post("/login", async function (req, res, next) {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+<<<<<<< HEAD
 userRouter.get("/userlist", loginRequired, async function (req, res, next) {
+=======
+userRouter.get("/users", loginRequired, async function (req, res, next) {
+>>>>>>> feature/oh
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -114,7 +118,11 @@ userRouter.get("/usertel/:telNumber", async function (req, res, next) {
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(
+<<<<<<< HEAD
   "/users/:userId",
+=======
+  "/user/:userId",
+>>>>>>> feature/oh
   loginRequired,
   async function (req, res, next) {
     try {
@@ -174,6 +182,7 @@ userRouter.patch(
 
 // 관리자 권한 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
+<<<<<<< HEAD
 userRouter.patch(
   '/useradmin/:userId',
   async function (req, res, next) {
@@ -206,18 +215,49 @@ userRouter.patch(
       const updatedUseradmin = await userService.setAdmin(
         userInfodate,
         admintoUpdate
+=======
+userRouter.patch("/useradmin/:userId", async function (req, res, next) {
+  try {
+    // content-type 을 application/json 로 프론트에서
+    // 설정 안 하고 요청하면, body가 비어 있게 됨.
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
+>>>>>>> feature/oh
       );
-
-      // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
-      res.status(200).json(updatedUseradmin);
-    } catch (error) {
-      next(error);
     }
-  }
-);
 
+<<<<<<< HEAD
 // 사용자 삭제
 userRouter.delete("/userdelete/:userId", async function (req, res, next) {
+=======
+    // params로부터 id를 가져옴
+    const userId = req.params.userId;
+
+    // body data 로부터 업데이트할 사용자 정보를 추출함.
+    const role = req.body.role;
+
+    // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
+
+    // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
+    // 보내주었다면, 업데이트용 객체에 삽입함.
+    const admintoUpdate = {
+      ...(role && { role }),
+    };
+
+    // 사용자 정보를 업데이트함.
+    const updatedUseradmin = await userService.setAdmin(userId, admintoUpdate);
+
+    // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
+    res.status(200).json(updatedUseradmin);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 사용자 삭제
+userRouter.delete("/user/:userId", async function (req, res, next) {
+>>>>>>> feature/oh
   try {
     // 상품 Id 얻음
     const userId = req.params.userId;

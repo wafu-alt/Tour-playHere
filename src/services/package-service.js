@@ -18,9 +18,17 @@ class PackageService {
       country,
       price,
       days,
+<<<<<<< HEAD
       departure,
       arrival,
       totalNumber,
+=======
+      departureAt,
+      arrivalAt,
+      totalNumber,
+      imgUrl,
+      substance,
+>>>>>>> feature/oh
     } = packageInfo;
 
     const newPackageInfo = {
@@ -29,9 +37,17 @@ class PackageService {
       country,
       price,
       days,
+<<<<<<< HEAD
       departure,
       arrival,
       totalNumber,
+=======
+      departureAt,
+      arrivalAt,
+      totalNumber,
+      imgUrl,
+      substance,
+>>>>>>> feature/oh
     };
 
     // db에 저장
@@ -73,6 +89,40 @@ class PackageService {
     // const Arrival = package.arrival;
     // const TotalNumber = package.totalNumber;
 
+<<<<<<< HEAD
+=======
+    // 업데이트 진행
+    packages = await this.packageModel.update({
+      packageId,
+      update: toUpdate,
+    });
+
+    return packages;
+  }
+
+  // 상품 목록 수정
+  async setPackage(packageInfoRequired, toUpdate) {
+    // 객체 destructuring
+    const packageId = packageInfoRequired;
+
+    // 우선 해당 id의 유저가 db에 있는지 확인
+    let packages = await this.packageModel.findById(packageId);
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!packages) {
+      throw new Error("상품 내역이 없습니다. 다시 한 번 확인해 주세요.");
+    }
+
+    // const PackageName = package.packageName;
+    // const Category = package.category;
+    // const Country = package.country;
+    // const Price = package.price;
+    // const Days = package.days;
+    // const Departure = package.departure;
+    // const Arrival = package.arrival;
+    // const TotalNumber = package.totalNumber;
+
+>>>>>>> feature/oh
     // 업데이트 진행
     packages = await this.packageModel.update({
       packageId,
