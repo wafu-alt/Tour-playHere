@@ -5,7 +5,7 @@ const Category = model("categories", CategorySchema);
 
 export class CategoryModel {
   async findById(categoryId) {
-    const category = await Category.findOne({ categoryId:  categoryId});
+    const category = await Category.findOne({ categoryId: categoryId });
     return category;
   }
 
