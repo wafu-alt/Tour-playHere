@@ -41,8 +41,24 @@ import * as Api from "/api.js";
 console.log(1);
 async function test() {
   const result = await Api.get("/api", "packagelist");
-  console.log(result);
+
+  let test = result.filter((item) => item._id === "62996552d8674984f2b07073");
+  console.log(...test);
   return result;
 }
 
 test();
+
+//로그인 중인지 체크
+function loginCheck() {
+  if (sessionStorage.getItem("token")) {
+    console.log("로그인 중");
+    return true;
+  }
+  alert(`로그인된 사용자만 사용 가능합니다.`);
+  window.history.back();
+  return false;
+}
+loginCheck();
+
+sessionStorage.getItem("cartToken");

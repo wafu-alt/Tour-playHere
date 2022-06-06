@@ -18,6 +18,16 @@ async function Data() {
     (data) => data.pacakge_id === "6278ad6f927a0d0520ff626a"
   );
 
+  // console.log(data);
+  // let addToken = {
+  //   _id: `${data.pacakge_id}`,
+  //   departureAt: `${startDaysInput}`,
+  //   days: `${data.days}`,
+  //   arrivalAt: `${startDaysInput + data.days}`,
+  // };
+
+  // sessionStorage.setItem("cartToken", addToken);
+
   //return data[0];
   //console.log(data[0].images)
 
@@ -86,6 +96,7 @@ async function Data() {
     </article>
   `
   );
+
   const cartAddBtn = document.querySelector("#cartAddBtn");
   const orderBtn = document.querySelector("#orderBtn");
   const howPersonInput = document.querySelector("#howPersonInput");
