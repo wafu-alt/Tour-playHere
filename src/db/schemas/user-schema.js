@@ -18,17 +18,8 @@ const UserSchema = new Schema(
       type: String,
       required: false,
     },
-    address: {
-      type: new Schema(
-        {
-          postalCode: String,
-          address1: String,
-          address2: String,
-        },
-        {
-          _id: false,
-        }
-      ),
+    telNumber: {
+      type: String,
       required: false,
     },
     role: {

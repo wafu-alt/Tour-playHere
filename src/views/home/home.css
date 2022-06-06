@@ -17,10 +17,7 @@
   padding: 10px;
   margin-left: 3rem;
 }
-<<<<<<< HEAD
-=======
-
-.item-scroll-list {
+<<<<<<< HEAD ======= .item-scroll-list {
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -60,7 +57,12 @@
 .item-list {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 12px;
+  grid-gap: 24px;
   padding-bottom: 16px;
 }
->>>>>>> 189ae7df1d2b645e0c8fbcb230466b938e8dba52
+
+@media screen and (max-width: 768px) {
+  .item-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

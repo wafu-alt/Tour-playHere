@@ -48,9 +48,17 @@ async function handleSubmit(e) {
     alert(`정상적으로 로그인되었습니다.`);
 
     // 로그인 성공
+<<<<<<< HEAD
 
     // 기본 페이지로 이동
     window.location.href = '/';
+=======
+    // 로그인 성공시 홈 페이지로 이동
+    window.location.href = "/";
+    // 로그인 성공시 이용하려던 페이지로 이동(전 페이지로 이동)
+    // window.history.back();
+    
+>>>>>>> dev_1.0
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
