@@ -1,10 +1,4 @@
-// import mongoose from 'mongoose-auto-increment';
 import { Schema } from 'mongoose';
-
-// const mongoose = require('mongoose');
-// const autoIncrement = require('mongoose-auto-increment');
-
-// autoIncrement.initialize(mongoose.connection);
 
 const UserSchema = new Schema(
   {
@@ -26,24 +20,6 @@ const UserSchema = new Schema(
     },
     telNumber: {
       type: String,
-      required: false,
-    },
-    admin: {
-      type: Boolean,
-      required: false,
-    },
-    
-    address: {
-      type: new Schema(
-        {
-          postalCode: String,
-          address1: String,
-          address2: String,
-        },
-        {
-          _id: false,
-        }
-      ),
       required: false,
     },
     role: {
