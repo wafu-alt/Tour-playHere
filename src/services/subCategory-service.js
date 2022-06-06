@@ -6,23 +6,23 @@ class SubCategoryService {
       this.categoryModel = categoryModel;
       this.subCategoryModel = subCategoryModel;
     }
-    
-    async addSubCategory(categoryName, subCategoryName) {
-      const categoryId  = await this.categoryModel.findByName(categoryName);
 
-      if (!categoryId) {
+    async addSubCategory(categoryName, subCategoryName) {
+      const category  = await this.categoryModel.findByName(categoryName);
+
+      if (!category) {
         throw new Error(
           '메인 카테고리명이 올바르지 않습니다.'
         );
       }
 
       const subCategory  = await this.subCategoryModel.findBySubCategoryName(subCategoryName);
-      const subcategoryName  = subCategoryName.subCategoryName;
-      const categoryid = categoryId.categoryId;
+      const subcategoryName  = subCategoryName;
+      const categoryid = category.categoryId;
 
       if (subCategory) {
         throw new Error(
-          `'${subcategoryName}'는 이미 등록된 서브카테고리 입니다.`
+          `'${subcategoryName}'는(은) 이미 등록된 서브카테고리 입니다.`
         )
       }
 
@@ -53,7 +53,7 @@ class SubCategoryService {
 
       if (!subCategory) {
         throw new Error(
-          `'${subcategoryName}'은(는) 존재하지 않는 서브카테고리 입니다.`
+          `'${subcategoryName}'는(은) 존재하지 않는 서브카테고리 입니다.`
         )
       }
       
