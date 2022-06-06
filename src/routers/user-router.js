@@ -69,7 +69,7 @@ userRouter.post('/login', async function (req, res, next) {
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get('/userlist', loginRequired, async function (req, res, next) {
+userRouter.get('/users', loginRequired, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -116,7 +116,7 @@ userRouter.get('/usertel/:telNumber', async function (req, res, next) {
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(
-  '/users/:userId',
+  '/user/:userId',
   loginRequired,
   async function (req, res, next) {
     try {
@@ -193,23 +193,23 @@ userRouter.patch(
       const userId = req.params.userId;
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
-      const admin = req.body.admin;
+      const role = req.body.role;
       
 
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
       
 
-      const userInfodate = { userId };
+     
 
       // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
       // 보내주었다면, 업데이트용 객체에 삽입함.
       const admintoUpdate = {
-        ...(admin && { admin }),
+        ...(role && { role }),
       };
 
       // 사용자 정보를 업데이트함.
       const updatedUseradmin = await userService.setAdmin(
-        userInfodate,
+        userId,
         admintoUpdate
       );
 
@@ -223,7 +223,7 @@ userRouter.patch(
 
 
 // 사용자 삭제
-userRouter.delete('/userdelete/:userId', async function (req, res, next) {
+userRouter.delete('/user/:userId', async function (req, res, next) {
 
   try {
     // 상품 Id 얻음
