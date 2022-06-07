@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>쇼핑-n팀</title>
     <!-- 아이콘 -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/logo-favicon.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="../logo-favicon.png"/>
     <!-- bulma css -->
     <link
       rel="stylesheet"
@@ -17,8 +17,19 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
+<<<<<<< HEAD
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="order.css" />
+=======
+
+    <!-- 커스텀 css, js -->
+    <link rel="stylesheet" href="order.css" />
+    <script
+      src="../components/account_navbar/account_in.js"
+      type="module"
+      defer
+    ></script>
+>>>>>>> feature/oh
     <script src="order.js" type="module" defer></script>
   </head>
   <body>
@@ -27,29 +38,24 @@
       <div class="container mt-3">
         <div class="navbar-brand">
           <a class="navbar-item" href="/">
-            <img src="/logo.png" width="30" height="30" />
+            <img src="../logo.png" width="30" height="30" />
             <span class="has-text-link">쇼핑-n팀</span>
           </a>
 
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
           </a>
         </div>
 
+<<<<<<< HEAD
           <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
             <ul id="navbar">
               <li><a href="/login">로그인</a></li>
               <li><a href="/register">회원가입</a></li>
               <li>
-                <a href="#cart" aria-current="page">
+                <a href="/cart" aria-current="page">
                   <span class="icon">
                     <i class="fas fa-cart-shopping"></i>
                   </span>
@@ -58,6 +64,10 @@
               </li>
             </ul>
           </div>
+=======
+        <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
+          <ul id="navbar"></ul>
+>>>>>>> feature/oh
         </div>
       </div>
     </nav>

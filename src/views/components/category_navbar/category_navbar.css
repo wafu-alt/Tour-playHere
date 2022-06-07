@@ -1,0 +1,8 @@
+.category-navbar {
+  border-bottom: 0.5px solid #dee2e6;
+}
+
+.navbar-item.is-active {
+  font-weight: bold;
+  color: #485fc7 !important;
+}
