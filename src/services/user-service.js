@@ -87,7 +87,6 @@ class UserService {
 
   async getPhoneNumber(userPhone) {
     const userphone = await this.userModel.findByPhoneNumber(userPhone);
-    // console.log(userPhone);
     return userphone;
   }
   async getTelNumber(userTel) {
@@ -95,8 +94,16 @@ class UserService {
     return usertel;
   }
 
-  async getUserByEmail({ email }) {
-    const user = await this.userModel.findByTelNumber(email);
+  // 구현중
+  async getUserByEmail(eMail) {
+    let userMail = {};
+    userMail['email'] = eMail;
+
+    const user = await this.userModel.findByEmail(userMail);
+
+    if (!user) {
+      throw new Error("올바르지 않은 이메일 입니다. 다시 한 번 확인해 주세요."); 
+    }
     return user;
   }
 

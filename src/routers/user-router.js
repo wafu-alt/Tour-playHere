@@ -95,7 +95,6 @@ userRouter.get("/userphone/:phoneNumber", async function (req, res, next) {
   }
 });
 
-// 전화 번호로 유저 데이터 가져옴
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
 userRouter.get("/useremail/:email", async function (req, res, next) {
   try {
