@@ -17,8 +17,7 @@
   padding: 10px;
   margin-left: 3rem;
 }
-
-.item-scroll-list {
+<<<<<<< HEAD ======= .item-scroll-list {
   display: flex;
   flex-direction: row;
   overflow: hidden;
@@ -57,7 +56,7 @@
 
 .item-list {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-gap: 24px;
   padding-bottom: 16px;
 }

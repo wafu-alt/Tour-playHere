@@ -37,16 +37,16 @@ function insertTitleText() {
 
 async function insertItemsToList(subCategory) {
   itemListDiv.innerHTML = "";
-  const pageckages = await Api.get("/api/packages");
-
-  pageckages
+  let data = await fetch("/list_sample.json");
+  data = await data.json();
+  data
     .filter((e) =>
       subCategory === "전체" || subCategory === undefined
         ? e.category === params.category
-        : e.category === params.category && e.packageName === subCategory
+        : e.category === params.category && e.city === subCategory
     )
-    .forEach((pageckages) => {
-      itemListDiv.insertAdjacentElement("beforeend", renderItem(pageckages));
+    .forEach((data) => {
+      itemListDiv.insertAdjacentElement("beforeend", renderItem(data));
     });
 }
 
