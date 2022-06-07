@@ -33,6 +33,11 @@ const PackageSchema = new Schema({
     type: Number,
     required: true,
   },
+  countNumber: {
+    type: Number,
+    required: false,
+    default: 0,
+  },
   imgUrl: {
     type: String,
     required: false,
