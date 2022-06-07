@@ -18,15 +18,18 @@ async function Data() {
     (data) => data.pacakge_id === "6278ad6f927a0d0520ff626a"
   );
 
-  // console.log(data);
-  // let addToken = {
-  //   _id: `${data.pacakge_id}`,
-  //   departureAt: `${startDaysInput}`,
-  //   days: `${data.days}`,
-  //   arrivalAt: `${startDaysInput + data.days}`,
-  // };
+  console.log(data);
+  const addToken = {
+    // _id: `${data.pacakge_id}`,
+    // departureAt: `${startDaysInput}`,
+    // days: `${data.days}`,
+    // arrivalAt: `${startDaysInput + data.days}`,
+    id : 123124,
+    dsfa : "dafea",
+  };
 
-  // sessionStorage.setItem("cartToken", addToken);
+  sessionStorage.setItem("cartToken", JSON.stringify(addToken));
+  console.log(sessionStorage.getItem("cartToken", addToken));
 
   //return data[0];
   //console.log(data[0].images)
