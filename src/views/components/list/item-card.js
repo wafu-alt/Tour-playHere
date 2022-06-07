@@ -4,7 +4,7 @@ export default function renderItem(data) {
   component.onclick = onClickHandler;
 
   function onClickHandler() {
-    window.location.href = `/product/detail/${data._id}`;
+    alert("Click");
   }
 
   component.innerHTML = `
@@ -16,26 +16,21 @@ export default function renderItem(data) {
     <div class="card card-panel">
   <div class="card-image">
     <figure class="image is-4by3">
-      <img class="card-panel-image" src=${
-        data.imgUrl ?? ""
-      } alt="Placeholder image">
+      <img class="card-panel-image" src=${data.image} alt="Placeholder image">
     </figure>
   </div>
   <div class="card-content">
     <div class="media">
       <div class="media-content">
-        <p class="has-text-grey-light">${data.category} / ${data.country}</p>
-        <p class="title is-5">${data.packageName}</p>
+        <p class="title is-4">${data.name}</p>
+        <p class="subtitle is-6">#${data.city}</p>
       </div>
     </div>
 
     <div class="content">
-    <p class="has-text-grey-light">${
-      data.departureAt &&
-      `${data.departureAt.split("T")[0]} ~ ${data.arrivalAt.split("T")[0]}`
-    }</p>
-
-    <b class="has-text-black">${data.price.toLocaleString()}원</b>
+    ${data.description}
+      <br>
+      ${data.departureTime}
     </div>
   </div>
 </div>

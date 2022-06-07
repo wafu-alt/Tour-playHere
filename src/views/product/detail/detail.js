@@ -66,7 +66,7 @@ async function Data() {
             <hr class="mt-6">
             <div class="mt-1 pt-1">
               <label id="howPerson" for="howPerson">인 원</label>
-              <input id="howPersonInput" class="input is-info" type="text" placeholder="몇명이신가요?" ><br>
+              <input id="howPersonInput" class="input is-info" type="text" placeholder="몇명이신가요?"><br>
               <label id="startDays" for="start">출발일 선택</label>
               <input id="startDaysInput" type="date" name="start"  value="${curDate}" >
             </div>
@@ -88,42 +88,24 @@ async function Data() {
   );
   const cartAddBtn = document.querySelector("#cartAddBtn");
   const orderBtn = document.querySelector("#orderBtn");
-  const howPersonInput = document.querySelector("#howPersonInput");
   const startDaysInput = document.querySelector("#startDaysInput").value;
 
-  function personsCheck(persons, maxPersons) {
-    if (persons === 0) {
-      alert(`인원을 ${persons}명을 입력하셨습니다.`);
-      return false;
-    }
-    if (persons > maxPersons) {
-      alert(`최대 인원을 넘어서 ${persons}명을 입력하셨습니다.`);
-      return false;
-    }
-    return true;
-  }
-
   function cartAddFnc() {
-    // console.log(window.location);
-    // console.log(window.location.href);
-    window.location.href = `/cart`;
     alert("cartAddBtn을 클릭하셨습니다.");
   }
 
   function orderFnc() {
-    console.log(howPersonInput.value);
+    alert("orderBtn을 클릭하셨습니다.");
     console.log(startDaysInput);
-
-    const persons = Number(howPersonInput.value);
-    const maxPersons = 7; //todo : 최대인원에 대한 정보가 있을경우 연결해주기
-    const checking = personsCheck(persons, maxPersons);
-    if (checking === true) {
-      window.location.href = `/order`;
-    }
-    // alert("orderBtn을 클릭하셨습니다.");
   }
 
   cartAddBtn.addEventListener("click", cartAddFnc);
   orderBtn.addEventListener("click", orderFnc);
 }
 Data();
+// async function test() {
+//   const result = await Data();
+//   console.log(result);
+//   return result;
+// }
+// console.log(test());
