@@ -1,19 +1,19 @@
-import { Router } from 'express';
-import is from '@sindresorhus/is';
+import { Router } from "express";
+import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from '../middlewares';
-import { packageService } from '../services';
+import { loginRequired } from "../middlewares";
+import { packageService } from "../services";
 
 const packageRouter = Router();
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-packageRouter.post('/packageadd', async (req, res, next) => {
+packageRouter.post("/package", async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
       throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
+        "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
 
@@ -23,10 +23,11 @@ packageRouter.post('/packageadd', async (req, res, next) => {
     const country = req.body.country;
     const price = req.body.price;
     const days = req.body.days;
-    const departure = req.body.departure;
-    const arrival = req.body.arrival;
+    const departureAt = req.body.departureAt;
+    const arrivalAt = req.body.arrivalAt;
     const totalNumber = req.body.totalNumber;
-
+    const imgUrl = req.body.imgUrl;
+    const substance = req.body.substance;
 
     // 위 데이터를 유저 db에 추가하기
     const newPackage = await packageService.addPackage({
@@ -35,9 +36,11 @@ packageRouter.post('/packageadd', async (req, res, next) => {
       country,
       price,
       days,
-      departure,
-      arrival,
+      departureAt,
+      arrivalAt,
       totalNumber,
+      imgUrl,
+      substance,
     });
 
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
@@ -49,7 +52,7 @@ packageRouter.post('/packageadd', async (req, res, next) => {
 });
 
 // 전체 상품 목록을 가져옴 (배열 형태임)
-packageRouter.get('/packagelist', async function (req, res, next) {
+packageRouter.get("/packages", async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const packages = await packageService.getPackages();
@@ -62,7 +65,7 @@ packageRouter.get('/packagelist', async function (req, res, next) {
 });
 
 //상품 ID로 정보가져오기
-packageRouter.get('/packagelist/:packageId', async function (req, res, next) {
+packageRouter.get("/package/:packageId", async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const packageId = req.params.packageId;
@@ -76,76 +79,73 @@ packageRouter.get('/packagelist/:packageId', async function (req, res, next) {
   }
 });
 
-
 // 상품 정보 수정
 // (예를 들어 /api/package/abc12345 로 요청하면 req.params.packageId는 'abc12345' 문자열로 됨)
-packageRouter.patch(
-  '/package/:packageId',
-  async function (req, res, next) {
-    try {
-      // content-type 을 application/json 로 프론트에서
-      // 설정 안 하고 요청하면, body가 비어 있게 됨.
-      if (is.emptyObject(req.body)) {
-        throw new Error(
-          'headers의 Content-Type을 application/json으로 설정해주세요'
-        );
-      }
-      // params로부터 id를 가져옴
-      const packageId = req.params.packageId;
-
-      // body data 로부터 업데이트할 사용자 정보를 추출함.
-      const packageName = req.body.packageName;
-      const category = req.body.category;
-      const country = req.body.country;
-      const price = req.body.price;
-      const days = req.body.days;
-      const departure = req.body.departure;
-      const arrival = req.body.arrival;
-      const totalNumber = req.body.totalNumber;
-      
-
-      // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
-      // 보내주었다면, 업데이트용 객체에 삽입함.
-      const toUpdate = {
-        ...(packageName && { packageName }),
-        ...(category && { category }),
-        ...(country && { country }),
-        ...(price && { price }),
-        ...(days && { days }),
-        ...(departure && { departure }),
-        ...(arrival && { arrival }),
-        ...(totalNumber && { totalNumber }),
-      };
-
-      // 사용자 정보를 업데이트함.
-      const updatedPackageInfo = await packageService.setPackage(
-        packageId,
-        toUpdate
+packageRouter.patch("/packages/:packageId", async function (req, res, next) {
+  try {
+    // content-type 을 application/json 로 프론트에서
+    // 설정 안 하고 요청하면, body가 비어 있게 됨.
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        "headers의 Content-Type을 application/json으로 설정해주세요"
       );
+    }
+    // params로부터 id를 가져옴
+    const packageId = req.params.packageId;
 
-      // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
-      res.status(200).json(updatedPackageInfo);
+    // body data 로부터 업데이트할 사용자 정보를 추출함.
+    const packageName = req.body.packageName;
+    const category = req.body.category;
+    const country = req.body.country;
+    const price = req.body.price;
+    const days = req.body.days;
+    const departureAt = req.body.departureAt;
+    const arrivalAt = req.body.arrivalAt;
+    const totalNumber = req.body.totalNumber;
+    const imgUrl = req.body.imgUrl;
+    const substance = req.body.substance;
+
+    // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
+    // 보내주었다면, 업데이트용 객체에 삽입함.
+    const toUpdate = {
+      ...(packageName && { packageName }),
+      ...(category && { category }),
+      ...(country && { country }),
+      ...(price && { price }),
+      ...(days && { days }),
+      ...(departureAt && { departureAt }),
+      ...(arrivalAt && { arrivalAt }),
+      ...(totalNumber && { totalNumber }),
+      ...(imgUrl && { imgUrl }),
+      ...(substance && { substance }),
+    };
+
+    // 사용자 정보를 업데이트함.
+    const updatedPackageInfo = await packageService.setPackage(
+      packageId,
+      toUpdate
+    );
+
+    // 업데이트 이후의 유저 데이터를 프론트에 보내 줌
+    res.status(200).json(updatedPackageInfo);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 선택 상품 삭제
+packageRouter.delete("/package/:packageId", async function (req, res, next) {
+  try {
+    // 상품 Id 얻음
+    const packageId = req.params.packageId;
+    const deletepackage = await packageService.DeletePackage(packageId);
+      // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+      res.status(200).json(deletepackage);
     } catch (error) {
       next(error);
     }
   }
 );
-
-// 선택 상품 삭제
-packageRouter.delete('/packagedelete/:packageId', async function (req, res, next) {
-
-  try {
-    // 상품 Id 얻음
-    const packageId = req.params.packageId;
-
-    const deletepackage = await packageService.DeletePackage(packageId);
-
-    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
-    res.status(200).json(deletepackage);
-  } catch (error) {
-    next(error);
-  }
-});
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
 // packageRouter.post('/package_add', async function (req, res, next) {

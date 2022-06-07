@@ -1,6 +1,6 @@
-import { Schema } from 'mongoose';
-import mongoose from 'mongoose';
-import autoIncrement from 'mongoose-auto-increment';
+import { Schema } from "mongoose";
+import mongoose from "mongoose";
+import autoIncrement from "mongoose-auto-increment";
 autoIncrement.initialize(mongoose.connection);
 
 const CategorySchema = new Schema(
@@ -13,20 +13,20 @@ const CategorySchema = new Schema(
     categoryName: {
       type: String,
       required: true,
-    }
+    },
   },
   {
-    collection: 'categories',
+    collection: "categories",
     versionKey: false,
     timestamps: true,
   }
-)
+);
 
 CategorySchema.plugin(autoIncrement.plugin, {
-  model: 'Category',
-  field: 'categoryId',
+  model: "Category",
+  field: "categoryId",
   startAt: 1, //시작
-  increment: 1 // 증가
+  increment: 1, // 증가
 });
 
-export { CategorySchema }
+export { CategorySchema };
