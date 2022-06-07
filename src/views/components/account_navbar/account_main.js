@@ -22,5 +22,6 @@ if (sessionStorage.getItem("token")) {
 const logOut = document.querySelector("#logOut");
 logOut.addEventListener("click", () => {
   sessionStorage.removeItem("token");
+  sessionStorage.removeItem("loginId"); //이메일 토큰 지우기
   window.location.href = "/";
 });

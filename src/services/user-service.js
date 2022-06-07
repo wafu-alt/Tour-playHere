@@ -80,8 +80,8 @@ class UserService {
   }
 
   // 사용자 목록을 받음.
-  async getUsers() {
-    const users = await this.userModel.findAll();
+  async getUsers(query) {
+    const users = await this.userModel.findAll(query);
     return users;
   }
 

@@ -1,6 +1,7 @@
 import { model } from "mongoose";
 const mongoose = require("mongoose");
 import { OrderSchema } from "../schemas/order-schema";
+import { PackageSchema } from "../schemas/package-schema";
 
 const Order = model("order", OrderSchema);
 
@@ -20,7 +21,9 @@ export class OrderModel {
     return orders;
   }
   async findById(orderId) {
-    const findorder = await Order.findOne({ _id: orderId });
+    const findorder = await Order.findOne({ _id: orderId }).populate(
+      "packageId"
+    );
     return findorder;
   }
 
@@ -32,7 +35,9 @@ export class OrderModel {
   }
 
   async delete(orderId) {
-    const deleteorder = await Order.findByIdAndDelete({ _id: orderId });
+    const deleteorder = await Order.findByIdAndDelete({
+      _id: orderId,
+    });
     return deleteorder;
   }
 }
