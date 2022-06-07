@@ -143,6 +143,7 @@ async function Data() {
     console.log(howPersonInput.value);
     console.log(startDaysInput);
 
+    
     if (loginChecking) {
       const persons = Number(howPersonInput.value);
       const maxPersons = 7; //todo : 최대인원에 대한 정보가 있을경우 연결해주기
