@@ -49,13 +49,13 @@ async function insertItemsToScrollList() {
 }
 
 async function insertItemsToList() {
-  let itemsData = await fetch("list_sample.json").then((response) =>
-    response.json()
-  );
-  itemsData.forEach((data) => {
+  const pageckages = await Api.get("/api/packages");
+
+  pageckages.forEach((data) => {
     itemListDiv.insertAdjacentElement("beforeend", renderItem(data));
   });
 }
+
 function insertCategoryNavbar() {
   categoryNavbarDiv.insertAdjacentElement("beforeend", renderCategoryNavbar());
 }
