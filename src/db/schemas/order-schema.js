@@ -23,7 +23,7 @@ const OrderSchema = new Schema({
   },
   country: {
     type: String,
-    required: false,
+    required: true,
   },
   days: {
     type: Number,
