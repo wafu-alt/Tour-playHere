@@ -6,8 +6,7 @@
 
 let loginCheck = document.querySelector("#navbar");
 
-
-const loginHTML = ()=>{
+const loginHTML = () => {
   if (!sessionStorage.getItem("token")) return;
   loginCheck.innerHTML = `
       <li><a href="/account">계정관리 </a></li>
@@ -21,13 +20,13 @@ const loginHTML = ()=>{
                 </a>
       </li>
       `;
-      
-}
+};
 
 loginHTML();
 
 const logOut = document.querySelector("#logOut");
 logOut.addEventListener("click", () => {
   sessionStorage.removeItem("token");
+  sessionStorage.removeItem("loginId"); //이메일 토큰 지우기
   window.location.href = "/";
 });
