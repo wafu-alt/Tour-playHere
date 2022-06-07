@@ -17,7 +17,7 @@ export class OrderModel {
   }
 
   async findAll() {
-    const orders = await Order.find({});
+    const orders = await Order.find({}).sort( { "registerDateAt": -1 } );
     return orders;
   }
   async findById(orderId) {
