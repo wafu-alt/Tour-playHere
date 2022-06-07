@@ -53,7 +53,6 @@ class UserService {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
       );
     }
-
     // 이제 이메일은 문제 없는 경우이므로, 비밀번호를 확인함
 
     // 비밀번호 일치 여부 확인
@@ -95,6 +94,12 @@ class UserService {
     const usertel = await this.userModel.findByTelNumber(userTel);
     return usertel;
   }
+
+  async getUserByEmail({ email }) {
+    const user = await this.userModel.findByTelNumber(email);
+    return user;
+  }
+
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring

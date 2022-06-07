@@ -1,7 +1,7 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { loginRequired } from "../middlewares";
+import { adminRequired, loginRequired } from "../middlewares";
 import { orderService } from "../services";
 
 const orderRouter = Router();
@@ -56,7 +56,7 @@ orderRouter.post("/order", async (req, res, next) => {
 });
 
 // 전체 주문 목록을 가져옴 (배열 형태임)
-orderRouter.get("/orders", async function (req, res, next) {
+orderRouter.get("/orders", adminRequired, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const orders = await orderService.getOrders();
