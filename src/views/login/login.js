@@ -45,13 +45,15 @@ async function handleSubmit(e) {
     // 물론 다른 스토리지여도 됨
     sessionStorage.setItem("token", token);
 
-    
-    
+    sessionStorage.setItem("loginId", data.email); // email로 회원정보 불러오기 위해 저장함
 
     // 로그인 성공
-    
+
     // 로그인 성공 시 전 사용하려던 페이지로 이동.
-    window.location.href = document.referrer.substring(21,document.referrer.length);
+    window.location.href = document.referrer.substring(
+      21,
+      document.referrer.length
+    );
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
