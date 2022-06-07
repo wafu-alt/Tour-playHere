@@ -26,8 +26,8 @@ export class UserModel {
     return createdNewUser;
   }
 
-  async findAll() {
-    const users = await User.find({});
+  async findAll(query) {
+    const users = await User.find(query);
     return users;
   }
 
