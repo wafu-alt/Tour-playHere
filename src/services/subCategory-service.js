@@ -43,7 +43,9 @@ class SubCategoryService {
       const filter = { subCategoryId : subCategory.subCategoryId};
       const update = { subCategoryName : updatedSubCategoryName };
 
-      const updatedSubCategory = await this.subCategoryModel.updateSubCategoryName(filter, update);
+      let updatedSubCategory = await this.subCategoryModel.updateSubCategoryName(filter, update);
+
+      updatedSubCategory = await this.subCategoryModel.findBySubCategoryName(updatedSubCategoryName);
 
       return updatedSubCategory;
     }

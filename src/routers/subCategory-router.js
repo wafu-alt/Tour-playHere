@@ -6,8 +6,7 @@ import { subCategoryService } from '../services';
 const  subCategoryRouter  = Router();
 
 // subCategoryRouter.post('/subcategory/register', adminRequired, async (req, res, next) => {
-subCategoryRouter.post('/subcategory/register', async (req, res, next) => {
-
+subCategoryRouter.post('/subcategory', async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -34,13 +33,9 @@ subCategoryRouter.post('/subcategory/register', async (req, res, next) => {
 
 // subCategoryRouter.patch('/subcategory', adminRequired, async (req, res, next) => {
 subCategoryRouter.patch('/subcategory', async (req, res, next) => {
-  try {
-    if (is.emptyObject(req.body)) {
-        throw new Error(
-          'headers의 Content-Type을 application/json으로 설정해주세요'
-        );
-    }
 
+  // TODO: req.body empty 체크 해제 테스트
+  try {
     const curSubCategoryName = req.query.curSubCategoryName;
     const updatedSubCategoryName = req.query.updatedSubCategoryName;
 
