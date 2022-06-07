@@ -30,6 +30,7 @@ orderRouter.post("/order", async (req, res, next) => {
     const registerDateAt = req.body.registerDateAt;
     const price = req.body.price;
     const totalPrice = req.body.totalPrice;
+    const packageId = req.body.packageId;
 
     // 위 데이터를 유저 db에 추가하기
     const newOrder = await orderService.addOrder({
@@ -45,6 +46,7 @@ orderRouter.post("/order", async (req, res, next) => {
       registerDateAt,
       price,
       totalPrice,
+      packageId,
     });
 
     // 추가된 유저의 db 데이터를 프론트에 다시 보내줌

@@ -25,6 +25,7 @@ class OrderService {
       registerDateAt,
       price,
       totalPrice,
+      packageId,
     } = orderInfo;
 
     const newOrderInfo = {
@@ -40,6 +41,7 @@ class OrderService {
       registerDateAt,
       price,
       totalPrice,
+      packageId,
     };
 
     // db에 저장
