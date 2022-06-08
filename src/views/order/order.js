@@ -195,10 +195,13 @@ async function renderHtml() {
       packageId: _id,
     };
 
+    console.log(window.location.href);
     await Api.post("/api/order", orderData);
     await Api.patch("api/packagecount", _id); //카운트 숫자 업데이트
     const asdf = await Api.get("/api/orders");
     console.log(asdf); // 관리자만 접근 가능함.
+    // alert(`예약 되었습니다.`);
+    // window.location.href = "/";
   }
 
   //예약하기 버튼 클릭
