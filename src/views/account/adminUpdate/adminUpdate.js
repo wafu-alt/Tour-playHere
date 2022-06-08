@@ -1,20 +1,29 @@
 const submitButton = document.querySelector("#submitButton");
-import * as Api from "/api.js";
+import jwt from "jsonwebtoken";
 // TODO : 눌러서 해당 이메일의 role부분을 admin으로 만든다.
 
+const userToken = sessionStorage.getItem("token");
+const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
+const jwtDecoded = jwt.verify(userToken, secretKey);
+const userId = jwtDecoded.userId;
+const userRole = jwtDecoded.role;
+
 async function updateAdmin() {
-    const allusersData = await Api.get("/useradmin", "ekdh0858@naver.com");
-    console.log("allusers : " + allusersData);
-    const data = {
-        fullName: "박태훈 유저 업데이트 확인",
-        phoneNumber: "010-9221-2858",
-        role:"admin"
-    }
-    const usersData = await Api.patch("/api/user",sessionStorage.getItem("loginId"),data );
-    // const userData = await Api.get("/api/useremail" );
+    const res = await fetch(`/api/useradmin/${userId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+        body: { role: userRole },
+    });
+    if (!res.ok) {
+        const errorContent = await res.json();
+        const { reason } = errorContent;
     
-    console.log("allusers after: "+allusersData);
-    // console.log(userData);
+        throw new Error(reason);
+      }
+    
 }
 
 updateAdmin();

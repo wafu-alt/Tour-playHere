@@ -80,9 +80,9 @@
                   <div class="select is-fullwidth">
                     <select id="categorySelectBox">
                       
-                      <option value="">카테고리 추가하기.</option>
-                      <option value="">카테고리 삭제하기</option>
-                      <option value="">카테고리 수정하기</option>
+                      <option value="카테고리 추가하기">카테고리 추가하기.</option>
+                      <option value="카테고리 삭제하기">카테고리 삭제하기</option>
+                      <option value="카테고리 수정하기">카테고리 수정하기</option>
                     </select>
                   </div>
                 </div>
@@ -90,13 +90,13 @@
 
 
             <div class="field">
-              <label class="label" for="mainInput">추가할 카테고리</label>
+              <label class="label" for="mainInput" id="mainInputlabel">메인 카테고리</label>
               <div class="control">
                 <input
                   class="input"
                   id="mainInput"
                   type="text"
-                  placeholder="category"
+                  placeholder="mainCategory"
                   autocomplete="on"
                 />
               </div>
@@ -104,13 +104,13 @@
 
             <!-- 카테고리 수정 선택 시에만 보이게 할 부분 -->
             <div class="field" id="subfield">
-                <label class="label" for="subInput">수정할 카테고리</label>
+                <label class="label" for="subInput" id="subInputlabel">서브 카테고리</label>
                 <div class="control">
                   <input
                     class="input"
                     id="subInput"
                     type="text"
-                    placeholder="category"
+                    placeholder="subCategory"
                     autocomplete="on"
                   />
                 </div>
