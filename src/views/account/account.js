@@ -1,3 +1,13 @@
+// import jwt from "jsonwebtoken";
+
+// const userToken = req.headers["authorization"]?.split(" ")[1];
+// const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
+//     const jwtDecoded = jwt.verify(userToken, secretKey);
+
+//     const userId = jwtDecoded.userId;
+//     const userRole = jwtDecoded.role;
+
+
 const menuContainer = document.querySelector("#menu-container");
 
 const adminPage = () => {

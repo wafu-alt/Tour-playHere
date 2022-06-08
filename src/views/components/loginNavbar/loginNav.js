@@ -58,6 +58,11 @@ const accountMainHTML = () => {
         `;
       logoutBtnActive();
         
+
+
+
+
+  
 }
   
 const accountCategoryInHTML = () => {
@@ -92,6 +97,12 @@ const logoutBtnActive = () => {
     window.location.href = "/";
 });
 }
+
+
+
+
+
+
 const navBarLoad = () => {
     // url에 맞는 Nav로딩하기
     if (document.location.href == "http://localhost:5000/") {
