@@ -96,6 +96,20 @@ async function Data() {
     return true;
   }
 
+  //버튼 클릭시 토큰 생성
+  function createdToken(persons) {
+    const nowLoginIdEmail = sessionStorage.getItem("nowLoginId");
+    const cartToken = [];
+    const obj = {
+      email: nowLoginIdEmail,
+      objectId: productId,
+      persons: persons,
+    };
+    cartToken.push(obj);
+    sessionStorage.setItem("cartToken", JSON.stringify(cartToken));
+    console.log(sessionStorage.getItem("cartToken", cartToken));
+  }
+
   //장바구니추가 버튼 기능
   function cartAddFnc() {
     const loginChecking = loginCheck();
@@ -106,7 +120,7 @@ async function Data() {
 
     if (!loginChecking) return;
     if (!personsChecking) return;
-
+    createdToken(persons);
     window.location.href = `/cart`; //-> veiws/cart/cart.html
   }
 
@@ -121,6 +135,7 @@ async function Data() {
 
     if (!loginChecking) return;
     if (!personsChecking) return;
+    createdToken(persons);
     window.location.href = `/order/${productId}`; //-> veiws/order/order.html
   }
 
@@ -128,15 +143,3 @@ async function Data() {
   orderBtn.addEventListener("click", orderFnc);
 }
 Data();
-
-/*
-//버튼 클릭시 토큰 생성
-const cartToken = {
-  email : ,
-  objectId : 123124,
-  persons : ${howPersonInput},
-};
-
-// sessionStorage.setItem("cartToken", JSON.stringify(cartToken));
-// console.log(sessionStorage.getItem("cartToken", cartToken));
-*/
