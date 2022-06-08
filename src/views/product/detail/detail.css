@@ -9,7 +9,7 @@
 
 #textArea #howPersonInput {
   display: inline-block;
-  width: 165px;
+  width: 30%;
   height: 30px;
   margin-bottom: 10px;
 }
@@ -18,7 +18,7 @@
 }
 #textArea #startDaysInput {
   height: 30px;
-  width: 110px;
+  width: 30%;
 }
 
 #btnArea #btnBox {

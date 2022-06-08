@@ -40,18 +40,24 @@ async function handleSubmit(e) {
 
     const result = await Api.post("/api/login", data);
     const token = result.token;
+    console.log(result);
     // 로그인 성공, 토큰을 세션 스토리지에 저장
     // 물론 다른 스토리지여도 됨
     sessionStorage.setItem("token", token);
-    sessionStorage.setItem("loginId", data.email); // email로 회원정보 불러오기 위해 저장함
+    sessionStorage.setItem("isLogin", data.email);
+    
+    
 
     // 로그인 성공
-
     // 로그인 성공 시 전 사용하려던 페이지로 이동.
-    window.location.href = document.referrer.substring(
-      21,
-      document.referrer.length
-    );
+    // 다만, 사용하려던 페이지가 등록하기 페이지가 아니어야 함.
+    
+    if (window.location.href != "http://localhost:5000/login/") {
+      window.location.href = document.referrer.substring(21,document.referrer.length);
+    }
+    else { window.location.href = "/"; }
+    
+    
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
