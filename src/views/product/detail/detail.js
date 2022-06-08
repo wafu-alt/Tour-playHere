@@ -76,12 +76,12 @@ async function Data() {
 
   //로그인 중인지 체크
   function loginCheck() {
-    if (sessionStorage.getItem("token")) {
-      console.log("로그인 중");
-      return true;
+    if (!sessionStorage.getItem("token")) {
+      alert(`로그인된 사용자만 사용 가능합니다.`);
+      return false;
     }
-    alert(`로그인된 사용자만 사용 가능합니다.`);
-    return false;
+    console.log("로그인 중");
+    return true;
   }
 
   //인원 체크하는 기능
@@ -91,7 +91,7 @@ async function Data() {
       return false;
     }
     if (persons > maxPersons) {
-      alert(`예약이 마감되었습니다.`);
+      alert(`예약을 할 수 없습니다.`);
       return false;
     }
     return true;
@@ -106,6 +106,11 @@ async function Data() {
       objectId: productId,
       persons: persons,
     };
+    if (sessionStorage.getItem("cartToken")) {
+      const sessionCartToken = JSON.parse(sessionStorage.getItem("cartToken"));
+      cartToken.push(...sessionCartToken);
+      console.log(cartToken);
+    }
     cartToken.push(obj);
     sessionStorage.setItem("cartToken", JSON.stringify(cartToken));
     console.log(sessionStorage.getItem("cartToken", cartToken));
@@ -122,12 +127,11 @@ async function Data() {
     if (!loginChecking) return;
     if (!personsChecking) return;
     createdToken(persons);
-    window.location.href = `/cart`; //-> veiws/cart/cart.html
+    // window.location.href = `/cart`; //-> veiws/cart/cart.html
   }
 
   //예약하러가기 버튼 기능
   function orderFnc() {
-    // TODO: 2개의 값을 넘겨야함 - 인원, 출발일, 오브젝트 아이디
     const loginChecking = loginCheck();
 
     const persons = Number(howPersonInput.value);

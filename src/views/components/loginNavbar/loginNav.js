@@ -84,7 +84,7 @@ const logoutBtnActive = () => {
 
   logOut.addEventListener("click", () => {
     sessionStorage.removeItem("token");
-    sessionStorage.removeItem("nowLoginId");
+    sessionStorage.removeItem("loginId");
     window.location.href = "/";
   });
 };
@@ -107,6 +107,7 @@ const navBarLoad = () => {
       case "http://localhost:5000/account/sell/":
       case "http://localhost:5000/account/userUpdate/":
       case "http://localhost:5000/account/adminUpdate/":
+      case "http://localhost:5000/account/adminCategoryUpdate/":
         accountCategoryInHTML();
         break;
       default:
