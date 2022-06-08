@@ -43,13 +43,15 @@ function insertTitleText() {
 async function insertSearchedItemsToList(value) {
   const pageckages = await Api.get("/api/packages");
 
-  const fliteredPageckages = pageckages
-    .filter((e) => e.substance.includes(value) || e.packageName.includes(value))
-    .forEach((pageckages) => {
-      itemListDiv.insertAdjacentElement("beforeend", renderItem(pageckages));
-    });
+  const fliteredPageckages = pageckages.filter(
+    (e) => e.substance.includes(value) || e.packageName.includes(value)
+  );
 
-  if (fliteredPageckages === undefined) {
+  fliteredPageckages.forEach((pageckages) => {
+    itemListDiv.insertAdjacentElement("beforeend", renderItem(pageckages));
+  });
+
+  if (fliteredPageckages.length === 0) {
     itemListContainer.innerHTML = "일치하는 항목이 없습니다.";
   }
 }
