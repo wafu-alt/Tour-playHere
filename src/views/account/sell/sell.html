@@ -26,7 +26,7 @@
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="sell.css" />
     <script
-      src="../../components/account_navbar/account_in.js"
+      src="../../components/loginNavbar/loginNav.js"
       type="module"
       defer
     ></script>
@@ -73,20 +73,20 @@
           <form class="box register-product-form-box" id="registerProductForm">
             <p class="title is-5 has-text-primary">제품을 판매해 보세요</p>
             <div class="field">
-              <label class="label" for="titleInput">제품 이름</label>
+              <label class="label" for="titleInput">패키지 이름</label>
               <div class="control">
                 <input
                   class="input"
                   id="titleInput"
                   type="text"
-                  placeholder="아이보리 티셔츠"
+                  placeholder="packageName"
                   autocomplete="on"
                 />
               </div>
             </div>
 
             <div class="field">
-              <label class="label" for="categorySelectBox">카테고리</label>
+              <label class="label" for="categorySelectBox">국가 카테고리</label>
               <div class="control">
                 <div class="select is-fullwidth">
                   <select id="categorySelectBox">
@@ -97,30 +97,25 @@
             </div>
 
             <div class="field">
-              <label class="label" for="manufacturerInput">제조사</label>
+              <label class="label" for="manufacturerInput">가격</label>
               <div class="control">
                 <input
                   class="input"
                   id="manufacturerInput"
                   type="text"
-                  placeholder="OO의류제조(주)"
+                  placeholder="price"
                   autocomplete="on"
                 />
               </div>
             </div>
 
-            <div class="field">
-              <label class="label" for="shortDescriptionInput">요약 설명</label>
-              <div class="control">
-                <textarea
-                  class="textarea"
-                  id="shortDescriptionInput"
-                  rows="3"
-                  placeholder="제품에 대한 1~2문장의 설명을 적어 주세요."
-                  autocomplete="on"
-                ></textarea>
-              </div>
-            </div>
+
+
+
+
+
+
+            
 
             <div class="field">
               <label class="label" for="detailDescriptionInput"
@@ -162,7 +157,7 @@
             </div>
 
             <div class="field">
-              <label class="label" for="inventoryInput">재고 수</label>
+              <label class="label" for="inventoryInput">총 인원 수</label>
               <div class="control">
                 <input
                   class="input"
@@ -174,40 +169,9 @@
               </div>
             </div>
 
-            <div class="field">
-              <label class="label" for="priceInput">가격</label>
-              <div class="field">
-                <div class="control has-icons-right">
-                  <input
-                    class="input"
-                    id="priceInput"
-                    type="number"
-                    placeholder="10000"
-                    autocomplete="on"
-                  />
-                  <span class="icon is-small is-right"> 원 </span>
-                </div>
-              </div>
-            </div>
+            
 
-            <div class="field">
-              <label class="label" for="searchKeywordInput">검색 키워드</label>
-              <div class="field has-addons">
-                <div class="control header-search-input is-flex-grow-1">
-                  <input
-                    class="input"
-                    id="searchKeywordInput"
-                    type="text"
-                    placeholder="남자옷"
-                  />
-                </div>
-                <div class="control">
-                  <button class="button is-primary" id="addKeywordButton">
-                    추가하기
-                  </button>
-                </div>
-              </div>
-            </div>
+            
 
             <div
               class="field is-grouped is-grouped-multiline mt-3"
@@ -216,7 +180,7 @@
 
             <div class="mt-5">
               <button class="button is-primary is-fullwidth" id="submitButton">
-                제품 판매하기
+                판매할 패키지 등록하기
               </button>
             </div>
           </form>
