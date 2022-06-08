@@ -86,8 +86,7 @@ class PackageService {
     return packages;
   }
 
-  // 상품 목록 수정
-  async setPackage(packageInfoRequired, toUpdate) {
+  async setCount(packageInfoRequired, toUpdate) {
     // 객체 destructuring
     const packageId = packageInfoRequired;
 
@@ -99,14 +98,8 @@ class PackageService {
       throw new Error("상품 내역이 없습니다. 다시 한 번 확인해 주세요.");
     }
 
-    // const PackageName = package.packageName;
-    // const Category = package.category;
-    // const Country = package.country;
-    // const Price = package.price;
-    // const Days = package.days;
-    // const Departure = package.departure;
-    // const Arrival = package.arrival;
-    // const TotalNumber = package.totalNumber;
+    // 이제 드디어 업데이트 시작
+    const countNumber = toUpdate;
 
     // 업데이트 진행
     packages = await this.packageModel.update({

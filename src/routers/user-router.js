@@ -70,8 +70,7 @@ userRouter.post("/login", async function (req, res, next) {
 userRouter.get("/users", loginRequired, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
-    const users = await userService.getUsers();
-
+    const users = await userService.getUsers(req.query);
     // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
     res.status(200).json(users);
   } catch (error) {
@@ -95,8 +94,20 @@ userRouter.get("/userphone/:phoneNumber", async function (req, res, next) {
   }
 });
 
-// 전화 번호로 유저 데이터 가져옴
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+userRouter.get("/useremail/:email", async function (req, res, next) {
+  try {
+    // 전체 사용자 목록을 얻음
+    const email = req.params.email;
+    const user = await userService.getUserByEmail(email);
+
+    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 userRouter.get("/usertel/:telNumber", async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음

@@ -53,7 +53,6 @@ class UserService {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
       );
     }
-
     // 이제 이메일은 문제 없는 경우이므로, 비밀번호를 확인함
 
     // 비밀번호 일치 여부 확인
@@ -81,20 +80,33 @@ class UserService {
   }
 
   // 사용자 목록을 받음.
-  async getUsers() {
-    const users = await this.userModel.findAll();
+  async getUsers(query) {
+    const users = await this.userModel.findAll(query);
     return users;
   }
 
   async getPhoneNumber(userPhone) {
     const userphone = await this.userModel.findByPhoneNumber(userPhone);
-    // console.log(userPhone);
     return userphone;
   }
   async getTelNumber(userTel) {
     const usertel = await this.userModel.findByTelNumber(userTel);
     return usertel;
   }
+
+  // 구현중
+  async getUserByEmail(eMail) {
+    let userMail = {};
+    userMail['email'] = eMail;
+
+    const user = await this.userModel.findByEmail(userMail);
+
+    if (!user) {
+      throw new Error("올바르지 않은 이메일 입니다. 다시 한 번 확인해 주세요."); 
+    }
+    return user;
+  }
+
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring

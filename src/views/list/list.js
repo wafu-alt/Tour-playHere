@@ -6,11 +6,11 @@ import renderItem from "/components/list/item-card.js";
 import renderCategoryNavbar from "/components/category_navbar/category_navbar.js";
 
 import * as Api from "/api.js";
-import { randomId } from "/useful-functions.js";
 import getParams from "../get_params.js";
 import renderDropdown from "../components/dropdown/dropdown.js";
 
 // 요소(element), input 혹은 상수
+const itemListContainer = document.querySelector(".item-list-container");
 const itemListDiv = document.querySelector(".item-list");
 const dropdownDiv = document.querySelector(".dropdown-container");
 
@@ -22,31 +22,50 @@ addAllElements();
 addAllEvents();
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
-  insertTitleText();
-  insertItemsToList(params.subcategory);
   insertCategoryNavbar();
-  insertDropdown(params.subcategory);
+  insertTitleText();
+  if (params.category === undefined) {
+    insertSearchedItemsToList(params.search);
+  } else {
+    insertItemsToList(params.subcategory);
+    insertDropdown(params.subcategory);
+  }
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {}
 
 function insertTitleText() {
-  titleText.innerText = `${params.category} 여행 떠나요!`;
+  if (params.category === undefined)
+    titleText.innerText = `${params.search}의 검색 결과입니다.`;
+  else titleText.innerText = `${params.category} 여행 떠나요!`;
+}
+async function insertSearchedItemsToList(value) {
+  const pageckages = await Api.get("/api/packages");
+
+  const fliteredPageckages = pageckages
+    .filter((e) => e.substance.includes(value) || e.packageName.includes(value))
+    .forEach((pageckages) => {
+      itemListDiv.insertAdjacentElement("beforeend", renderItem(pageckages));
+    });
+
+  if (fliteredPageckages === undefined) {
+    itemListContainer.innerHTML = "일치하는 항목이 없습니다.";
+  }
 }
 
 async function insertItemsToList(subCategory) {
   itemListDiv.innerHTML = "";
-  let data = await fetch("/list_sample.json");
-  data = await data.json();
-  data
+  const pageckages = await Api.get("/api/packages");
+
+  pageckages
     .filter((e) =>
       subCategory === "전체" || subCategory === undefined
         ? e.category === params.category
-        : e.category === params.category && e.city === subCategory
+        : e.category === params.category && e.packageName === subCategory
     )
-    .forEach((data) => {
-      itemListDiv.insertAdjacentElement("beforeend", renderItem(data));
+    .forEach((pageckages) => {
+      itemListDiv.insertAdjacentElement("beforeend", renderItem(pageckages));
     });
 }
 
@@ -58,13 +77,14 @@ function insertCategoryNavbar() {
 }
 
 async function insertDropdown() {
-  let data = await fetch("/city_list_sample.json").then((response) =>
-    response.json()
-  );
+  let data = await Api.get("/api/category/list");
+  const subCategories = data.find((e, i) =>
+    Object.keys(e).includes(params.category)
+  )[params.category];
 
   dropdownDiv.insertAdjacentElement(
     "beforeend",
-    renderDropdown(data[params.category], params.subcategory, (selected) => {
+    renderDropdown(subCategories, params.subcategory, (selected) => {
       window.location.href = `/list/?category=${params.category}&subcategory=${selected}`;
     })
   );

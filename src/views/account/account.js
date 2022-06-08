@@ -4,9 +4,9 @@ const adminPage = () => {
     // TODO : 관리자인지 확인하는 api를 사용해서 관리지안지 확인,
     //        임의로 로그인한 이메일이 ekdh0858@naver.com이면 관리자로 인지.
     
-    const isLogin = sessionStorage.getItem("isLogin");
+    const loginId = sessionStorage.getItem("loginId");
     
-    if (isLogin == "ekdh0858@naver.com") {
+    if (loginId == "ekdh0858@naver.com") {
         // 관리자 페이지를 확인하고 싶으시다면 if조건문 안에 이메일을 로그인할 이메일로 바꿔주심 됩니다.
         menuContainer.innerHTML += `
         

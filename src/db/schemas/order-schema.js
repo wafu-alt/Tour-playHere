@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const OrderSchema = new Schema({
   userName: {
@@ -49,6 +49,12 @@ const OrderSchema = new Schema({
     type: Number,
     required: true,
   },
+  packageId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "package",
+  },
 });
+
+// mongoose.model("PackageSchema");
 
 export { OrderSchema };
