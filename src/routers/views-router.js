@@ -18,8 +18,8 @@ viewsRouter.use("/account/sell", serveStatic("account/sell"));
 viewsRouter.use("/account/userUpdate", serveStatic("account/userUpdate"));
 viewsRouter.use("/account/adminUpdate", serveStatic("account/adminUpdate"));
 
-viewsRouter.use("/product/detail", serveStatic("product/detail"));
-viewsRouter.use("/order", serveStatic("order"));
+viewsRouter.use("/product/detail/:id", serveStatic("product/detail"));
+viewsRouter.use("/order/:id", serveStatic("order"));
 viewsRouter.use("/cart", serveStatic("cart"));
 viewsRouter.use("/userupdate", serveStatic("userupdate"));
 viewsRouter.use("/sell", serveStatic("sell"));
