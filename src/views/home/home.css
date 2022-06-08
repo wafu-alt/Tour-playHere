@@ -60,6 +60,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 24px;
   padding-bottom: 16px;
+  grid-auto-rows: 1fr;
 }
 
 @media screen and (max-width: 768px) {
