@@ -46,6 +46,7 @@ class UserService {
     // 객체 destructuring
     const { email, password } = loginInfo;
 
+
     // 우선 해당 이메일의 사용자 정보가  db에 존재하는지 확인
     const user = await this.userModel.findByEmail(email);
     if (!user) {
@@ -95,11 +96,8 @@ class UserService {
   }
 
   // 구현중
-  async getUserByEmail(eMail) {
-    let userMail = {};
-    userMail['email'] = eMail;
-
-    const user = await this.userModel.findByEmail(userMail);
+  async getUserByEmail(email) {
+    const user = await this.userModel.findByEmail(email);
 
     if (!user) {
       throw new Error("올바르지 않은 이메일 입니다. 다시 한 번 확인해 주세요."); 
