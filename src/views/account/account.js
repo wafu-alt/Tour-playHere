@@ -30,7 +30,8 @@ async function adminPage () {
 
     throw new Error(reason);
   }
-  const result = await res.json();    
+  const result = await res.json();   
+
   //------------------------------------------------------------------------//
   
 
