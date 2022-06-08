@@ -6,7 +6,6 @@ export default function renderItem(data) {
   function onClickHandler() {
     window.location.href = `/product/detail/${data._id}`;
   }
-  console.log(data);
 
   component.innerHTML = `
     <html>
