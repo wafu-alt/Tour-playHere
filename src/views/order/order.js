@@ -1,60 +1,58 @@
 import * as Api from "/api.js";
-// async function get() {
-//   const res = await fetch("/api/users", {
-//     // JWT 토큰을 헤더에 담아 백엔드 서버에 보냄.
-//     headers: {
-//       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-//     },
-//   });
 
-//   if (!res.ok) {
-//     const errorContent = await res.json();
-//     const { reason } = errorContent;
-
-//     throw new Error(reason);
-//   }
-
-//   const result = await res.json();
-//   console.log(res);
-//   return result;
-// }
-// get();
 //유저 정보 불러오기
 async function userTest() {
   const nowLoginIdEmail = sessionStorage.getItem("nowLoginId");
-  console.log(nowLoginIdEmail); //1234@naver.com
+  //1234@naver.com
 
   const res = await Api.get("/api/useremail", nowLoginIdEmail);
   //GET 요청: /api/useremail/1234@naver.com
-  const { fullName, email, phoneNumber, telNumber } = res;
+  return res;
 }
 
+//상품 정보 불러오기
 async function productTest() {
   const urlPathname = window.location.pathname;
   const productId = urlPathname
     .split("/")
     .filter((element) => element !== "")[1];
-  console.log(1, productId);
   /* 상품 번호로 상품 정보 불러오기 */
   const res = await Api.get("/api/package", productId);
-  console.log(res);
-  // const { packageName, days, totalNumber, countNumber, substance } = res;
-
-  // const cartToken = sessionStorage.getItem("cartToken");
-  // cartToken.forEach((element) => console.log(element));
-  // const persons = "";
-  // console.log(cartToken);
-  // console.log(productId, cartToken.objectId);
-  // if (productId === cartToken.objectId) {
-  //   persons = cartToken.persons;
-  // }
-  // console.log(persons);
+  return res;
 }
 
-function renderHtml() {
+//장바구니에서 필터링을 통해서 인원수 입력을 불러옴
+function loadedPersons(productId) {
+  const cartToken = JSON.parse(sessionStorage.getItem("cartToken"));
+  const tokenInfo = cartToken.filter(
+    (element) => element.objectId === productId
+  )[0];
+
+  let persons = "";
+  if (productId === tokenInfo.objectId) {
+    persons = tokenInfo.persons;
+  }
+  return persons;
+}
+
+async function renderHtml() {
   const inner = document.querySelector("#container #inner");
-  // userTest(); //유저 정보 불러오기
-  productTest(); //상품 정보 불러오기
+  //유저 정보 불러오기
+  const { fullName, email, phoneNumber, telNumber } = await userTest();
+  //상품 정보 불러오기
+  const {
+    packageName,
+    days,
+    totalNumber,
+    countNumber,
+    substance,
+    price,
+    _id,
+    departureAt,
+    arrivalAt,
+  } = await productTest();
+  const persons = loadedPersons(_id); //토큰을 통해 인원수 불러옴
+  const fuelSurcharge = price * 0.1;
 
   inner.insertAdjacentHTML(
     "beforeend",
@@ -72,7 +70,7 @@ function renderHtml() {
               class="input"
               type="text"
               placeholder="예약자 성함을 적어주세요."
-              value =""
+              value ="${fullName ? `${fullName}` : ""}"
             />
           </div>
         </div>
@@ -88,7 +86,7 @@ function renderHtml() {
               class="input"
               type="email"
               placeholder="E-mail@Email.com"
-              value =""
+              value ="${email ? `${email}` : ""}"
             />
           </div>
         </div>
@@ -100,7 +98,9 @@ function renderHtml() {
         </div>
         <div class="field-body">
           <div class="control">
-            <input class="input" placeholder="-없이 적어주세요" value ="" />
+            <input class="input" placeholder="-없이 적어주세요" 
+              value ="${phoneNumber ? `${phoneNumber}` : ""}" 
+            />
           </div>
         </div>
       </div>
@@ -111,7 +111,9 @@ function renderHtml() {
         </div>
         <div class="field-body">
           <div class="control">
-            <input class="input" placeholder="-없이 적어주세요" value ="" />
+            <input class="input" placeholder="-없이 적어주세요" 
+              value ="${telNumber ? `${telNumber}` : ""}" 
+            />
           </div>
         </div>
       </div>
@@ -135,8 +137,10 @@ function renderHtml() {
       <div class="field">
         <label class="label">주문상품</label>
         <p id="productInfo">
-          상품 제목 상품 제목 상품 제목 상품 제목 상품 제목 상품 제목 상품
-          제목 상품 제목 상품 제목
+          <b>${packageName}</b> ${days - 1}박 ${days}일<br>
+          ${substance}<br>
+          예약 현황 : ${persons}명<br>
+          (총 인원 : ${countNumber}/${totalNumber}) 
         </p>
       </div>
 
@@ -145,7 +149,9 @@ function renderHtml() {
           <label class="label">상품가격</label>
         </div>
         <div class="field-body">
-          <p id="productPrice" class="control price">500,000원</p>
+          <p id="productPrice" class="control price">
+            ${price.toLocaleString("ko-KR")}원
+          </p>
         </div>
       </div>
 
@@ -154,17 +160,48 @@ function renderHtml() {
           <label class="label">유류할증료</label>
         </div>
         <div class="field-body">
-          <p id="fuelSurcharge" class="control price">5,000원</p>
+          <p id="fuelSurcharge" class="control price">
+            ${fuelSurcharge.toLocaleString("ko-KR")}원
+          </p>
         </div>
       </div>
 
       <div class="field">
         <label class="label title is-4">총 결제금액</label>
-        <p id="productTotalPrice">505,000원</p>
+        <p id="productTotalPrice">
+          ${(price + fuelSurcharge).toLocaleString("ko-KR")}원
+        </p>
       </div>
 
       <button id="orderBtn" class="button is-success">예약하기</button>
     </section>`
   );
+
+  async function orderFnc() {
+    //주문 날짜 구하기
+    const orderDate = await new Date();
+    //주문한 정보 넣기
+    const orderData = {
+      userName: fullName,
+      email: email,
+      totalNumber: totalNumber,
+      packageName: packageName,
+      days: days,
+      departureAt: departureAt,
+      arrivalAt: arrivalAt,
+      registerDateAt: orderDate,
+      price: price,
+      totalPrice: price + fuelSurcharge,
+      packageId: _id,
+    };
+
+    await Api.post("/api/order", orderData);
+    await Api.patch("api/packagecount", _id); //카운트 숫자 업데이트
+    const asdf = await Api.get("/api/orders");
+    console.log(asdf); // 관리자만 접근 가능함.
+  }
+
+  //예약하기 버튼 클릭
+  orderBtn.addEventListener("click", orderFnc);
 }
 renderHtml();
