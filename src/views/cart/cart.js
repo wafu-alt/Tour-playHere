@@ -13,6 +13,21 @@ function loginCheck() {
 loginCheck();
 
 //제품정보 가져오기
+/*
+arrivalAt: "2022-08-12T00:00:00.000Z"
+category: "일본"
+countNumber: 2
+country: "일본"
+days: 3
+departureAt: "2022-08-10T00:00:00.000Z"
+imgUrl: "https://pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&ce=1&s=1920x822"
+packageName: "도쿄"
+price: 700000
+substance: "신구의 조화가 절묘한 도시인 도쿄로 떠나보세요!"
+totalNumber: 30
+__v: 0
+_id: "62a0574f75a5ac032202ecfe"
+*/
 async function loadedProduct(objectId) {
   console.log("loadedProduct:" + objectId);
   const res = await Api.get("/api/package", objectId);
