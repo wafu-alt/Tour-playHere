@@ -21,6 +21,18 @@ const adminPage = () => {
               <p class="subtitle is-5">관리자 임명을 할 수 있습니다.</p>
             </div>
           </a>
+
+          <a class="menu-card" href="/account/adminCategoryUpdate">
+            <div class="menu-icon">
+              <span class="icon has-text-info">
+              <i class="fa-solid fa-user-plus"></i>
+              </span>
+            </div>
+            <div class="menu-body">
+              <p class="title is-3">카테고리 관리</p>
+              <p class="subtitle is-5">관리자가 카테고리관리를 수정,삭제, 추가 할 수 있습니다.</p>
+            </div>
+          </a>
         `
     }
 }

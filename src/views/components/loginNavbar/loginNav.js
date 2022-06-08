@@ -105,8 +105,9 @@ const navBarLoad = () => {
         case "http://localhost:5000/account/orders/":
         case "http://localhost:5000/account/deleteAccount/":
         case "http://localhost:5000/account/sell/":
-      case "http://localhost:5000/account/userUpdate/":
+        case "http://localhost:5000/account/userUpdate/":
         case "http://localhost:5000/account/adminUpdate/":
+        case "http://localhost:5000/account/adminCategoryUpdate/":
 
             accountCategoryInHTML();
             break;
