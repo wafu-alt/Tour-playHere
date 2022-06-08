@@ -9,18 +9,19 @@ async function Data() {
   const urlPathname = window.location.pathname;
   const productId = urlPathname
     .split("/")
-    .filter((element, i) => element !== "")[2];
+    .filter((element) => element !== "")[2];
   console.log(productId); //62996552d8674984f2b07073
 
   /* 상품 번호로 상품 정보 불러오기 */
   const res = await Api.get("/api/package", productId);
-  console.log(1, res);
+  // console.log(1, res);
   const { packageName, days, totalNumber, countNumber, imgUrl, substance } =
     res;
   const price = res.price.toLocaleString("ko-KR");
   const departureAt = res.departureAt.split("T")[0];
   const arrivalAt = res.arrivalAt.split("T")[0];
-  console.log(2, totalNumber, countNumber);
+  // console.log(2, totalNumber, countNumber);
+
   /* 아래 html을 삽입 */
   const body = document.querySelector("body");
   body.insertAdjacentHTML(
