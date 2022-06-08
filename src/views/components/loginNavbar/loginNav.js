@@ -87,7 +87,8 @@ const logoutBtnActive = () => {
     const logOut = document.querySelector("#logOut");
     
     logOut.addEventListener("click", () => {
-    sessionStorage.removeItem("token");
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("loginId");
     window.location.href = "/";
 });
 }

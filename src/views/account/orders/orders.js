@@ -1,11 +1,14 @@
+import * as Api from "/api.js";
+
 const ordersContainer = document.querySelector("#ordersContainer");
 
 // 로그인한 사용자의 주문을 조회하는 페이지 로딩
 async function loadPage() {
- 
-  const fetchData = await fetch("../orders_sample.json").then((response) =>
-    response.json()
-  );
+  const fetchData = await Api.get("/api", "orders");
+  console.log(fetchData);
+  // const fetchData = await fetch("../orders_sample.json").then((response) =>
+  //   response.json()
+  // );
   // TODO : 모든 주문서?? 들을 볼수있는 api활용해서 데이터 가져오기
   //  innerHTML안의 data를 다루는 부분도 그에따라 수정해야함
   //  가져온 데이터 에서 로그인한 사람의 데이터를 가져오기
@@ -28,10 +31,11 @@ async function loadPage() {
 
 // 로그인한 사용자가 관리자 일때 모든 주문을 조회하는 페이지 로딩
 async function adminPageLoading() {
-    
-  const fetchData = await fetch("../orders_sample.json").then((response) =>
-    response.json()
-  );
+  const fetchData = await Api.get("/api", "orders");
+  console.log(fetchData);
+  // const fetchData = await fetch("../orders_sample.json").then((response) =>
+  //   response.json()
+  // );
 
     fetchData.forEach((data) => {
         ordersContainer.innerHTML += `<div class="columns orders-item" id="${data.index}">
