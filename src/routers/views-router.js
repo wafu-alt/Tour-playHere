@@ -21,6 +21,7 @@ viewsRouter.use("/account/adminCategoryUpdate", serveStatic("account/adminCatego
 
 viewsRouter.use("/product/detail/:id", serveStatic("product/detail"));
 viewsRouter.use("/order/:id", serveStatic("order"));
+viewsRouter.use("/complete", serveStatic("complete"));
 viewsRouter.use("/cart", serveStatic("cart"));
 viewsRouter.use("/userupdate", serveStatic("userupdate"));
 viewsRouter.use("/sell", serveStatic("sell"));
