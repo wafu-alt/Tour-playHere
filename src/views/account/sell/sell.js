@@ -46,7 +46,7 @@ async function addPackage(bodyData) {
     },
     body: data,
     })
-    window.location.href = "/";
+    window.location.href = "/account/sell/";
     
 } 
 
