@@ -17,7 +17,7 @@ async function adminPage () {
     // api로 사용자의 정보를 불러옴
     // 불러온 사용자의 role부분이 user-admin인지 확인
     // role부분이 user-admin이 맞다면 관리자 계정인것임.
-  const loginId = sessionStorage.getItem("loginId");
+  const loginId = sessionStorage.getItem("nowLoginId");
   const res = await fetch(`/api/useremail/${loginId}`, {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("token")}`,

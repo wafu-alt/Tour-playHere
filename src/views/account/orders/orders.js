@@ -119,7 +119,7 @@ async function adminPageLoad() {
 
 
 async function pageload() {
-  const loginId = sessionStorage.getItem("loginId");
+  const loginId = sessionStorage.getItem("nowLoginId");
   const res = await fetch(`/api/useremail/${loginId}`, {
     headers: {
       Authorization: `Bearer ${sessionStorage.getItem("token")}`,
