@@ -77,7 +77,7 @@
               <div class="control">
                 <input
                   class="input"
-                  id="titleInput"
+                  id="packageNameInput"
                   type="text"
                   placeholder="packageName"
                   autocomplete="on"
@@ -90,18 +90,32 @@
               <div class="control">
                 <div class="select is-fullwidth">
                   <select id="categorySelectBox">
-                    <option value="">카테고리를 선택해 주세요.</option>
+                   
                   </select>
                 </div>
               </div>
             </div>
 
+
             <div class="field">
-              <label class="label" for="manufacturerInput">가격</label>
+              <label class="label" for="subCategorybox">서브 카테고리</label>
+              <div class="control">
+                <div class="select is-fullwidth">
+                  <select id="subCategorybox">
+                    <option value="대한민국">대한민국</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+
+
+            <div class="field">
+              <label class="label" for="priceInput">가격</label>
               <div class="control">
                 <input
                   class="input"
-                  id="manufacturerInput"
+                  id="priceInput"
                   type="text"
                   placeholder="price"
                   autocomplete="on"
@@ -119,7 +133,7 @@
 
             <div class="field">
               <label class="label" for="detailDescriptionInput"
-                >상세 설명</label
+                >간단한 설명</label
               >
               <div class="control">
                 <textarea
@@ -157,11 +171,11 @@
             </div>
 
             <div class="field">
-              <label class="label" for="inventoryInput">총 인원 수</label>
+              <label class="label" for="totalInput">총 인원 수</label>
               <div class="control">
                 <input
                   class="input"
-                  id="inventoryInput"
+                  id="totalInput"
                   type="number"
                   placeholder="10"
                   autocomplete="on"
@@ -169,7 +183,27 @@
               </div>
             </div>
 
-            
+            <div class="field">
+              <label class="label" for="departureAt">출발일</label>
+              <div class="control">
+                <input
+                  class="input"
+                  id="departureAt"
+                  type="date"                  
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="arriveAt">도착일</label>
+              <div class="control">
+                <input
+                  class="input"
+                  id="arriveAt"
+                  type="date"                  
+                />
+              </div>
+            </div>
 
             
 

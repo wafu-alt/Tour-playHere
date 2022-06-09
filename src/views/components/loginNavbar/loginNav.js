@@ -130,7 +130,7 @@ const navBarLoad = () => {
         accountCategoryInHTML();
         break;
       default:
-        alert("loginNav.js에서 경로를 수정해주세요.경로가 잘못됬습니다.");
+        console.log("loginNav.js에서 경로를 수정해주세요.경로가 잘못됬습니다.");
     }
   }
 };
