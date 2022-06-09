@@ -3,7 +3,6 @@ import * as Api from "/api.js";
 //로그인 중인지 체크
 function loginCheck() {
   if (sessionStorage.getItem("token")) {
-    console.log("로그인 중");
     return true;
   }
   alert(`로그인된 사용자만 사용 가능합니다.`);
@@ -111,21 +110,6 @@ function resetRenderProductInfo() {
 }
 
 //제품정보 가져오기
-/*
-arrivalAt: "2022-08-12T00:00:00.000Z"
-category: "일본"
-countNumber: 2
-country: "일본"
-days: 3
-departureAt: "2022-08-10T00:00:00.000Z"
-imgUrl: "https://pix6.agoda.net/geo/city/5085/1_5085_02.jpg?ca=6&ce=1&s=1920x822"
-packageName: "도쿄"
-price: 700000
-substance: "신구의 조화가 절묘한 도시인 도쿄로 떠나보세요!"
-totalNumber: 30
-__v: 0
-_id: "62a0574f75a5ac032202ecfe"
-*/
 async function loadedProduct(objectId) {
   console.log("loadedProduct:" + objectId);
   const res = await Api.get("/api/package", objectId);
@@ -136,7 +120,6 @@ async function loadedProduct(objectId) {
 async function loadedCartToken() {
   //현재 로그인 된 토큰 가져오기
   const nowLoginIdEmail = sessionStorage.getItem("nowLoginId");
-  console.log(nowLoginIdEmail);
 
   //cart 토큰 가져오기
   const cartToken = JSON.parse(sessionStorage.getItem("cartToken"));
@@ -144,8 +127,6 @@ async function loadedCartToken() {
   const cartListData = cartToken.filter((element) => {
     return element.email === nowLoginIdEmail;
   });
-  console.log(cartListData);
-  console.log(cartListData.length);
 
   //장바구니 토큰에서 매칭시켜서 리스트 html에 뿌려주기
   const onelineCartList = document.querySelector("#onelineCartList");
@@ -176,13 +157,11 @@ async function loadedCartToken() {
       </ul>`
     );
     const checkBox = document.querySelector(`#checkBox-${data._id}`);
-    console.log("selectCheckbox", checkBox);
     checkBox.addEventListener("change", selectCheckboxFnc);
     //삭제버튼
     const selectProductDel = document.querySelector(
       `#selectProductDel-${data._id}`
     );
-    console.log("삭제버튼 추가됬나?", selectProductDel);
     selectProductDel.addEventListener("click", selectProductDelFnc);
   }
 
@@ -306,6 +285,13 @@ function checkAllFnc() {
 //선택삭제 눌렀을 시 기능
 async function checkDelFnc() {
   const selectCheckboxs = document.querySelectorAll(".selectCheckboxs");
+  const allCheckbox = document.querySelector("#allCheckbox");
+  let allDel = "";
+  if ((allCheckbox.checked = true)) {
+    allDel = true;
+  }
+  allCheckbox.checked = false;
+
   let checkedArray = [];
   //선택된것을 찾아서 삭제하기
   for (let i = 0; i < selectCheckboxs.length; i++) {
@@ -325,20 +311,28 @@ async function checkDelFnc() {
   });
 
   //로그인 사용자의 장바구니 리스트를 고르기
-  let nowLoginCartlist = cartListData.filter((element) =>
+  const nowLoginCartlist = cartListData.filter((element) =>
     checkedArray.includes(element.objectId)
   );
 
+  //다른 사용자의 장바구니 리스트
+  let otherUserCartList = cartListData.filter((element) => {
+    if (checkedArray.includes(element)) return false;
+  });
+
   //로그인 사용자 장바구니 리스트에서 선택한 장바구니를 빼기
-  let nowLoginDelCartlist = cartToken.filter((element) => {
+  const nowLoginDelCartlist = cartToken.filter((element) => {
     if (nowLoginCartlist.includes(element) === false) return true;
   });
 
-  if (nowLoginDelCartlist.length === 0) return console.log("리턴됨");
-  console.log("cartToken make");
-  sessionStorage.setItem("cartToken", JSON.stringify(nowLoginDelCartlist));
+  //다른 사용자의 장바구니 리스트에 필터링한 것을 넣어서 합침
+  otherUserCartList.push(...nowLoginDelCartlist);
+
+  //그리고 모든 사용자의 장바구니 리스트로 만듦
+  sessionStorage.setItem("cartToken", JSON.stringify(otherUserCartList));
 }
 
+// "예약하러가기" 눌렀을 시 이동
 function orderFnc() {
   //object id를 받아서 주문결제페이지로 감
   const selectCheckboxs = document.querySelectorAll(".selectCheckboxs");
