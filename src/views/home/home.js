@@ -79,7 +79,7 @@ if (sessionStorage.getItem("token")) {
   <li><a href="/account">계정관리</a></li>
   <li><a href="/account">로그아웃</a></li>
   <li>
-      <a href="#cart" aria-current="page">
+      <a href="/cart" aria-current="page">
         <span class="icon">
           <i class="fas fa-cart-shopping"></i>
         </span>
