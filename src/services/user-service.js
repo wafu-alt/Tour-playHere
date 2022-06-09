@@ -176,10 +176,23 @@ class UserService {
     return user;
   }
 
+  
   // 유저 삭제
-  async DeleteUser(userdate) {
+  async DeleteUser(userId,userPassword,inputPassword) {
     // 객체 destructuring
-    const userId = userdate;
+
+
+    const correctPasswordHash = userPassword;
+     const isPasswordCorrect = await bcrypt.compare(
+       inputPassword,
+       correctPasswordHash
+     );
+ 
+     if (!isPasswordCorrect) {
+       throw new Error(
+         "현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
+       );
+     }
 
     // db에 저장
     const deleteUser = await this.userModel.delete(userId);
@@ -187,6 +200,9 @@ class UserService {
     return deleteUser;
   }
 }
+
+
+
 
 const userService = new UserService(userModel);
 

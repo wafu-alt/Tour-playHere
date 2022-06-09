@@ -30,8 +30,8 @@ submitButton.addEventListener("click", async function (e) {
         imgUrl: "https://stylezineblog.com/4137",
         substance:detailDescriptionInput.value
     }
-
-    addPackage(bodyData);
+    const jsondata = JSON.stringify(bodyData);
+    addPackage(jsondata);
 })
 
 
@@ -65,15 +65,30 @@ async function categoryLoad() {
 
 async function subcategoryLoad() {
     const categoryValue = categorySelectBox.options[categorySelectBox.selectedIndex].value;
-
+    subCategorybox.innerHTML = "";
     const res = await Api.get("/api/category", "list");
-    // console.log(res[categoryValue]);
+    // const result = await res.json();
     res.forEach((data) => {
-        // console.log(data);
-        // subCategorybox.innerHTML += `
-        // <option value="${Object.keys(data)[0]}">${Object.keys(data)[0]}</option>
-        // `
+        if (Object.keys(data) == categoryValue) {
+            console.log(Object.values(data)[0].length);
+            for (let i = 0; i < Object.values(data)[0].length; i++){
+                console.log(Object.values(data)[0][i]);
+                subCategorybox.innerHTML += `
+                <option value="${Object.values(data)[0][i]}">${Object.values(data)[0][i]}</option>
+                `
+            }
+        }
+        
     })
+    
+    
+        // res.find(element => {
+            // subCategorybox.innerHTML += `
+            // <option value="${Object.keys(element)}">${Object.keys(element)}</option>
+            // `
+        // })
+       
+    
 }
 
 categorySelectBox.onchange = subcategoryLoad;
@@ -87,6 +102,7 @@ async function test() {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
     })
-    console.log(test.json());
+    const result = await test.json();
+    console.log(result);
 }
 test();

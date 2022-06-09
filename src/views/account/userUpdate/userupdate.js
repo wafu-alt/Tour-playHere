@@ -31,13 +31,7 @@ telPhoneNumberToggle.addEventListener("click", function () {
 // changeDisabled(입력할수 있게 하고 싶은 태그)로 사용함.
 // 사용하면 파라미터로 넣은 태그의 disabled속성이 true에서 false로 바뀌거나 반대로 된다.
 function changeDisabled(tagElement) {
-  console.log("change작동");
-  // if (tagElement.disabled == true) {
-  //   tagElement.disabled = false;
-  // } else if (tagElement.disabled == false) {
-  //   tagElement.disabled = true;
-  // }
-  // 위의 함수를 아래로 바꿈.
+ 
   tagElement.disabled=!tagElement.disabled;
 }
 
@@ -48,7 +42,11 @@ submitButton.addEventListener("click", async function(e){
   // TODO : DB에 저장하는 함수 사용해서 각 인풋 내용 DB로 전달 해서 업데이트 하는 내용.
   // 눌렀을때 현재 비밀번호를 입력하고 확인하는 모달 창을 뛰우는것은 시간날때
   e.preventDefault();
-  const res = await Api.get(`/api/useremail/${nowLoginId}`);
+  if (passwordInput.value != passwordConfirmInput.value) {
+    alert("업데이트할 비밀번호 확인을 재대로 해주세요.");
+
+  } else {
+    const res = await Api.get(`/api/useremail/${nowLoginId}`);
   console.log(res);
   const userId = res._id;
   const userRole = res.role;
@@ -65,4 +63,6 @@ submitButton.addEventListener("click", async function(e){
 
   const response = await Api.patch(`/api/user`, userId, data)
   console.log(response);
+  }
+  
 });

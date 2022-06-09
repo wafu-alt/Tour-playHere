@@ -90,7 +90,7 @@ const logoutBtnActive = () => {
     
     logOut.addEventListener("click", () => {
       sessionStorage.removeItem("token");
-      sessionStorage.removeItem("loginId");
+      sessionStorage.removeItem("nowLoginId");
     window.location.href = "/";
 });
 }
@@ -121,16 +121,11 @@ const navBarLoad = () => {
         case "http://localhost:5000/account/adminUpdate/":
         case "http://localhost:5000/account/adminCategoryUpdate/":
 
-      case "http://localhost:5000/account/orders/":
-      case "http://localhost:5000/account/deleteAccount/":
-      case "http://localhost:5000/account/sell/":
-      case "http://localhost:5000/account/userUpdate/":
-      case "http://localhost:5000/account/adminUpdate/":
-      case "http://localhost:5000/account/adminCategoryUpdate/":
+     
         accountCategoryInHTML();
         break;
       default:
-        console.log("loginNav.js에서 경로를 수정해주세요.경로가 잘못됬습니다.");
+        accountMainHTML();
     }
   }
 };

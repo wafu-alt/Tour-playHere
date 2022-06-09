@@ -220,18 +220,19 @@ userRouter.patch("/useradmin/:userId", async function (req, res, next) {
 });
 
 // 사용자 삭제
-userRouter.delete("/user/:userId", async function (req, res, next) {
+userRouter.delete("/user", async function (req, res, next) {
   try {
     // 상품 Id 얻음
-    const userId = req.params.userId;
-
-    const deleteuser = await userService.DeleteUser(userId);
-
-    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    const userId = req.body.userId;
+    const userPassword = req.body.password;
+    const inputPassword = req.body.passwordConfirmInput;
+    const deleteuser = await userService.DeleteUser(userId,userPassword,inputPassword);
     res.status(200).json(deleteuser);
+
   } catch (error) {
     next(error);
   }
 });
 
 export { userRouter };
+
