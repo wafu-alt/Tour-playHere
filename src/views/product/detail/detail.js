@@ -90,10 +90,11 @@ async function Data() {
       alert(`인원을 ${persons}명을 입력하셨습니다.`);
       return false;
     }
-    if (persons > maxPersons) {
-      alert(`예약을 할 수 없습니다.`);
+    if (persons >= maxPersons) {
+      alert(`예약 인원을 초과하셨습니다.`);
       return false;
     }
+    console.log(true);
     return true;
   }
 
@@ -108,6 +109,9 @@ async function Data() {
     };
     if (sessionStorage.getItem("cartToken")) {
       const sessionCartToken = JSON.parse(sessionStorage.getItem("cartToken"));
+      if (sessionCartToken.find((element) => element.objectId === productId)) {
+        return;
+      }
       cartToken.push(...sessionCartToken);
       console.log(cartToken);
     }
@@ -118,28 +122,26 @@ async function Data() {
 
   //장바구니추가 버튼 기능
   function cartAddFnc() {
-    const loginChecking = loginCheck();
-
     const persons = Number(howPersonInput.value);
     const maxPersons = totalNumber - countNumber;
-    const personsChecking = personsCheck(persons, maxPersons);
 
-    if (!loginChecking) return;
-    if (!personsChecking) return;
+    if (!loginCheck()) return console.log("로그인체크");
+    if (!personsCheck(persons, maxPersons)) return console.log("인원체크");
     createdToken(persons);
+    alert("장바구니에 담으셨습니다.");
     // window.location.href = `/cart`; //-> veiws/cart/cart.html
   }
 
   //예약하러가기 버튼 기능
-  function orderFnc() {
-    const loginChecking = loginCheck();
+  async function orderFnc() {
+    // const loginChecking = loginCheck();
 
     const persons = Number(howPersonInput.value);
-    const maxPersons = totalNumber;
-    const personsChecking = personsCheck(persons, maxPersons);
+    const maxPersons = totalNumber - countNumber;
+    // const personsChecking = personsCheck(persons, maxPersons);
 
-    if (!loginChecking) return;
-    if (!personsChecking) return;
+    if (!loginCheck()) return console.log("로그인체크");
+    if (!personsCheck(persons, maxPersons)) return console.log("인원체크");
     createdToken(persons);
     window.location.href = `/order/${productId}`; //-> veiws/order/order.html
   }

@@ -169,7 +169,7 @@ async function renderHtml() {
       <div class="field">
         <label class="label title is-4">총 결제금액</label>
         <p id="productTotalPrice">
-          ${(price + fuelSurcharge).toLocaleString("ko-KR")}원
+          ${((price + fuelSurcharge) * persons).toLocaleString("ko-KR")}원
         </p>
       </div>
 
@@ -191,7 +191,7 @@ async function renderHtml() {
       arrivalAt: arrivalAt,
       registerDateAt: orderDate,
       price: price,
-      totalPrice: price + fuelSurcharge,
+      totalPrice: (price + fuelSurcharge) * persons,
       packageId: _id,
     };
 
