@@ -80,3 +80,13 @@ categorySelectBox.onchange = subcategoryLoad;
 
 categoryLoad();
 // subcategoryLoad();
+
+async function test() {
+    const test = await fetch("/api/packages", {
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+    })
+    console.log(test.json());
+}
+test();
