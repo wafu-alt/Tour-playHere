@@ -9,15 +9,18 @@ async function Data() {
   const urlPathname = window.location.pathname;
   const productId = urlPathname
     .split("/")
-    .filter((element, i) => element !== "")[2];
+    .filter((element) => element !== "")[2];
   console.log(productId); //62996552d8674984f2b07073
 
   /* 상품 번호로 상품 정보 불러오기 */
   const res = await Api.get("/api/package", productId);
-  console.log(res);
-  const { packageName, days, totalNumber, imgUrl, substance } = res;
+  // console.log(1, res);
+  const { packageName, days, totalNumber, countNumber, imgUrl, substance } =
+    res;
   const price = res.price.toLocaleString("ko-KR");
   const departureAt = res.departureAt.split("T")[0];
+  const arrivalAt = res.arrivalAt.split("T")[0];
+  // console.log(2, totalNumber, countNumber);
 
   /* 아래 html을 삽입 */
   const body = document.querySelector("body");
@@ -38,15 +41,16 @@ async function Data() {
             </h3>
             <hr>
             <div id="tourDes">
-              <p class="title is-5 has-text-left">${price}원</p>
+              <p class="title is-5 has-text-left">여행 기간 : ${departureAt} ~ ${arrivalAt}</p>
+              <p class="title is-5 has-text-left">가격 : ${price}원</p>
               <p>${substance}</p>
             </div>
             <hr class="mt-6">
             <div class="mt-1 pt-1">
-              <label id="howPerson" for="howPerson">인 원</label>
-              <input id="howPersonInput" class="input is-info" type="text" placeholder="최대 ${totalNumber}명입니다." ><br>
-              <label id="startDays" for="start">출발일 선택</label>
-              <input id="startDaysInput" type="date" name="start"  value="${departureAt}" >
+              <label id="howPerson" for="howPerson">예약현황 : </label>
+              <input id="howPersonInput" class="input is-info" type="text" placeholder="잔여 예약원은  ${
+                totalNumber - countNumber
+              }명입니다." <br>
             </div>
           </div>
         </div>
@@ -72,12 +76,12 @@ async function Data() {
 
   //로그인 중인지 체크
   function loginCheck() {
-    if (sessionStorage.getItem("token")) {
-      console.log("로그인 중");
-      return true;
+    if (!sessionStorage.getItem("token")) {
+      alert(`로그인된 사용자만 사용 가능합니다.`);
+      return false;
     }
-    alert(`로그인된 사용자만 사용 가능합니다.`);
-    return false;
+    console.log("로그인 중");
+    return true;
   }
 
   //인원 체크하는 기능
@@ -87,53 +91,48 @@ async function Data() {
       return false;
     }
     if (persons > maxPersons) {
-      alert(`최대 인원을 넘어서 ${persons}명을 입력하셨습니다.`);
+      alert(`예약을 할 수 없습니다.`);
       return false;
     }
     return true;
   }
 
-  //출발일에 이전날짜를 선택하면 체크하는 기능
-  function compareDepartureAt(departureAt, startDaysInput) {
-    const departureDate = new Date(departureAt);
-    const selectDate = new Date(startDaysInput);
-
-    if (departureDate.getFullYear() > selectDate.getFullYear()) {
-      alert(`출발일 : ${startDaysInput}을 확인하세요.`);
-      return false;
-    } else if (departureDate.getMonth() + 1 > selectDate.getMonth() + 1) {
-      alert(`출발일 : ${startDaysInput}을 확인하세요.`);
-      return false;
-    } else if (departureDate.getDate() > selectDate.getDate()) {
-      alert(`출발일 : ${startDaysInput}을 확인하세요.`);
-      return false;
+  //버튼 클릭시 토큰 생성
+  function createdToken(persons) {
+    const nowLoginIdEmail = sessionStorage.getItem("nowLoginId");
+    const cartToken = [];
+    const obj = {
+      email: nowLoginIdEmail,
+      objectId: productId,
+      persons: persons,
+    };
+    if (sessionStorage.getItem("cartToken")) {
+      const sessionCartToken = JSON.parse(sessionStorage.getItem("cartToken"));
+      cartToken.push(...sessionCartToken);
+      console.log(cartToken);
     }
-    return true;
+    cartToken.push(obj);
+    sessionStorage.setItem("cartToken", JSON.stringify(cartToken));
+    console.log(sessionStorage.getItem("cartToken", cartToken));
   }
 
   //장바구니추가 버튼 기능
   function cartAddFnc() {
-    const startDaysInput = document.querySelector("#startDaysInput").value;
     const loginChecking = loginCheck();
-    const compareDeparturing = compareDepartureAt(departureAt, startDaysInput);
 
     const persons = Number(howPersonInput.value);
-    const maxPersons = totalNumber;
+    const maxPersons = totalNumber - countNumber;
     const personsChecking = personsCheck(persons, maxPersons);
 
     if (!loginChecking) return;
     if (!personsChecking) return;
-    if (!compareDeparturing) return;
-
-    window.location.href = `/cart`; //-> veiws/cart/cart.html
+    createdToken(persons);
+    // window.location.href = `/cart`; //-> veiws/cart/cart.html
   }
 
   //예약하러가기 버튼 기능
   function orderFnc() {
-    // TODO: 2개의 값을 넘겨야함 - 인원, 출발일, 오브젝트 아이디
-    const startDaysInput = document.querySelector("#startDaysInput").value;
     const loginChecking = loginCheck();
-    const compareDeparturing = compareDepartureAt(departureAt, startDaysInput);
 
     const persons = Number(howPersonInput.value);
     const maxPersons = totalNumber;
@@ -141,8 +140,7 @@ async function Data() {
 
     if (!loginChecking) return;
     if (!personsChecking) return;
-    if (!compareDeparturing) return;
-    // window.location.href = `/order`; //-> veiws/order/order.html
+    createdToken(persons);
     window.location.href = `/order/${productId}`; //-> veiws/order/order.html
   }
 
@@ -150,18 +148,3 @@ async function Data() {
   orderBtn.addEventListener("click", orderFnc);
 }
 Data();
-
-/*
-//버튼 클릭시 토큰 생성
-const addToken = {
-  // _id: `${data.pacakge_id}`,
-  // departureAt: `${startDaysInput}`,
-  // days: `${data.days}`,
-  // arrivalAt: `${startDaysInput + data.days}`,
-  id : 123124,
-  dsfa : "dafea",
-};
-
-// sessionStorage.setItem("cartToken", JSON.stringify(addToken));
-// console.log(sessionStorage.getItem("cartToken", addToken));
-*/

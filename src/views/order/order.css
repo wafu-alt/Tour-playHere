@@ -15,13 +15,13 @@
 #infoBox {
   display: inline-block;
   width: 100%;
-  height: 500px;
+  height: 70vh;
   margin-left: 2%;
   margin-right: 2%;
 }
 #paymentBox {
   width: 60%;
-  height: 500px;
+  height: 70vh;
   margin-left: 2%;
   margin-right: 2%;
 }
