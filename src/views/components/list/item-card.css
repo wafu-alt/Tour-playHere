@@ -19,19 +19,3 @@
 .media-content {
   overflow: hidden;
 }
-
-.content p:not(:last-child) {
-  margin-bottom: 0px !important;
-}
-
-p#price {
-  color: #666d75;
-}
-
-p {
-  font-size: 14px;
-}
-
-#title {
-  margin: 8px 0px !important;
-}
