@@ -153,4 +153,15 @@ orderRouter.delete("/order/:orderId", async function (req, res, next) {
   }
 });
 
+// 주문 확정 메일 발신
+orderRouter.post("/sendMail/:orderId", async function (req, res, next) {
+  try {
+    const  sendedMail = await orderService.sendMail(req.params.orderId);
+    
+    res.status(200).json(sendedMail);
+  } catch (error) {
+    next(error);
+  }
+})
+
 export { orderRouter };
