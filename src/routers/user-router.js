@@ -249,7 +249,7 @@ userRouter.patch("/useradmin/:userId", async function (req, res, next) {
 });
 
 // 사용자 삭제
-userRouter.delete("/user/:userId", async function (req, res, next) {
+userRouter.delete("/user", async function (req, res, next) {
   try {
     // 상품 Id 얻음
     const userId = req.params.userId;
@@ -261,9 +261,11 @@ userRouter.delete("/user/:userId", async function (req, res, next) {
       inputPassword
     );
     res.status(200).json(deleteuser);
+
   } catch (error) {
     next(error);
   }
 });
 
 export { userRouter };
+

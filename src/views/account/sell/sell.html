@@ -72,7 +72,7 @@
           <h1 class="subtitle is-4">제품판매</h1>
         </div>
         <div class="register-product-form-container">
-          <form class="box register-product-form-box" id="registerProductForm">
+          <form class="box register-product-form-box" id="registerProductForm" enctype="multipart/form-data">
             <p class="title is-5 has-text-primary">제품을 판매해 보세요</p>
             <div class="field">
               <label class="label" for="titleInput">패키지 이름</label>
@@ -91,21 +91,26 @@
               <label class="label" for="categorySelectBox">국가 카테고리</label>
               <div class="control">
                 <div class="select is-fullwidth">
-                  <select id="categorySelectBox"></select>
+                  <select id="categorySelectBox">
+                   
+                  </select>
                 </div>
               </div>
             </div>
+
 
             <div class="field">
               <label class="label" for="subCategorybox">서브 카테고리</label>
               <div class="control">
                 <div class="select is-fullwidth">
                   <select id="subCategorybox">
-                    <option value="대한민국">대한민국</option>
+                    
                   </select>
                 </div>
               </div>
             </div>
+            
+
 
             <div class="field">
               <label class="label" for="priceInput">가격</label>
@@ -136,7 +141,7 @@
             </div>
 
             <div class="field is-fullwidth">
-              <label class="label" for="imageInput">제품 사진</label>
+              <span class="label" >제품 사진</span>
               <div class="file has-name is-fullwidth">
                 <label class="file-label">
                   <!-- <input
@@ -150,7 +155,7 @@
                     <span class="file-icon">
                       <i class="fas fa-upload"></i>
                     </span>
-                    <span class="file-label"> 사진 업로드 </span>
+                    <label class="file-label" for="imageInput"> 사진 업로드 </label>
                   </span>
                   <span class="file-name" id="fileNameSpan">
                     사진파일 (png, jpg, jpeg)
