@@ -6,11 +6,12 @@ const todayDate =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 const nowLoginId = sessionStorage.getItem("nowLoginId");
+console.log(nowLoginId);
 // 로그인한 사용자의 주문을 조회하는 페이지 로딩
 async function loadPage() {
-  const res = await Api.get(`/api/orders/forUser/?email=${nowLoginId}`);
+  const res = await Api.get("/api/orders/forUser", `?email=${nowLoginId}`);
 
-  console.log(res);
+  console.log(res[0]);
   // const fetchData = await fetch("../orders_sample.json").then((response) =>
   //   response.json()
   // );
@@ -22,7 +23,7 @@ async function loadPage() {
     const date = data.departureAt.substr(0, 10);
     const departureAt = new Date(data.departureAt);
 
-    if (data.email == sessionStorage.getItem(loginId)) {
+    if (data.email == sessionStorage.getItem(nowLoginId)) {
       if (today < departureAt) {
         ordersContainer.innerHTML += `
       <div class="columns orders-item" id="${date}">
