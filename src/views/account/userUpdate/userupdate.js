@@ -14,13 +14,8 @@ const passwordConfirmInput = document.querySelector("#passwordConfirmInput");
 const phoneNumberInput = document.querySelector("#phoneNumberInput");
 const telPhoneNumberInput = document.querySelector("#telPhoneNumberInput");
 const currentPasswordInput = document.querySelector("#currentPasswordInput");
-fullNameToggle.addEventListener("click", function () {
-  changeDisabled(nameInput);
-});
-passwordToggle.addEventListener("click", function () {
-  changeDisabled(passwordInput);
-  changeDisabled(passwordConfirmInput);
-});
+
+
 
 phoneNumberToggle.addEventListener("click", function () {
   changeDisabled(phoneNumberInput);
@@ -63,6 +58,8 @@ submitButton.addEventListener("click", async function(e){
 
   const response = await Api.patch(`/api/user`, userId, data)
   console.log(response);
+  alert("정보 수정이 완료되었습니다.");
+  window.location.href="/";
   }
   
 });
