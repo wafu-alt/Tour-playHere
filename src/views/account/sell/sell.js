@@ -54,24 +54,14 @@ submitButton.addEventListener("click", async function (e) {
   try {
     const res = await Api.postForm("/api/package", formData);
     alert("성공적으로 등록되었습니다.");
+    window.location.href = "/account/sell/";
     // location.href = '/admin/product/add/';
   } catch (error) {
     console.log(error);
   }
 });
 
-async function addPackage(bodyData) {
-  const data = JSON.stringify(bodyData);
-  const res = await fetch("/api/package", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-    body: data,
-  });
-  window.location.href = "/account/sell/";
-}
+
 
 // 국가 카테고리와 서브 카테고리 option넣어주는 것들 <option value="국내">국내</option>
 async function categoryLoad() {
@@ -88,15 +78,26 @@ async function categoryLoad() {
 async function subcategoryLoad() {
   const categoryValue =
     categorySelectBox.options[categorySelectBox.selectedIndex].value;
-
+    subCategorybox.innerHTML="";
   const res = await Api.get("/api/category", "list");
-  // console.log(res[categoryValue]);
-  res.forEach((data) => {
-    // console.log(data);
-    // subCategorybox.innerHTML += `
-    // <option value="${Object.keys(data)[0]}">${Object.keys(data)[0]}</option>
+  
+  res.forEach((data)=>{    
+    if(Object.keys(data)[0]==categoryValue){
+      for(let i=0;i<Object.values(data)[0].length;i++){
+        subCategorybox.innerHTML +=`
+        <option value="${Object.values(data)[0][i]}">${Object.values(data)[0][i]}</option>
+        `
+      }
+      
+    }
+  })
+  // console.log(res);
+  // console.log(Object.values(Object.values(res).filter((e)=>Object.keys(e).includes(categoryValue))[0]));
+
+    // console.log(Object.entries(res).filter(entry=> entry[0]==categoryValue))
+    
     // `
-  });
+
 }
 
 categorySelectBox.onchange = subcategoryLoad;
