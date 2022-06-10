@@ -70,6 +70,19 @@ orderRouter.get("/orders", adminRequired, async function (req, res, next) {
   }
 });
 
+// 전체 주문 목록을 가져옴 (배열 형태임)
+orderRouter.get("/orders/forUser", async function (req, res, next) {
+  try {
+    // 전체 사용자 목록을 얻음
+    const orders = await orderService.getOrders(req.query);
+
+    // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
+    res.status(200).json(orders);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //주문 ID로 정보가져오기
 orderRouter.get("/order/:orderId", async function (req, res, next) {
   try {
