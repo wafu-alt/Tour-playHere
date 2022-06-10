@@ -1,7 +1,6 @@
 import * as Api from "/api.js";
 import renderUserNavbar from "/components/user_navbar/user_navbar.js";
 
-
 //유저 정보 불러오기
 async function userTest() {
   const nowLoginIdEmail = sessionStorage.getItem("nowLoginId");
@@ -114,7 +113,7 @@ async function renderHtml() {
         </div>
         <div class="field-body">
           <div class="control">
-            <input class="input" placeholder="-없이 적어주세요" 
+            <input id="telNumber" class="input" placeholder="-없이 적어주세요" 
               value ="${telNumber ? `${telNumber}` : ""}" 
             />
           </div>
@@ -125,6 +124,7 @@ async function renderHtml() {
         <label class="label">요청사항</label>
         <div class="control">
           <textarea
+            id="textarea"
             class="textarea"
             rows="3"
             placeholder="요청사항을 적어주세요."
@@ -213,7 +213,15 @@ async function renderHtml() {
 
   async function orderFnc() {
     const phoneNum = document.querySelector("#phoneNumber").value;
-    if(!phoneNum) return alert("휴대전화번호는 필수입니다.");
+    const telNumber = document.querySelector("#telNumber").value;
+    const textarea = document.querySelector("#textarea").value;
+    if (!phoneNum) return alert("휴대전화번호는 필수입니다.");
+    if (phoneNum.match(/[^0-9]/g)) {
+      return alert("휴대전화번호는 번호만 입력 가능합니다.");
+    }
+    if (telNumber.match(/[^0-9]/g)) {
+      return alert("일반번호는 번호만 입력 가능합니다.");
+    }
 
     //주문 날짜 구하기
     const orderDate = await new Date();
@@ -232,22 +240,23 @@ async function renderHtml() {
       price: price,
       totalPrice: (price + fuelSurcharge) * persons,
       packageId: _id,
+      message: textarea,
     };
 
     delCartToken();
 
     //주문서 업데이트하는 api
     const orederId = await Api.post("/api/order", orderData);
-    
+
     //상품 카운터 바꾸는 api
     const countiedNumber = { countNumber: `${persons + countNumber}` };
     await Api.patch(`/api/packagecount`, `${_id}`, countiedNumber);
 
     alert(`예약이 정상적으로 완료되었습니다.\n감사합니다.`);
-    
+
     //메일 보내는 api
     await Api.post(`/api/sendMail/${orederId._id}`);
-    
+
     window.location.href = "/complete";
   }
 

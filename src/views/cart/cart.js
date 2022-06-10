@@ -61,7 +61,7 @@ function resetRenderProductInfo() {
 
   <div class="field is-horizontal">
     <div class="field-label is-normal labeInfo">
-      <label class="label">예약 가능 인원</label>
+      <label class="label">선택하신 예약 인원</label>
     </div>
     <div class="field-body">
       <p id="counterPersons" class="control price">
@@ -164,80 +164,98 @@ async function loadedCartToken() {
   async function selectCheckboxFnc() {
     const selectCheckboxs = document.querySelectorAll(".selectCheckboxs");
     const allCheckbox = document.querySelector("#allCheckbox");
-
-    if (this.checked === true) {
+    if (!this.checked) {
+      //TODO: 체크박스중 하나만 체크가 되어있으면 그 상품 정보를 오른쪽 보여줌
+      let count = 0;
       for (let i = 0; i < selectCheckboxs.length; i++) {
-        selectCheckboxs[i].checked = false;
+        if (selectCheckboxs[i].checked) count++;
+        console.log(count);
       }
-      allCheckbox.checked = false;
-      this.checked = true;
+      resetRenderProductInfo();
+      if (count === 1) return rederSelectedProduct(this.id);
+      return;
+    }
 
-      const objectId = this.getAttribute("id").split("-")[1];
+    // 체크박스 하나만 남기는 기능
+    for (let i = 0; i < selectCheckboxs.length; i++) {
+      selectCheckboxs[i].checked = false;
+    }
+    allCheckbox.checked = false;
+    this.checked = true;
+
+    rederSelectedProduct(this.id);
+    //
+    async function rederSelectedProduct(thisProduct) {
+      const objectId = thisProduct.split("-")[1];
       const res = await Api.get("/api/package", objectId);
       const { packageName, days, countNumber, totalNumber, price } = res;
 
+      //선택한 아이템의 예약인원수를 필터링함
+      const cartToken = JSON.parse(sessionStorage.getItem("cartToken"));
+      if (!cartToken) return;
+      const thisToken = cartToken.filter((element) => {
+        if (element.email === nowLoginIdEmail && element.objectId === res._id) {
+          return element.persons;
+        }
+      });
       //선택상품 정보 표시
       paymentBox.innerHTML = `<label id="infoLabel" class="label">선택상품정보</label>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal labeInfo">
-            <label class="label">상품명</label>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal labeInfo">
+              <label class="label">상품명</label>
+            </div>
+            <div class="field-body">
+              <p id="productInfo" class="control price">
+                ${days - 1}박${days}일 ${packageName}
+              </p>
+            </div>
           </div>
-          <div class="field-body">
-            <p id="productInfo" class="control price">
-              ${days - 1}박${days}일 ${packageName}
+    
+          <div class="field is-horizontal">
+            <div class="field-label is-normal labeInfo">
+              <label class="label">선택하신 예약 인원</label>
+            </div>
+            <div class="field-body">
+              <p id="counterPersons" class="control price">
+                ${thisToken[0].persons}명  
+              </p>
+            </div>
+          </div>
+    
+          <div class="field is-horizontal">
+            <div class="field-label is-normal labeInfo">
+              <label class="label">상품가격</label>
+            </div>
+            <div class="field-body">
+                <p id="productPrice" class="control price">
+                  ${price.toLocaleString("ko-KR")}원
+                </p>
+            </div>
+          </div>   
+    
+          <div class="field is-horizontal">
+            <div class="field-label is-normal labeInfo">
+              <label class="label">유류할증료</label>
+            </div>
+            <div class="field-body">
+                <p id="fuelSurcharge" class="control price">
+                ${(price * 0.1).toLocaleString("ko-KR")}원
+                </p>
+            </div>
+          </div>   
+    
+          <div class="field">
+            <label class="label title is-4">총 결제금액</label>
+            <p id="productTotalPrice">
+              ${(price + price * 0.1).toLocaleString("ko-KR")}원
             </p>
           </div>
-        </div>
-  
-        <div class="field is-horizontal">
-          <div class="field-label is-normal labeInfo">
-            <label class="label">예약 가능 인원</label>
-          </div>
-          <div class="field-body">
-            <p id="counterPersons" class="control price">
-              ${countNumber}/${totalNumber}명  
-            </p>
-          </div>
-        </div>
-  
-        <div class="field is-horizontal">
-          <div class="field-label is-normal labeInfo">
-            <label class="label">상품가격</label>
-          </div>
-          <div class="field-body">
-              <p id="productPrice" class="control price">
-                ${price.toLocaleString("ko-KR")}원
-              </p>
-          </div>
-        </div>   
-  
-        <div class="field is-horizontal">
-          <div class="field-label is-normal labeInfo">
-            <label class="label">유류할증료</label>
-          </div>
-          <div class="field-body">
-              <p id="fuelSurcharge" class="control price">
-              ${(price * 0.1).toLocaleString("ko-KR")}원
-              </p>
-          </div>
-        </div>   
-  
-        <div class="field">
-          <label class="label title is-4">총 결제금액</label>
-          <p id="productTotalPrice">
-            ${(price + price * 0.1).toLocaleString("ko-KR")}원
-          </p>
-        </div>
-  
-        <button id="orderBtn" class="button is-success">예약하러가기</button>`;
+    
+          <button id="orderBtn" class="button is-success">예약하러가기</button>`;
       //예약하러가기
       const orderBtn = document.querySelector("#orderBtn");
       orderBtn.addEventListener("click", orderFnc);
-
-      return;
     }
-    resetRenderProductInfo();
-    return;
   }
 }
 loadedCartToken();
