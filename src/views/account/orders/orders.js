@@ -6,12 +6,12 @@ const todayDate =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
 const nowLoginId = sessionStorage.getItem("nowLoginId");
-console.log(nowLoginId);
+
 // 로그인한 사용자의 주문을 조회하는 페이지 로딩
 async function loadPage() {
   const res = await Api.get("/api/orders/forUser", `?email=${nowLoginId}`);
-
-  console.log(res[0]);
+  
+  
   // const fetchData = await fetch("../orders_sample.json").then((response) =>
   //   response.json()
   // );
@@ -20,17 +20,19 @@ async function loadPage() {
   //  가져온 데이터 에서 로그인한 사람의 데이터를 가져오기
 
   res.forEach((data) => {
+    console.log(data.email);
     const date = data.departureAt.substr(0, 10);
     const departureAt = new Date(data.departureAt);
 
-    if (data.email == sessionStorage.getItem(nowLoginId)) {
+    if (data.email == nowLoginId) {
       if (today < departureAt) {
         ordersContainer.innerHTML += `
-      <div class="columns orders-item" id="${date}">
-        <div class="column is-2">${data.packageName}</div>        
-        <div class="column is-2">상품 준비중</div>
+      <div class="columns orders-item" id="${data._id}">
+        <div class="column is-2">${date}</div>
+        <div class="column is-6">${data.packageName}</div>        
+        <div class="column is-2">상품 준비중</div>        
         <div class="column is-2">
-          <button class="button" id="deleteButton-${data._id}">주문 취소</button>
+        <button class="button" id="deleteButton-${data._id}">주문 취소</button>
         </div>
       </div>`;
 
@@ -84,8 +86,8 @@ async function adminPageLoad() {
           <div class="column is-2">상품 준비중</div>
           <div class="column is-2">
           <button class="button" id="deleteButton-${data._id}">주문 취소</button>
-        </div>
-      </div>`;
+          </div>
+        </div>`;
 
       const deleteButton = document.querySelector(`#deleteButton-${data._id}`);
       console.log(deleteButton);
