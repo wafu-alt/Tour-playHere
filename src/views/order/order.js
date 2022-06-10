@@ -1,4 +1,6 @@
 import * as Api from "/api.js";
+import renderUserNavbar from "/components/user_navbar/user_navbar.js";
+
 
 //유저 정보 불러오기
 async function userTest() {
@@ -213,6 +215,7 @@ async function renderHtml() {
   }
 
   async function orderFnc() {
+    console.log(persons)
     const phoneNum = document.querySelector("#phoneNumber").value;
     if(!phoneNum) return alert("휴대전화번호는 필수입니다.");
     //주문 날짜 구하기
@@ -221,7 +224,7 @@ async function renderHtml() {
     const orderData = {
       userName: fullName,
       email: email,
-      totalNumber: totalNumber,
+      totalNumber: persons,
       packageName: packageName,
       country: country,
       days: days,
@@ -234,16 +237,21 @@ async function renderHtml() {
     };
 
     delCartToken();
-    await Api.post("/api/order", orderData);
+    const orederId =await Api.post("/api/order", orderData);
 
     const countiedNumber = { countNumber: `${persons + countNumber}` };
     await Api.patch(`/api/packagecount`, `${_id}`, countiedNumber);
 
     alert(`예약이 정상적으로 완료되었습니다.\n감사합니다.`);
-    window.location.href = "/complete";
+    await Api.post(`/api/sendMail/${orederId._id}`,"");
+
+
+    // window.location.href = "/complete";
   }
 
   //예약하기 버튼 클릭
   orderBtn.addEventListener("click", orderFnc);
 }
 renderHtml();
+const userNavbarDiv = document.querySelector(".navbar-end");
+userNavbarDiv.insertAdjacentElement("beforeend", renderUserNavbar());

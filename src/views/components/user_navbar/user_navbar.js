@@ -5,7 +5,7 @@ export default function renderUserNavbar() {
     component.innerHTML = `
         <ul id="navbar">
         <li><a href="/account">계정관리</a></li>
-        <li><a href="/account">로그아웃</a></li>
+        <li><a id="logOut" href="#">로그아웃</a></li>
         <li>
             <a href="/cart" aria-current="page">
               <span class="icon">
@@ -26,5 +26,17 @@ export default function renderUserNavbar() {
       </ul>`;
   }
 
+  const logoutBtnActive = () => {
+    if (sessionStorage.getItem("token")) {
+    // 로그인 했을때 생기는 로그아웃 기능 추가하는 버튼
+    const logOut = component.querySelector("#logOut");
+    
+    logOut.addEventListener("click", () => {
+      sessionStorage.removeItem("token");
+      sessionStorage.removeItem("nowLoginId");
+      window.location.href = "/";
+    })};
+  };
+  logoutBtnActive();
   return component;
 }
