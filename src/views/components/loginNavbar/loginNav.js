@@ -1,5 +1,8 @@
 const loginCheck = document.querySelector("#navbar");
-const domain = process.env.DOMAIN;
+// const domain = process.env.DOMAIN;
+
+// console.log(secretKey);
+// http://kdt-sw2-busan-team03.elicecoding.com/
 
 const loginHTMLInMain = () => {
   // 로그인 했을때 메인 화면 Nav
@@ -70,7 +73,7 @@ const logoutBtnActive = () => {
 
 const navBarLoad = () => {
   // url에 맞는 Nav로딩하기
-  if (document.location.href == "http://localhost:5000/") {
+  if (document.location.href == `http://localhost:5000/`) {
     if (sessionStorage.getItem("token")) {
       loginHTMLInMain();
     } else {
@@ -79,17 +82,24 @@ const navBarLoad = () => {
   } else {
     switch (document.location.href) {
       case "http://localhost:5000/account/":
+      case "${domain}/account/":
         accountMainHTML();
         break;
 
-      case "http://localhost:5000/product/detail/62a0522a75a5ac032202e864/":
       case "http://localhost:5000/account/orders/":
       case "http://localhost:5000/account/deleteAccount/":
       case "http://localhost:5000/account/sell/":
       case "http://localhost:5000/account/userUpdate/":
       case "http://localhost:5000/account/adminUpdate/":
       case "http://localhost:5000/account/adminCategoryUpdate/":
-        accountCategoryInHTML();
+
+      case `${domain}/account/orders/`:
+      case `${domain}/account/deleteAccount/`:
+      case `${domain}/account/sell/`:
+      case `${domain}/account/userUpdate/`:
+      case `${domain}/account/adminUpdate/`:
+      case `${domain}/account/adminCategoryUpdate/`:
+        loginHTMLInMain();
         break;
       default:
         console.log("loginNav.js에서 경로를 수정해주세요.경로가 잘못됬습니다.");
