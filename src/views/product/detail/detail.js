@@ -1,3 +1,4 @@
+import renderUserNavbar from "/components/user_navbar/user_navbar.js";
 import * as Api from "/api.js";
 
 async function Data() {
@@ -151,19 +152,6 @@ async function Data() {
 }
 Data();
 
-let loginCheck = document.querySelector("#navbar");
+let loginCheck = document.querySelector(".navbar-end");
 
-if (sessionStorage.getItem("token")) {
-  loginCheck.innerHTML = `
-  <li><a href="/account">계정관리</a></li>
-  <li><a href="/account">로그아웃</a></li>
-  <li>
-      <a href="#cart" aria-current="page">
-        <span class="icon">
-          <i class="fas fa-cart-shopping"></i>
-        </span>
-        <span><a href="/cart">카트</span>
-      </a>
-  </li>
-  `;
-}
+loginCheck.insertAdjacentElement("beforeend", renderUserNavbar());

@@ -81,7 +81,7 @@ function insertCategoryNavbar() {
 
 async function insertDropdown() {
   let data = await Api.get("/api/category/list");
-  const subCategories = data.find((e, i) =>
+  const subCategories = data.find((e) =>
     Object.keys(e).includes(params.category)
   )[params.category];
 
