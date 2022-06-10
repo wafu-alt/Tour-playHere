@@ -1,6 +1,6 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
-import { loginRequired } from "../middlewares";
+import { loginRequired, errorHandler } from "../middlewares";
 import { userService } from "../services";
 import { body, validationResult } from "express-validator";
 
@@ -63,7 +63,8 @@ userRouter.post(
     } catch (error) {
       next(error);
     }
-  }
+  },
+  errorHandler
 );
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
@@ -88,7 +89,7 @@ userRouter.post("/login", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
@@ -101,7 +102,7 @@ userRouter.get("/users", loginRequired, async function (req, res, next) {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 // 휴대폰 번호로 유저 데이터 가져옴
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
@@ -117,7 +118,7 @@ userRouter.get("/userphone/:phoneNumber", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 // 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
 userRouter.get("/useremail/:email", async function (req, res, next) {
@@ -131,7 +132,7 @@ userRouter.get("/useremail/:email", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 userRouter.get("/usertel/:telNumber", async function (req, res, next) {
   try {
@@ -145,7 +146,7 @@ userRouter.get("/usertel/:telNumber", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
@@ -205,7 +206,8 @@ userRouter.patch(
     } catch (error) {
       next(error);
     }
-  }
+  },
+   errorHandler
 );
 
 // 관리자 권한 수정
@@ -242,7 +244,7 @@ userRouter.patch("/useradmin/:userId", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 // 사용자 삭제
 userRouter.delete("/user", async function (req, res, next) {
@@ -260,6 +262,6 @@ userRouter.delete("/user", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 export { userRouter };

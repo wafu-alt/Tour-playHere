@@ -1,7 +1,7 @@
-import { Router } from "express";
-import is from "@sindresorhus/is";
-import { adminRequired } from "../middlewares";
-import { subCategoryService } from "../services";
+import { Router } from 'express';
+import is from '@sindresorhus/is';
+import { adminRequired, errorHandler } from '../middlewares';
+import { subCategoryService } from '../services';
 
 const subCategoryRouter = Router();
 
@@ -16,8 +16,11 @@ subCategoryRouter.post(
         );
       }
 
-      const categoryName = req.body.categoryName;
-      const subCategoryName = req.body.subCategoryName;
+    res.status(201).json(newCategory);
+  } catch (error) {
+    next(error);
+  }
+}, errorHandler);
 
       const newCategory = await subCategoryService.addSubCategory(
         categoryName,
@@ -40,24 +43,11 @@ subCategoryRouter.patch(
       const curSubCategoryName = req.query.curSubCategoryName;
       const updatedSubCategoryName = req.query.updatedSubCategoryName;
 
-      // 두 값중 하나라도 안들어오면 예외 처리
-      // TODO: 각각이 빈 문자열 혹은 널값인지 체크 추가
-      if (!(curSubCategoryName && updatedSubCategoryName)) {
-        throw new Error(
-          "현재 서브카테고리명과 수정 후 카테고리명을 모두 입력해 주세요"
-        );
-      }
-      const changedSubCategory = await subCategoryService.updateSubCategory(
-        curSubCategoryName.replace(/"/g, ""),
-        updatedSubCategoryName.replace(/"/g, "")
-      );
-
-      res.status(200).json(changedSubCategory);
-    } catch (error) {
-      next(error);
-    }
+  } catch (error){
+    next(error);
   }
-);
+
+}, errorHandler);
 
 // subcategory delete router
 subCategoryRouter.delete(
@@ -80,6 +70,6 @@ subCategoryRouter.delete(
       next(error);
     }
   }
-);
+}, errorHandler);
 
 export { subCategoryRouter };
