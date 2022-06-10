@@ -61,8 +61,6 @@ submitButton.addEventListener("click", async function (e) {
   }
 });
 
-
-
 // 국가 카테고리와 서브 카테고리 option넣어주는 것들 <option value="국내">국내</option>
 async function categoryLoad() {
   const res = await Api.get("/api/category", "list");
@@ -78,26 +76,26 @@ async function categoryLoad() {
 async function subcategoryLoad() {
   const categoryValue =
     categorySelectBox.options[categorySelectBox.selectedIndex].value;
-    subCategorybox.innerHTML="";
+  subCategorybox.innerHTML = "";
   const res = await Api.get("/api/category", "list");
-  
-  res.forEach((data)=>{    
-    if(Object.keys(data)[0]==categoryValue){
-      for(let i=0;i<Object.values(data)[0].length;i++){
-        subCategorybox.innerHTML +=`
-        <option value="${Object.values(data)[0][i]}">${Object.values(data)[0][i]}</option>
-        `
+
+  res.forEach((data) => {
+    if (Object.keys(data)[0] == categoryValue) {
+      for (let i = 0; i < Object.values(data)[0].length; i++) {
+        subCategorybox.innerHTML += `
+        <option value="${Object.values(data)[0][i]}">${
+          Object.values(data)[0][i]
+        }</option>
+        `;
       }
-      
     }
-  })
+  });
   // console.log(res);
   // console.log(Object.values(Object.values(res).filter((e)=>Object.keys(e).includes(categoryValue))[0]));
 
-    // console.log(Object.entries(res).filter(entry=> entry[0]==categoryValue))
-    
-    // `
+  // console.log(Object.entries(res).filter(entry=> entry[0]==categoryValue))
 
+  // `
 }
 
 categorySelectBox.onchange = subcategoryLoad();

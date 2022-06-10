@@ -1,4 +1,5 @@
-let loginCheck = document.querySelector("#navbar");
+const loginCheck = document.querySelector("#navbar");
+const domain = process.env.DOMAIN;
 
 const loginHTMLInMain = () => {
   // 로그인 했을때 메인 화면 Nav
@@ -51,28 +52,6 @@ const accountMainHTML = () => {
             </span>
             <span>카트</span>
             </a>
-        </li>
-        `;
-  logoutBtnActive();
-};
-
-const accountCategoryInHTML = () => {
-  // 계정관리 메인 화면에서 카테고리를 눌렀을때 Nav
-  if (!sessionStorage.getItem("token")) {
-    alert("로그인이 필요한 서비스입니다.");
-    window.location.href = "/login";
-    return;
-  }
-  loginCheck.innerHTML = `
-        <li><a href="/account">계정관리 </a></li>
-        <li><a id="logOut"href="#"> 로그아웃 </a></li>
-        <li>
-                <a href="/cart" aria-current="page">
-                    <span class="icon">
-                    <i class="fas fa-cart-shopping"></i>
-                    </span>
-                    <span>카트</span>
-                </a>
         </li>
         `;
   logoutBtnActive();
