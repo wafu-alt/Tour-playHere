@@ -25,7 +25,7 @@ categoryRouter.post("/category", adminRequired, async (req, res, next) => {
   }
 });
 
-categoryRouter.get("/category/list", adminRequired, async (req, res, next) => {
+categoryRouter.get("/category/list", async (req, res, next) => {
   try {
     const allCategory = await categoryService.getAllCategory();
 

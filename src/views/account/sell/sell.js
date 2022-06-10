@@ -88,17 +88,17 @@ async function categoryLoad() {
 async function subcategoryLoad() {
   const categoryValue =
     categorySelectBox.options[categorySelectBox.selectedIndex].value;
-
+  
   const res = await Api.get("/api/category", "list");
-  // console.log(res[categoryValue]);
+  // // console.log(res[categoryValue]);
   res.forEach((data) => {
-    // console.log(data);
-    // subCategorybox.innerHTML += `
-    // <option value="${Object.keys(data)[0]}">${Object.keys(data)[0]}</option>
-    // `
+  //   console.log(data);
+  //   subCategorybox.innerHTML += `
+  //   <option value="${Object.keys(data)[0]}">${Object.keys(data)[0]}</option>
+  //   `
   });
 }
 
-categorySelectBox.onchange = subcategoryLoad;
+categorySelectBox.onchange = subcategoryLoad();
 
 categoryLoad();
