@@ -13,7 +13,7 @@ const passwordInput = document.querySelector("#passwordInput");
 const passwordConfirmInput = document.querySelector("#passwordConfirmInput");
 const phoneNumberInput = document.querySelector("#phoneNumberInput");
 const telPhoneNumberInput = document.querySelector("#telPhoneNumberInput");
-
+const currentPasswordInput = document.querySelector("#currentPasswordInput");
 fullNameToggle.addEventListener("click", function () {
   changeDisabled(nameInput);
 });
@@ -58,7 +58,7 @@ submitButton.addEventListener("click", async function(e){
     phoneNumber:phoneNumberInput.value,
     telNumber:telPhoneNumberInput.value,
     role: userRole,
-    currentPassword:password,
+    currentPassword:currentPasswordInput.value,
   }
 
   const response = await Api.patch(`/api/user`, userId, data)
