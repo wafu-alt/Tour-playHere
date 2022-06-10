@@ -168,7 +168,7 @@ async function loadedCartToken() {
       let count = 0;
       for (let i = 0; i < selectCheckboxs.length; i++) {
         if (selectCheckboxs[i].checked) count++;
-        console.log(count);
+        
       }
       resetRenderProductInfo();
 

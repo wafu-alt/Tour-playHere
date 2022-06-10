@@ -37,7 +37,7 @@ submitButton.addEventListener("click", async function (e) {
     alert("업데이트할 비밀번호 확인을 재대로 해주세요.");
   } else {
     const res = await Api.get(`/api/useremail/${nowLoginId}`);
-    console.log(res);
+    
     const userId = res._id;
     const userRole = res.role;
 
@@ -52,7 +52,7 @@ submitButton.addEventListener("click", async function (e) {
     };
 
     const response = await Api.patch(`/api/user`, userId, data);
-    console.log(response);
+    
     alert("정보 수정이 완료되었습니다.");
     window.location.href = "/";
   }

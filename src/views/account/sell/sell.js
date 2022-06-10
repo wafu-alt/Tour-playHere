@@ -49,7 +49,7 @@ submitButton.addEventListener("click", async function (e) {
   //     imgUrl: formData,
   //     substance: detailDescriptionInput.value,
   //   };
-  console.log(formData);
+ 
   //   addPackage(formData);
   try {
     const res = await Api.postForm("/api/package", formData);
@@ -57,7 +57,7 @@ submitButton.addEventListener("click", async function (e) {
     window.location.href = "/account/sell/";
     // location.href = '/admin/product/add/';
   } catch (error) {
-    console.log(error);
+    
   }
 });
 
@@ -66,7 +66,7 @@ async function categoryLoad() {
   const res = await Api.get("/api/category", "list");
   categorySelectBox.innerHTML = `<option value="국가를 선택">국가를 선택하세요</option>`;
   res.forEach((data) => {
-    // console.log(Object.keys(data)[0]);
+    
     categorySelectBox.innerHTML += `
         <option value="${Object.keys(data)[0]}">${Object.keys(data)[0]}</option>
         `;
@@ -74,13 +74,13 @@ async function categoryLoad() {
 }
 
 async function subcategoryLoad() {
-  console.log("작동");
+  
   const categoryValue =
     categorySelectBox.options[categorySelectBox.selectedIndex].value;
   subCategorybox.innerHTML = "";
   const res = await Api.get("/api/category", "list");
 
-  console.log(categoryValue);
+  
 
   res.forEach((data) => {
     if (Object.keys(data)[0] == categoryValue) {
@@ -93,12 +93,7 @@ async function subcategoryLoad() {
       }
     }
   });
-  // console.log(res);
-  // console.log(Object.values(Object.values(res).filter((e)=>Object.keys(e).includes(categoryValue))[0]));
-
-  // console.log(Object.entries(res).filter(entry=> entry[0]==categoryValue))
-
-  // `
+  
 }
 
 categorySelectBox.onchange = subcategoryLoad;
