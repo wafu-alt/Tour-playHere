@@ -7,7 +7,7 @@
 //     const userId = jwtDecoded.userId;
 //     const userRole = jwtDecoded.role;
 
-
+import renderUserNavbar from "../../components/user_navbar/user_navbar.js";
 const menuContainer = document.querySelector("#menu-container");
 
 async function adminPage () {
@@ -67,3 +67,6 @@ async function adminPage () {
 }
 
 adminPage();
+
+let loginCheck = document.querySelector(".navbar-end");
+loginCheck.insertAdjacentElement("beforeend", renderUserNavbar());
