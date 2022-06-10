@@ -28,14 +28,15 @@ export default function renderUserNavbar() {
 
   const logoutBtnActive = () => {
     if (sessionStorage.getItem("token")) {
-    // 로그인 했을때 생기는 로그아웃 기능 추가하는 버튼
-    const logOut = component.querySelector("#logOut");
-    
-    logOut.addEventListener("click", () => {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("nowLoginId");
-      window.location.href = "/";
-    })};
+      // 로그인 했을때 생기는 로그아웃 기능 추가하는 버튼
+      const logOut = component.querySelector("#logOut");
+
+      logOut.addEventListener("click", () => {
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("nowLoginId");
+        window.location.href = "/";
+      });
+    }
   };
   logoutBtnActive();
   return component;
