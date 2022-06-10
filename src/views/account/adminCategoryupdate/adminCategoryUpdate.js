@@ -92,6 +92,6 @@ submitButton.addEventListener("click", (e) => {
     subCategoryName: subInput.value,
   };
   actByCategory(actCategory, bodyData);
-  alert("동작 완료.");
-  window.location.href = "/account/adminCategoryUpdate";
+  // alert("동작 완료.");
+  // window.location.href = "/account/adminCategoryUpdate";
 });

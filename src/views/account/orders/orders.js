@@ -99,7 +99,7 @@ async function adminPageLoad() {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
         });
-        alert(`${data._id}삭제함`);
+        alert(`삭제함`);
         window.location.href = "/account/orders";
       });
     }

@@ -1,5 +1,5 @@
 const loginCheck = document.querySelector("#navbar");
-// const domain = process.env.DOMAIN;
+const domain = "http://kdt-sw2-busan-team03.elicecoding.com";
 
 // console.log(secretKey);
 // http://kdt-sw2-busan-team03.elicecoding.com/
