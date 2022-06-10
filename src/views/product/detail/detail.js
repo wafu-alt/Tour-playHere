@@ -3,25 +3,23 @@ import * as Api from "/api.js";
 
 async function Data() {
   /* url받기 */
-  console.log(window.location.pathname);
-  // result : /product/detail/629dbba1251a88738ef214b6/
+
 
   /* url분리해서 맨끝 상품번호만 빼기 */
   const urlPathname = window.location.pathname;
+  // result : /product/detail/629dbba1251a88738ef214b6/
   const productId = urlPathname
     .split("/")
     .filter((element) => element !== "")[2];
-  console.log(productId); //62996552d8674984f2b07073
+  //62996552d8674984f2b07073
 
   /* 상품 번호로 상품 정보 불러오기 */
   const res = await Api.get("/api/package", productId);
-  // console.log(1, res);
   const { packageName, days, totalNumber, countNumber, imgUrl, substance } =
     res;
   const price = res.price.toLocaleString("ko-KR");
   const departureAt = res.departureAt.split("T")[0];
   const arrivalAt = res.arrivalAt.split("T")[0];
-  // console.log(2, totalNumber, countNumber);
 
   /* 아래 html을 삽입 */
   const body = document.querySelector("body");
@@ -81,7 +79,6 @@ async function Data() {
       alert(`로그인된 사용자만 사용 가능합니다.`);
       return false;
     }
-    console.log("로그인 중");
     return true;
   }
 
@@ -95,7 +92,6 @@ async function Data() {
       alert(`예약 인원을 초과하셨습니다.`);
       return false;
     }
-    console.log(true);
     return true;
   }
 
@@ -114,11 +110,9 @@ async function Data() {
         return;
       }
       cartToken.push(...sessionCartToken);
-      console.log(cartToken);
     }
     cartToken.push(obj);
     sessionStorage.setItem("cartToken", JSON.stringify(cartToken));
-    console.log(sessionStorage.getItem("cartToken", cartToken));
   }
 
   //장바구니추가 버튼 기능
@@ -126,11 +120,10 @@ async function Data() {
     const persons = Number(howPersonInput.value);
     const maxPersons = totalNumber - countNumber;
 
-    if (!loginCheck()) return console.log("로그인체크");
-    if (!personsCheck(persons, maxPersons)) return console.log("인원체크");
+    if (!loginCheck()) return;
+    if (!personsCheck(persons, maxPersons)) return;
     createdToken(persons);
     alert("장바구니에 담으셨습니다.");
-    // window.location.href = `/cart`; //-> veiws/cart/cart.html
   }
 
   //예약하러가기 버튼 기능
@@ -141,8 +134,8 @@ async function Data() {
     const maxPersons = totalNumber - countNumber;
     // const personsChecking = personsCheck(persons, maxPersons);
 
-    if (!loginCheck()) return console.log("로그인체크");
-    if (!personsCheck(persons, maxPersons)) return console.log("인원체크");
+    if (!loginCheck()) return;
+    if (!personsCheck(persons, maxPersons)) return;
     createdToken(persons);
     window.location.href = `/order/${productId}`; //-> veiws/order/order.html
   }
@@ -152,6 +145,5 @@ async function Data() {
 }
 Data();
 
-let loginCheck = document.querySelector(".navbar-end");
-
+const loginCheck = document.querySelector(".navbar-end");
 loginCheck.insertAdjacentElement("beforeend", renderUserNavbar());

@@ -1,7 +1,7 @@
-const inner = document.querySelector("#container #inner");
 import renderUserNavbar from "/components/user_navbar/user_navbar.js";
 
-
+//랜더 html
+const inner = document.querySelector("#container #inner");
 inner.insertAdjacentHTML(
   "beforeend",
   `<div class="order-complete-container">
@@ -46,6 +46,6 @@ function homeFnc() {
 ordersButtton.addEventListener("click", ordersFnc);
 homeButton.addEventListener("click", homeFnc);
 
-
+//네비게이션
 const userNavbarDiv = document.querySelector(".navbar-end");
 userNavbarDiv.insertAdjacentElement("beforeend", renderUserNavbar());
