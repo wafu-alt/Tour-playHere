@@ -8,9 +8,9 @@ const detailDescriptionInput = document.querySelector("#detailDescriptionInput")
 const totalInput = document.querySelector("#totalInput");
 const departureAt = document.querySelector("#departureAt");
 const arriveAt = document.querySelector("#arriveAt");
-
+const imageInput = document.querySelector("#imageInput");
 const submitButton = document.querySelector("#submitButton");
-
+const fileNameSpan = document.querySelector("#fileNameSpan");
 // packageName,category,country,price,days,departureAt,arrivalAt,totalNumber,
 // imgUrl,substance,
 
@@ -27,7 +27,7 @@ submitButton.addEventListener("click", async function (e) {
         departureAt: departureAt.value,
         arrivalAt: arriveAt.value,
         totalNumber: totalInput.value,
-        imgUrl: "https://stylezineblog.com/4137",
+        imgUrl: "이미지가 DB에 저장될 경로???",
         substance:detailDescriptionInput.value
     }
     const jsondata = JSON.stringify(bodyData);
@@ -88,21 +88,31 @@ async function subcategoryLoad() {
             // `
         // })
        
-    
+        
 }
 
 categorySelectBox.onchange = subcategoryLoad;
 
+
+const loadFile = () => {
+    console.log(imageInput.files[0])
+    // const imgUrl = URL.createObjectURL(imageInput.files[0]);     
+    // console.log(imgUrl);
+    fileNameSpan.textContent = imageInput.files[0].name;
+}
+imageInput.onchange = loadFile;
+
 categoryLoad();
 // subcategoryLoad();
-
-async function test() {
-    const test = await fetch("/api/packages", {
-        headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-    })
-    const result = await test.json();
-    console.log(result);
-}
-test();
+// test() => 전 페키지를 가져와서 콘솔에 찍어주는거, 패키지 추가하고 확인용도
+// async function test() {
+    
+//     const test = await fetch("/api/packages", {
+//         headers: {
+//             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+//           },
+//     })
+//     const result = await test.json();
+//     console.log(result);
+// }
+// test();
