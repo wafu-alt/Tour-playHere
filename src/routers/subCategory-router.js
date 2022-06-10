@@ -12,6 +12,7 @@ subCategoryRouter.post('/subcategory/register', adminRequired, async (req, res, 
           'headers의 Content-Type을 application/json으로 설정해주세요'
         );
     }
+
     const categoryName = req.body.categoryName;
     const subCategoryName = req.body.subCategoryName;
 
