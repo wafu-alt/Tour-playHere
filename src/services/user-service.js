@@ -175,6 +175,7 @@ class UserService {
     return user;
   }
 
+  
   // 유저 삭제
   async DeleteUser(userId, userPassword, inputPassword) {
     // 객체 destructuring
@@ -197,6 +198,9 @@ class UserService {
     return deleteUser;
   }
 }
+
+
+
 
 const userService = new UserService(userModel);
 

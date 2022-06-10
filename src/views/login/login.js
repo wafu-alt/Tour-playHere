@@ -48,10 +48,12 @@ async function handleSubmit(e) {
     // 로그인 성공
 
     // 로그인 성공 시 전 사용하려던 페이지로 이동.
-    window.location.href = document.referrer.substring(
+    if(window.location.href!="http://localhost:5000/login/"){window.location.href = document.referrer.substring(
       21,
       document.referrer.length
     );
+    } else { window.location.href = "/"; }
+    
   } catch (err) {
     console.error(err.stack);
     alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
