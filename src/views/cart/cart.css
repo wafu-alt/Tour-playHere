@@ -24,8 +24,10 @@
   margin-bottom: 10px;
 }
 
-#infoBox #cartBreadcrumb ul li:first-child #allCheckSelect {
-  padding-left: 10px;
+#infoBox #cartBreadcrumb ul li {
+  text-indent: 10px;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 #onelineCartList ul {
