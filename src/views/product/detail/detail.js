@@ -1,3 +1,4 @@
+import renderUserNavbar from "/components/user_navbar/user_navbar.js";
 import * as Api from "/api.js";
 
 async function Data() {
@@ -150,3 +151,7 @@ async function Data() {
   orderBtn.addEventListener("click", orderFnc);
 }
 Data();
+
+let loginCheck = document.querySelector(".navbar-end");
+
+loginCheck.insertAdjacentElement("beforeend", renderUserNavbar());

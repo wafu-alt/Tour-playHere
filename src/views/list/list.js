@@ -8,7 +8,7 @@ import renderCategoryNavbar from "/components/category_navbar/category_navbar.js
 import * as Api from "/api.js";
 import getParams from "../get_params.js";
 import renderDropdown from "../components/dropdown/dropdown.js";
-
+import renderUserNavbar from "../components/user_navbar/user_navbar.js";
 // 요소(element), input 혹은 상수
 const itemListContainer = document.querySelector(".item-list-container");
 const itemListDiv = document.querySelector(".item-list");
@@ -16,7 +16,7 @@ const dropdownDiv = document.querySelector(".dropdown-container");
 
 const categoryNavbarDiv = document.querySelector(".category-navbar");
 const titleText = document.getElementById("title");
-
+const userNavbarDiv = document.querySelector(".navbar-end");
 let params = getParams();
 addAllElements();
 addAllEvents();
@@ -30,6 +30,7 @@ async function addAllElements() {
     insertItemsToList(params.subcategory);
     insertDropdown(params.subcategory);
   }
+  insertUserNavbar();
 }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
@@ -80,7 +81,7 @@ function insertCategoryNavbar() {
 
 async function insertDropdown() {
   let data = await Api.get("/api/category/list");
-  const subCategories = data.find((e, i) =>
+  const subCategories = data.find((e) =>
     Object.keys(e).includes(params.category)
   )[params.category];
 
@@ -90,4 +91,8 @@ async function insertDropdown() {
       window.location.href = `/list/?category=${params.category}&subcategory=${selected}`;
     })
   );
+}
+
+function insertUserNavbar() {
+  userNavbarDiv.insertAdjacentElement("beforeend", renderUserNavbar());
 }
