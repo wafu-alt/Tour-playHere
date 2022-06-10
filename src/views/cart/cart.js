@@ -1,5 +1,6 @@
 import * as Api from "/api.js";
 import renderUserNavbar from "../components/user_navbar/user_navbar.js";
+
 //로그인 중인지 체크
 function loginCheck() {
   if (sessionStorage.getItem("token")) {
@@ -12,9 +13,6 @@ function loginCheck() {
 loginCheck();
 
 async function selectProductDelFnc() {
-  console.log("삭제버튼을 눌렀습니다", this);
-  console.log(this.getAttribute("id").split("-")[1]);
-  console.log(this.parentNode.parentNode);
   // 상품을 찾아서 삭제하기 그리고 장바구니에 반영하기
   let checkedArray = [];
   checkedArray.push(this.getAttribute("id").split("-")[1]);
@@ -40,14 +38,12 @@ async function selectProductDelFnc() {
     if (nowLoginCartlist.includes(element) === false) return true;
   });
 
-  if (nowLoginDelCartlist.length === 0) return console.log("리턴됨");
-  console.log("cartToken make");
+  if (nowLoginDelCartlist.length === 0) return;
   sessionStorage.setItem("cartToken", JSON.stringify(nowLoginDelCartlist));
 }
 
 //상품 체크박스 선택해제 했을때 "선택상품정보" 원래대로 돌리기
 function resetRenderProductInfo() {
-  console.log("선택이 해제 되었습니다.");
   const allCheckbox = document.querySelector("#allCheckbox");
   const paymentBox = document.querySelector("#paymentBox");
   allCheckbox.checked = false;
@@ -111,7 +107,6 @@ function resetRenderProductInfo() {
 
 //제품정보 가져오기
 async function loadedProduct(objectId) {
-  console.log("loadedProduct:" + objectId);
   const res = await Api.get("/api/package", objectId);
   return res;
 }
@@ -167,10 +162,8 @@ async function loadedCartToken() {
 
   //상품 체크박스 클릭 했을때 "선택상품정보"에 표시하기
   async function selectCheckboxFnc() {
-    console.log("선택박스 클림함");
     const selectCheckboxs = document.querySelectorAll(".selectCheckboxs");
     const allCheckbox = document.querySelector("#allCheckbox");
-    console.log("allCheckbox", allCheckbox);
 
     if (this.checked === true) {
       for (let i = 0; i < selectCheckboxs.length; i++) {
@@ -181,10 +174,9 @@ async function loadedCartToken() {
 
       const objectId = this.getAttribute("id").split("-")[1];
       const res = await Api.get("/api/package", objectId);
-      console.log(res);
       const { packageName, days, countNumber, totalNumber, price } = res;
-      //선택상품 정보 표시
 
+      //선택상품 정보 표시
       paymentBox.innerHTML = `<label id="infoLabel" class="label">선택상품정보</label>
         <div class="field is-horizontal">
           <div class="field-label is-normal labeInfo">
@@ -242,10 +234,10 @@ async function loadedCartToken() {
       const orderBtn = document.querySelector("#orderBtn");
       orderBtn.addEventListener("click", orderFnc);
 
-      return console.log("랜더링");
+      return;
     }
     resetRenderProductInfo();
-    return console.log("다시 원상태");
+    return;
   }
 }
 loadedCartToken();
@@ -337,8 +329,6 @@ function orderFnc() {
   //object id를 받아서 주문결제페이지로 감
   const selectCheckboxs = document.querySelectorAll(".selectCheckboxs");
   const allCheckbox = document.querySelector("#allCheckbox");
-  console.log("selectCheckboxs 오더", selectCheckboxs);
-  console.log(allCheckbox.checked === true);
   let productId = [];
   for (let i = 0; i < selectCheckboxs.length; i++) {
     if (selectCheckboxs[i].checked === true) {
@@ -346,8 +336,6 @@ function orderFnc() {
     }
   }
 
-  console.log(productId);
-  console.log(!productId);
   if (productId.length > 1) return alert("다중선택하셨습니다");
   if (productId.length === 0) return alert("선택 상품이 없습니다.");
   // alert("오더페이지로 이동");
@@ -359,6 +347,5 @@ allCheckSelect.addEventListener("click", checkAllFnc); //전체선택
 selectCheckDel.addEventListener("click", checkDelFnc); //선택삭제
 orderBtn.addEventListener("click", orderFnc); //예약하러가기
 
-let userNavbarDiv = document.querySelector(".navbar-end");
-
+const userNavbarDiv = document.querySelector(".navbar-end");
 userNavbarDiv.insertAdjacentElement("beforeend", renderUserNavbar());

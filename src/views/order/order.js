@@ -34,7 +34,6 @@ function loadedPersons(productId) {
   if (productId === tokenInfo.objectId) {
     persons = tokenInfo.persons;
   }
-  console.log("persons", persons)
   return persons;
 }
 
@@ -190,24 +189,21 @@ async function renderHtml() {
       return element.email === nowLoginIdEmail;
     });
 
-    console.log(_id);
     //로그인 사용자의 장바구니 리스트를 고르기
     const nowLoginCartlist = cartListData.filter(
       (element) => element.objectId === _id
     );
-    console.log("nowLoginCartlist", nowLoginCartlist);
-    // // //다른 사용자의 장바구니 리스트
+
+    //다른 사용자의 장바구니 리스트
     let otherUserCartList = cartListData.filter((element) => {
       if (nowLoginCartlist.includes(element)) return false;
     });
-    console.log("otherUserCartList", otherUserCartList);
 
     //로그인 사용자 장바구니 리스트에서 선택한 장바구니를 빼기
     const nowLoginDelCartlist = cartToken.filter((element) => {
       if (nowLoginCartlist.includes(element) === false) return true;
     });
 
-    console.log("nowLoginDelCartlist", nowLoginDelCartlist);
     //다른 사용자의 장바구니 리스트에 필터링한 것을 넣어서 합침
     otherUserCartList.push(...nowLoginDelCartlist);
 
@@ -216,11 +212,12 @@ async function renderHtml() {
   }
 
   async function orderFnc() {
-    console.log(persons)
     const phoneNum = document.querySelector("#phoneNumber").value;
     if(!phoneNum) return alert("휴대전화번호는 필수입니다.");
+
     //주문 날짜 구하기
     const orderDate = await new Date();
+
     //주문한 정보 넣기
     const orderData = {
       userName: fullName,
@@ -238,8 +235,10 @@ async function renderHtml() {
     };
 
     delCartToken();
+
     //주문서 업데이트하는 api
     const orederId = await Api.post("/api/order", orderData);
+    
     //상품 카운터 바꾸는 api
     const countiedNumber = { countNumber: `${persons + countNumber}` };
     await Api.patch(`/api/packagecount`, `${_id}`, countiedNumber);
