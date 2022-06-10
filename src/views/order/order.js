@@ -34,6 +34,7 @@ function loadedPersons(productId) {
   if (productId === tokenInfo.objectId) {
     persons = tokenInfo.persons;
   }
+  console.log("persons", persons)
   return persons;
 }
 
@@ -237,16 +238,18 @@ async function renderHtml() {
     };
 
     delCartToken();
-    const orederId =await Api.post("/api/order", orderData);
-
+    //주문서 업데이트하는 api
+    const orederId = await Api.post("/api/order", orderData);
+    //상품 카운터 바꾸는 api
     const countiedNumber = { countNumber: `${persons + countNumber}` };
     await Api.patch(`/api/packagecount`, `${_id}`, countiedNumber);
 
     alert(`예약이 정상적으로 완료되었습니다.\n감사합니다.`);
-    await Api.post(`/api/sendMail/${orederId._id}`,"");
-
-
-    // window.location.href = "/complete";
+    
+    //메일 보내는 api
+    await Api.post(`/api/sendMail/${orederId._id}`);
+    
+    window.location.href = "/complete";
   }
 
   //예약하기 버튼 클릭

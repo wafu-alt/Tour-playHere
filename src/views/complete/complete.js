@@ -1,4 +1,6 @@
 const inner = document.querySelector("#container #inner");
+import renderUserNavbar from "/components/user_navbar/user_navbar.js";
+
 
 inner.insertAdjacentHTML(
   "beforeend",
@@ -43,3 +45,7 @@ function homeFnc() {
 
 ordersButtton.addEventListener("click", ordersFnc);
 homeButton.addEventListener("click", homeFnc);
+
+
+const userNavbarDiv = document.querySelector(".navbar-end");
+userNavbarDiv.insertAdjacentElement("beforeend", renderUserNavbar());
