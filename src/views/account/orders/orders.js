@@ -12,7 +12,7 @@ async function loadPage() {
   const res = await Api.get("/api/orders/forUser", `?email=${nowLoginId}`);
 
   res.forEach((data) => {
-    console.log(data.email);
+    
     const date = data.departureAt.substr(0, 10);
     const departureAt = new Date(data.departureAt);
 
@@ -49,7 +49,7 @@ async function loadPage() {
         const deleteButton = document.querySelector(
           `#deleteButton-${data._id}`
         );
-        console.log(deleteButton);
+        
         deleteButton.addEventListener("click", async function () {
           const res = await fetch(`/api/order/${data._id}`, {
             method: "DELETE",
@@ -70,7 +70,7 @@ async function loadPage() {
 async function adminPageLoad() {
   const res = await Api.get("/api", "orders");
   // const result = await res.json();
-  console.log(res);
+  
   // const fetchData = await fetch("../orders_sample.json").then((response) =>
   //   response.json()
   // );
@@ -121,7 +121,7 @@ async function adminPageLoad() {
       deleteBtnDiv.appendChild(deletebtn);
 
       const deleteButton = document.querySelector(`#deleteButton-${data._id}`);
-      console.log(deleteButton);
+      
       deleteButton.addEventListener("click", async function () {
         const res = await fetch(`/api/order/${data._id}`, {
           method: "DELETE",
