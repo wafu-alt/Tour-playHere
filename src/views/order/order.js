@@ -50,6 +50,7 @@ async function renderHtml() {
     _id,
     departureAt,
     arrivalAt,
+    country,
   } = await productTest();
   const persons = loadedPersons(_id); //토큰을 통해 인원수 불러옴
   const fuelSurcharge = price * 0.1;
@@ -169,13 +170,47 @@ async function renderHtml() {
       <div class="field">
         <label class="label title is-4">총 결제금액</label>
         <p id="productTotalPrice">
-          ${(price + fuelSurcharge).toLocaleString("ko-KR")}원
+          ${((price + fuelSurcharge) * persons).toLocaleString("ko-KR")}원
         </p>
       </div>
 
       <button id="orderBtn" class="button is-success">예약하기</button>
     </section>`
   );
+  async function delCartToken() {
+    //현재 로그인 된 토큰 가져오기
+    const nowLoginIdEmail = sessionStorage.getItem("nowLoginId");
+    //cart 토큰 가져오기
+    const cartToken = JSON.parse(sessionStorage.getItem("cartToken"));
+    if (!cartToken) return;
+    const cartListData = cartToken.filter((element) => {
+      return element.email === nowLoginIdEmail;
+    });
+
+    console.log(_id);
+    //로그인 사용자의 장바구니 리스트를 고르기
+    const nowLoginCartlist = cartListData.filter(
+      (element) => element.objectId === _id
+    );
+    console.log("nowLoginCartlist", nowLoginCartlist);
+    // // //다른 사용자의 장바구니 리스트
+    let otherUserCartList = cartListData.filter((element) => {
+      if (nowLoginCartlist.includes(element)) return false;
+    });
+    console.log("otherUserCartList", otherUserCartList);
+
+    //로그인 사용자 장바구니 리스트에서 선택한 장바구니를 빼기
+    const nowLoginDelCartlist = cartToken.filter((element) => {
+      if (nowLoginCartlist.includes(element) === false) return true;
+    });
+
+    console.log("nowLoginDelCartlist", nowLoginDelCartlist);
+    //다른 사용자의 장바구니 리스트에 필터링한 것을 넣어서 합침
+    otherUserCartList.push(...nowLoginDelCartlist);
+
+    //그리고 모든 사용자의 장바구니 리스트로 만듦
+    sessionStorage.setItem("cartToken", JSON.stringify(otherUserCartList));
+  }
 
   async function orderFnc() {
     //주문 날짜 구하기
@@ -186,22 +221,23 @@ async function renderHtml() {
       email: email,
       totalNumber: totalNumber,
       packageName: packageName,
+      country: country,
       days: days,
       departureAt: departureAt,
       arrivalAt: arrivalAt,
       registerDateAt: orderDate,
       price: price,
-      totalPrice: price + fuelSurcharge,
+      totalPrice: (price + fuelSurcharge) * persons,
       packageId: _id,
     };
 
+    delCartToken();
     await Api.post("/api/order", orderData);
 
     const countiedNumber = { countNumber: `${persons + countNumber}` };
     await Api.patch(`/api/packagecount`, `${_id}`, countiedNumber);
 
-    alert(`예약이 정상적으로 완료되었습니다. 
-감사합니다.`);
+    alert(`예약이 정상적으로 완료되었습니다.\n감사합니다.`);
     window.location.href = "/complete";
   }
 
