@@ -7,7 +7,7 @@ const domain = "http://kdt-sw2-busan-team03.elicecoding.com";
 const loginHTMLInMain = () => {
   // 로그인 했을때 메인 화면 Nav
   loginCheck.innerHTML = `
-      <li><a href="/account">계정관리 </a></li>
+      <li><a href="/account">계정,상품 관리 </a></li>
       <li><a id="logOut"href="#"> 로그아웃 </a></li>
       <li>
                 <a href="/cart" aria-current="page">

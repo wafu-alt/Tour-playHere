@@ -64,7 +64,7 @@ submitButton.addEventListener("click", async function (e) {
 // 국가 카테고리와 서브 카테고리 option넣어주는 것들 <option value="국내">국내</option>
 async function categoryLoad() {
   const res = await Api.get("/api/category", "list");
-  categorySelectBox.innerHTML = `<option value="국가를 선택">국가를 선택하세여</option>`;
+  categorySelectBox.innerHTML = `<option value="국가를 선택">국가를 선택하세요</option>`;
   res.forEach((data) => {
     // console.log(Object.keys(data)[0]);
     categorySelectBox.innerHTML += `
