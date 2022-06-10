@@ -4,7 +4,7 @@ export default function renderUserNavbar() {
   if (sessionStorage.getItem("token")) {
     component.innerHTML = `
         <ul id="navbar">
-        <li><a href="/account">계정관리</a></li>
+        <li><a href="/account">계정,상품 관리</a></li>
         <li><a id="logOut" href="#">로그아웃</a></li>
         <li>
             <a href="/cart" aria-current="page">
