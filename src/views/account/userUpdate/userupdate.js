@@ -50,7 +50,7 @@ submitButton.addEventListener("click", async function(e){
   console.log(res);
   const userId = res._id;
   const userRole = res.role;
-  const password = res.password;
+  
   const data = {
     fullName: nameInput.value,
     password: passwordInput.value,
