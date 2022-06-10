@@ -46,7 +46,6 @@ class UserService {
     // 객체 destructuring
     const { email, password } = loginInfo;
 
-
     // 우선 해당 이메일의 사용자 정보가  db에 존재하는지 확인
     const user = await this.userModel.findByEmail(email);
     if (!user) {
@@ -100,7 +99,7 @@ class UserService {
     const user = await this.userModel.findByEmail(email);
 
     if (!user) {
-      throw new Error("올바르지 않은 이메일 입니다. 다시 한 번 확인해 주세요."); 
+      throw new Error("올바르지 않은 이메일 입니다. 다시 한 번 확인해 주세요.");
     }
     return user;
   }
@@ -178,21 +177,20 @@ class UserService {
 
   
   // 유저 삭제
-  async DeleteUser(userId,userPassword,inputPassword) {
+  async DeleteUser(userId, userPassword, inputPassword) {
     // 객체 destructuring
 
-
     const correctPasswordHash = userPassword;
-     const isPasswordCorrect = await bcrypt.compare(
-       inputPassword,
-       correctPasswordHash
-     );
- 
-     if (!isPasswordCorrect) {
-       throw new Error(
-         "현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
-       );
-     }
+    const isPasswordCorrect = await bcrypt.compare(
+      inputPassword,
+      correctPasswordHash
+    );
+
+    if (!isPasswordCorrect) {
+      throw new Error(
+        "현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
+      );
+    }
 
     // db에 저장
     const deleteUser = await this.userModel.delete(userId);

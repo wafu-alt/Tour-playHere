@@ -25,17 +25,17 @@ export default function renderItem(data) {
     <div class="media">
       <div class="media-content">
         <p class="has-text-grey-light">${data.category} / ${data.country}</p>
-        <p id="title" class="title is-5">${data.packageName}</p>
-        <p class="substance">${data.substance}</p>
+        <p class="title is-5">${data.packageName}</p>
       </div>
     </div>
 
     <div class="content">
-    <p id="price" >${data.price.toLocaleString()}원
-    <span id="days" class="has-text-grey-light">
-   / ${data.days}일
-    </span>
-    </p>
+    <p class="has-text-grey-light">${
+      data.departureAt &&
+      `${data.departureAt.split("T")[0]} ~ ${data.arrivalAt.split("T")[0]}`
+    }</p>
+
+    <b class="has-text-black">${data.price.toLocaleString()}원</b>
     </div>
   </div>
 </div>

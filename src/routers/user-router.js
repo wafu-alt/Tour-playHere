@@ -1,45 +1,74 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
-// 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from "../middlewares";
 import { userService } from "../services";
+import { body, validationResult } from "express-validator";
 
 const userRouter = Router();
 
+const validationFunc = (req, res, next) => {
+  const error = validationResult(req);
+  if (!error.isEmpty()) return res.status(400).json(error);
+  next();
+};
+
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-userRouter.post("/register", async (req, res, next) => {
-  try {
-    // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
-    // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
+userRouter.post(
+  "/register",
+  [
+    // body('fullName', '이름을 입력해 주세요.')
+    //   .trim()
+    //   .notEmpty(),
+    // body('email', '이메일 형식이 올바르지 않습니다.')
+    //   .trim()
+    //   .notEmpty()
+    //   .isEmail(),
+    // body('password', '패스워드는 4자리 이상으로 입력해주세요.')
+    //   .tm()
+    //   .notEmpty()
+    //   .isMobilePhone(),
+    // body('telNumber', '전화번호를 확인해 주세요.')
+    //   .trim()
+    //   .notEmpty(),
+    // validationFuncrim()
+    //   .isLength({min:4}),
+    // body('phoneNumber', '올바르지 않은 핸드폰 번호입니다.')
+    //   .tri
+  ],
+  async (req, res, next) => {
+    try {
+      // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
+      // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
+      if (is.emptyObject(req.body)) {
+        throw new Error(
+          "headers의 Content-Type을 application/json으로 설정해주세요"
+        );
+      }
+
+      // req (request)의 body 에서 데이터 가져오기
+      const fullName = req.body.fullName;
+      const email = req.body.email;
+      const password = req.body.password;
+      const phoneNumber = req.body.phoneNumber;
+      const telNumber = req.body.telNumber;
+
+      // 위 데이터를 유저 db에 추가하기
+      const newUser = await userService.addUser({
+        fullName,
+        email,
+        password,
+        phoneNumber,
+        telNumber,
+      });
+
+      // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
+      // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
+      res.status(201).json(newUser);
+    } catch (error) {
+      next(error);
     }
-
-    // req (request)의 body 에서 데이터 가져오기
-    const fullName = req.body.fullName;
-    const email = req.body.email;
-    const password = req.body.password;
-    const phoneNumber = req.body.phoneNumber;
-    const telNumber = req.body.telNumber;
-
-    // 위 데이터를 유저 db에 추가하기
-    const newUser = await userService.addUser({
-      fullName,
-      email,
-      password,
-      phoneNumber,
-      telNumber,
-    });
-
-    // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
-    // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
-    res.status(201).json(newUser);
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
 userRouter.post("/login", async function (req, res, next) {
@@ -223,10 +252,14 @@ userRouter.patch("/useradmin/:userId", async function (req, res, next) {
 userRouter.delete("/user", async function (req, res, next) {
   try {
     // 상품 Id 얻음
-    const userId = req.body.userId;
-    const userPassword = req.body.password;
+    const userId = req.params.userId;
+    const userPassword = req.params.password;
     const inputPassword = req.body.passwordConfirmInput;
-    const deleteuser = await userService.DeleteUser(userId,userPassword,inputPassword);
+    const deleteuser = await userService.DeleteUser(
+      userId,
+      userPassword,
+      inputPassword
+    );
     res.status(200).json(deleteuser);
 
   } catch (error) {

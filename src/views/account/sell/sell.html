@@ -22,6 +22,8 @@
       src="https://kit.fontawesome.com/7630448495.js"
       crossorigin="anonymous"
     ></script>
+    <!-- AWS S3 사용하기 위한 파일 -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.410.0.min.js"></script>
 
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="sell.css" />
@@ -123,14 +125,6 @@
               </div>
             </div>
 
-
-
-
-
-
-
-            
-
             <div class="field">
               <label class="label" for="detailDescriptionInput"
                 >간단한 설명</label
@@ -149,25 +143,29 @@
             <div class="field is-fullwidth">
               <span class="label" >제품 사진</span>
               <div class="file has-name is-fullwidth">
-                
-                  <input
+                <label class="file-label">
+                  <!-- <input
                     class="file-input"
                     id="imageInput"
                     type="file"
                     name="image-file"
-                    accept="image/*"
-                    
-                  />
-                  <span class="file-cta">
+                    accept=".png, .jpeg, .jpg"
+                  /> -->
+                  <!-- <span class="file-cta">
                     <span class="file-icon">
                       <i class="fas fa-upload"></i>
                     </span>
                     <label class="file-label" for="imageInput"> 사진 업로드 </label>
                   </span>
                   <span class="file-name" id="fileNameSpan">
-                    사진파일(이미지 파일)
-                  </span>
-                
+                    사진파일 (png, jpg, jpeg)
+                  </span> -->
+                  <input
+                    type="file"
+                    id="imageInput"
+                    accept=".png, .jpeg, .jpg"
+                  />
+                </label>
               </div>
             </div>
 
@@ -187,26 +185,16 @@
             <div class="field">
               <label class="label" for="departureAt">출발일</label>
               <div class="control">
-                <input
-                  class="input"
-                  id="departureAt"
-                  type="date"                  
-                />
+                <input class="input" id="departureAt" type="date" />
               </div>
             </div>
 
             <div class="field">
               <label class="label" for="arriveAt">도착일</label>
               <div class="control">
-                <input
-                  class="input"
-                  id="arriveAt"
-                  type="date"                  
-                />
+                <input class="input" id="arriveAt" type="date" />
               </div>
             </div>
-
-            
 
             <div
               class="field is-grouped is-grouped-multiline mt-3"
