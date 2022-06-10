@@ -1,5 +1,5 @@
 import * as Api from "/api.js";
-
+import renderUserNavbar from "../components/user_navbar/user_navbar.js";
 //로그인 중인지 체크
 function loginCheck() {
   if (sessionStorage.getItem("token")) {
@@ -358,3 +358,7 @@ allCheckbox.addEventListener("click", checkAllFnc); //전체선택 체크박스
 allCheckSelect.addEventListener("click", checkAllFnc); //전체선택
 selectCheckDel.addEventListener("click", checkDelFnc); //선택삭제
 orderBtn.addEventListener("click", orderFnc); //예약하러가기
+
+let userNavbarDiv = document.querySelector(".navbar-end");
+
+userNavbarDiv.insertAdjacentElement("beforeend", renderUserNavbar());
