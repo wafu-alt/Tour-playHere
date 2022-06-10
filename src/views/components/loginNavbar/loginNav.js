@@ -103,13 +103,7 @@ const navBarLoad = () => {
         accountMainHTML();
         break;
 
-      case "http://localhost:5000/account/orders/":
-      case "http://localhost:5000/account/deleteAccount/":
-      case "http://localhost:5000/account/sell/":
-      case "http://localhost:5000/account/userUpdate/":
-      case "http://localhost:5000/account/adminUpdate/":
-      case "http://localhost:5000/account/adminCategoryUpdate/":
-
+      case "http://localhost:5000/product/detail/62a0522a75a5ac032202e864/":
       case "http://localhost:5000/account/orders/":
       case "http://localhost:5000/account/deleteAccount/":
       case "http://localhost:5000/account/sell/":
