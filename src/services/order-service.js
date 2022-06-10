@@ -50,8 +50,8 @@ class OrderService {
     return createdNewOrder;
   }
   // 상품 목록 전체 가져옴
-  async getOrders() {
-    const orders = await this.orderModel.findAll();
+  async getOrders(query) {
+    const orders = await this.orderModel.findAll(query);
     return orders;
   }
   // 상품 Id로 검색
