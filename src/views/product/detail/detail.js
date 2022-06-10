@@ -14,7 +14,6 @@ async function compareDate(departureAt) {
   //일 비교
   if (departureDate[1] === date.getMonth() + 1) {
     if (departureDate[2] < date.getDay()) return false;
-    return false;
   }
   return true;
 }
