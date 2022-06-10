@@ -6,9 +6,8 @@ const mainInputlabel = document.querySelector("#mainInputlabel");
 const subInputlabel = document.querySelector("#subInputlabel");
 // TODO : 눌러서 카테고리를 추가, 수정, 삭제 할수 있게 한다.
 
-// console.log(submitButton);
+
 categorySelectBox.onchange = changeHTML;
-// console.log(categorySelectBox.options[categorySelectBox.selectedIndex].value);
 
 function changeHTML() {
   const actCategory =
@@ -44,7 +43,15 @@ async function actByCategory(actCategory, bodyData) {
       body: data,
     });
     // 추가한 커테고리 콘솔 창에 뛰워줌(카테고리 생성되었는지 확인할 수 있도록)
-    console.log(await res.json());
+    const result = await res.json();
+    if (result.result == "error") {
+      alert("카테고리 추가를 실패 했습니다. 이유 : " + result.reason);      
+    } else {
+      alert("카테고리를 추가 하는데 성공 했습니다.");
+    }
+
+    window.location.href = "/account/adminCategoryUpdate";
+    
   } else if (actCategory == "modifyCategory") {
     const res = await fetch(
       `/api/subcategory?curSubCategoryName=${bodyData.categoryName}&updatedSubCategoryName=${bodyData.subCategoryName}`,
@@ -57,7 +64,13 @@ async function actByCategory(actCategory, bodyData) {
         body: data,
       }
     );
-    console.log(await res.json());
+    const result = await res.json();
+    if (result.result == "error") {
+      alert("카테고리 수정을 실패 했습니다. 이유 : " + result.reason);
+    } else {
+      alert("카테고리를 수정 하는데 성공했습니다.")
+    }
+    window.location.href = "/account/adminCategoryUpdate";
   } else if (actCategory == "deleteCategory") {
     const res = await fetch("/api/subcategory", {
       method: "DELETE",
@@ -67,16 +80,16 @@ async function actByCategory(actCategory, bodyData) {
       },
       body: data,
     });
-    console.log(await res.json());
+    const result = await res.json();
+    if (result.result == "error") {
+      alert("카테고리 삭제를 실패 했습니다. 이유 : " + result.reason);
+    } else {
+      alert("카테고리를 삭제 하는데 성공했습니다.");
+    }
+    window.location.href = "/account/adminCategoryUpdate";
   }
 
-  const testCategory = await fetch("/api/category/list", {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-    },
-  });
-  console.log(await testCategory.json());
+  
 }
 
 submitButton.addEventListener("click", (e) => {
@@ -84,14 +97,11 @@ submitButton.addEventListener("click", (e) => {
 
   const actCategory =
     categorySelectBox.options[categorySelectBox.selectedIndex].value;
-  console.log(mainInput.value);
-  console.log(subInput.value);
-  console.log(actCategory);
+  
   const bodyData = {
     categoryName: mainInput.value,
     subCategoryName: subInput.value,
   };
   actByCategory(actCategory, bodyData);
-  // alert("동작 완료.");
-  // window.location.href = "/account/adminCategoryUpdate";
+  
 });
