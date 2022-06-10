@@ -18,6 +18,12 @@ export class SubCategoryModel {
     return subCategory;
   }
 
+  async findByCategoryIdAll(categoryId) {
+    const subCategory = await SubCategory.find({ categoryId });
+
+    return subCategory;
+  }
+
   async findBySubCategoryName(subCategoryName) {  
     const subCategory = await SubCategory.findOne({ subCategoryName:  subCategoryName});
 
