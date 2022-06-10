@@ -1,11 +1,10 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
-import { adminRequired } from '../middlewares';
 import { categoryService } from "../services";
 
 const categoryRouter = Router();
 
-categoryRouter.post("/category", adminRequired, async (req, res, next) => {
+categoryRouter.post("/category", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -25,16 +24,14 @@ categoryRouter.post("/category", adminRequired, async (req, res, next) => {
   }
 });
 
-categoryRouter.get("/category/list", adminRequired, async (req, res, next) => {
+categoryRouter.get("/category/list", async (req, res, next) => {
   try {
     const allCategory = await categoryService.getAllCategory();
 
     res.status(201).json(allCategory);
-    
   } catch (error) {
     next(error);
   }
-  
 });
 
 export { categoryRouter };

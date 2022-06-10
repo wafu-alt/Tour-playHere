@@ -16,24 +16,20 @@ const validationFunc = (req, res, next) => {
 userRouter.post(
   "/register",
   [
-    // body('fullName', '이름을 입력해 주세요.')
-    //   .trim()
-    //   .notEmpty(),
-    // body('email', '이메일 형식이 올바르지 않습니다.')
-    //   .trim()
-    //   .notEmpty()
-    //   .isEmail(),
-    // body('password', '패스워드는 4자리 이상으로 입력해주세요.')
-    //   .tm()
-    //   .notEmpty()
-    //   .isMobilePhone(),
-    // body('telNumber', '전화번호를 확인해 주세요.')
-    //   .trim()
-    //   .notEmpty(),
-    // validationFuncrim()
-    //   .isLength({min:4}),
-    // body('phoneNumber', '올바르지 않은 핸드폰 번호입니다.')
-    //   .tri
+    body('fullName', '이름을 입력해 주세요.')
+      .trim()
+      .notEmpty(),
+
+    body('email', '이메일 형식이 올바르지 않습니다.')
+      .trim()
+      .notEmpty()
+      .isEmail(),
+
+    body('password', '패스워드는 4자리 이상으로 입력해주세요.')
+      .trim()
+      .isLength({min:4}),
+
+    validationFunc
   ],
   async (req, res, next) => {
     try {
@@ -261,11 +257,9 @@ userRouter.delete("/user", async function (req, res, next) {
       inputPassword
     );
     res.status(200).json(deleteuser);
-
   } catch (error) {
     next(error);
   }
 });
 
 export { userRouter };
-

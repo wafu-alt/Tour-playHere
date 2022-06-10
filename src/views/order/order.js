@@ -99,7 +99,7 @@ async function renderHtml() {
         </div>
         <div class="field-body">
           <div class="control">
-            <input class="input" placeholder="-없이 적어주세요" 
+            <input id="phoneNumber" class="input" placeholder="-없이 적어주세요" 
               value ="${phoneNumber ? `${phoneNumber}` : ""}" 
             />
           </div>
@@ -213,6 +213,8 @@ async function renderHtml() {
   }
 
   async function orderFnc() {
+    const phoneNum = document.querySelector("#phoneNumber").value;
+    if(!phoneNum) return alert("휴대전화번호는 필수입니다.");
     //주문 날짜 구하기
     const orderDate = await new Date();
     //주문한 정보 넣기

@@ -100,6 +100,6 @@ async function subcategoryLoad() {
 
 }
 
-categorySelectBox.onchange = subcategoryLoad;
+categorySelectBox.onchange = subcategoryLoad();
 
 categoryLoad();
