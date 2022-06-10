@@ -1,7 +1,7 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { adminRequired, loginRequired } from "../middlewares";
+import { adminRequired, loginRequired, errorHandler } from "../middlewares";
 import { orderService } from "../services";
 
 const orderRouter = Router();
@@ -175,6 +175,6 @@ orderRouter.post("/sendMail/:orderId", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
-})
+}, errorHandler)
 
 export { orderRouter };

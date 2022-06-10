@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
-import { adminRequired } from '../middlewares';
+import { adminRequired, errorHandler } from '../middlewares';
 import { subCategoryService } from '../services';
 
 const  subCategoryRouter  = Router();
@@ -25,7 +25,7 @@ subCategoryRouter.post('/subcategory/register', adminRequired, async (req, res, 
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 subCategoryRouter.patch('/subcategory', adminRequired, async (req, res, next) => {
   try {
@@ -48,9 +48,9 @@ subCategoryRouter.patch('/subcategory', adminRequired, async (req, res, next) =>
 
   } catch (error){
     next(error);
-  }  
+  }
 
-});
+}, errorHandler);
 
 // subcategory delete router
 subCategoryRouter.delete('/subcategory', adminRequired, async (req, res, next) => {
@@ -69,6 +69,6 @@ subCategoryRouter.delete('/subcategory', adminRequired, async (req, res, next) =
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 export { subCategoryRouter };
