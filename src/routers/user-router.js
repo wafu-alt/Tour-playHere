@@ -224,8 +224,7 @@ userRouter.patch("/useradmin/:userId", async function (req, res, next) {
     const userId = req.params.userId;
 
     // body data 로부터 업데이트할 사용자 정보를 추출함.
-    const role = req.body.role;
-
+    const role = "admin";
     // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
 
     // 위 데이터가 undefined가 아니라면, 즉, 프론트에서 업데이트를 위해
@@ -257,11 +256,9 @@ userRouter.delete("/user", async function (req, res, next) {
       inputPassword
     );
     res.status(200).json(deleteuser);
-
   } catch (error) {
     next(error);
   }
 });
 
 export { userRouter };
-
