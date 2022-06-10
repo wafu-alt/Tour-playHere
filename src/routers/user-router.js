@@ -29,15 +29,6 @@ userRouter.post("/register",
       .trim()
       .isLength({min:4}),
 
-    body('phoneNumber', '올바르지 않은 핸드폰 번호입니다.')
-      .trim()
-      .notEmpty()
-      .isMobilePhone(),
-
-    body('telNumber', '전화번호를 확인해 주세요.')
-      .trim()
-      .notEmpty(),
-
     validationFunc
   ],
   async (req, res, next) => {
