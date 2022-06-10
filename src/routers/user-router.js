@@ -4,17 +4,17 @@ import { loginRequired } from "../middlewares";
 import { userService } from "../services";
 import { body, validationResult } from "express-validator";
 
-
 const userRouter = Router();
 
-const validationFunc = (req, res, next)=>{
+const validationFunc = (req, res, next) => {
   const error = validationResult(req);
-  if(!error.isEmpty()) return res.status(400).json(error);
+  if (!error.isEmpty()) return res.status(400).json(error);
   next();
-}
+};
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-userRouter.post("/register",
+userRouter.post(
+  "/register",
   [
     body('fullName', '이름을 입력해 주세요.')
       .trim()
@@ -60,10 +60,11 @@ userRouter.post("/register",
       // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
       // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
       res.status(201).json(newUser);
-  } catch (error) {
-    next(error);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
 userRouter.post("/login", async function (req, res, next) {
@@ -244,7 +245,7 @@ userRouter.patch("/useradmin/:userId", async function (req, res, next) {
 });
 
 // 사용자 삭제
-userRouter.delete("/user/:userId", async function (req, res, next) {
+userRouter.delete("/user", async function (req, res, next) {
   try {
     // 상품 Id 얻음
     const userId = req.params.userId;
@@ -256,9 +257,11 @@ userRouter.delete("/user/:userId", async function (req, res, next) {
       inputPassword
     );
     res.status(200).json(deleteuser);
+
   } catch (error) {
     next(error);
   }
 });
 
 export { userRouter };
+

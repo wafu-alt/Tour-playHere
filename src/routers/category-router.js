@@ -29,11 +29,9 @@ categoryRouter.get("/category/list", async (req, res, next) => {
     const allCategory = await categoryService.getAllCategory();
 
     res.status(201).json(allCategory);
-    
   } catch (error) {
     next(error);
   }
-  
 });
 
 export { categoryRouter };

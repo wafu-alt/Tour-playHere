@@ -58,7 +58,7 @@ packageRouter.post(
       const departureAt = req.body.departureAt;
       const arrivalAt = req.body.arrivalAt;
       const totalNumber = req.body.totalNumber;
-      const imgUrl = "/image/" + req.file.filename;
+      const imgUrl = url + "/db/image/" + req.file.filename;
       const substance = req.body.substance;
 
       // 위 데이터를 유저 db에 추가하기

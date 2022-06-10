@@ -36,7 +36,7 @@ async function actByCategory(actCategory, bodyData) {
     const data = JSON.stringify(bodyData);
     
     if (actCategory == "카테고리 추가하기") { 
-        const res = await fetch("/api/subcategory", {
+        const res = await fetch("/api/subcategory/register", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
