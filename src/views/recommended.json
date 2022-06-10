@@ -34,7 +34,7 @@
   },
   {
     "index": 5,
-    "name": "북경",
+    "name": "베이징",
     "name_en": "Beijing",
     "category": "중국",
     "description": "베이징으로 떠나보세요!",
@@ -50,8 +50,8 @@
   },
   {
     "index": 7,
-    "name": "도쿄/나리타",
-    "name_en": "Tokyo/Nalita",
+    "name": "도쿄",
+    "name_en": "Tokyo",
     "category": "일본",
     "description": "도쿄로 떠나보세요!",
     "image": "https://d2ahiw9kb7is19.cloudfront.net/-/media/17F7FA64B6BE41AAA783C6EFA829A529.jpg?d=20171117T090727&w=750"
