@@ -90,7 +90,7 @@ async function Data() {
       alert(`인원을 ${persons}명을 입력하셨습니다.`);
       return false;
     }
-    if (persons >= maxPersons) {
+    if (persons > maxPersons) {
       alert(`예약 인원을 초과하셨습니다.`);
       return false;
     }

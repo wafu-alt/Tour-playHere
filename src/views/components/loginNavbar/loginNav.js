@@ -53,15 +53,9 @@ const accountMainHTML = () => {
             </a>
         </li>
         `;
-      logoutBtnActive();
-        
+  logoutBtnActive();
+};
 
-
-
-
-  
-}
-  
 const accountCategoryInHTML = () => {
   // 계정관리 메인 화면에서 카테고리를 눌렀을때 Nav
   if (!sessionStorage.getItem("token")) {
@@ -85,20 +79,15 @@ const accountCategoryInHTML = () => {
 };
 
 const logoutBtnActive = () => {
-    // 로그인 했을때 생기는 로그아웃 기능 추가하는 버튼
-    const logOut = document.querySelector("#logOut");
-    
-    logOut.addEventListener("click", () => {
-      sessionStorage.removeItem("token");
-      sessionStorage.removeItem("loginId");
+  // 로그인 했을때 생기는 로그아웃 기능 추가하는 버튼
+  const logOut = document.querySelector("#logOut");
+
+  logOut.addEventListener("click", () => {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("loginId");
     window.location.href = "/";
-});
-}
-
-
-
-
-
+  });
+};
 
 const navBarLoad = () => {
   // url에 맞는 Nav로딩하기
@@ -110,17 +99,11 @@ const navBarLoad = () => {
     }
   } else {
     switch (document.location.href) {
-        case "http://localhost:5000/account/":
-            accountMainHTML();
-            break;
-        
-        case "http://localhost:5000/account/orders/":
-        case "http://localhost:5000/account/deleteAccount/":
-        case "http://localhost:5000/account/sell/":
-        case "http://localhost:5000/account/userUpdate/":
-        case "http://localhost:5000/account/adminUpdate/":
-        case "http://localhost:5000/account/adminCategoryUpdate/":
+      case "http://localhost:5000/account/":
+        accountMainHTML();
+        break;
 
+      case "http://localhost:5000/product/detail/62a0522a75a5ac032202e864/":
       case "http://localhost:5000/account/orders/":
       case "http://localhost:5000/account/deleteAccount/":
       case "http://localhost:5000/account/sell/":
@@ -130,7 +113,7 @@ const navBarLoad = () => {
         accountCategoryInHTML();
         break;
       default:
-        alert("loginNav.js에서 경로를 수정해주세요.경로가 잘못됬습니다.");
+        console.log("loginNav.js에서 경로를 수정해주세요.경로가 잘못됬습니다.");
     }
   }
 };
