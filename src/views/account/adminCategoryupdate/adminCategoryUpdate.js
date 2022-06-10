@@ -13,18 +13,18 @@ categorySelectBox.onchange = changeHTML;
 function changeHTML(){
     const actCategory = categorySelectBox.options[categorySelectBox.selectedIndex].value;
     
-    if (actCategory == "카테고리 수정하기") { 
+    if (actCategory == "modifyCategory") { 
         mainInputlabel.textContent = "수정할 카테고리 명"
         subInputlabel.textContent = "수정될 카테고리 명"
         mainInputlabel.style.display = "block";
         mainInput.style.display = "block";
     }
-    else if (actCategory == "카테고리 삭제하기") {
+    else if (actCategory == "deleteCategory") {
         subInputlabel.textContent = "삭제할 카테고리 명"
         mainInputlabel.style.display = "none";
         mainInput.style.display = "none";
     }
-    else if (actCategory == "카테고리 추가하기") {
+    else if (actCategory == "addCategory") {
         mainInputlabel.textContent = "메인 카테고리"
         subInputlabel.textContent = "서브 카테고리"
         mainInputlabel.style.display = "block";
@@ -35,7 +35,7 @@ function changeHTML(){
 async function actByCategory(actCategory, bodyData) {
     const data = JSON.stringify(bodyData);
     
-    if (actCategory == "카테고리 추가하기") { 
+    if (actCategory == "addCategory") { 
         const res = await fetch("/api/subcategory/register", {
             method: "POST",
             headers: {
@@ -47,7 +47,7 @@ async function actByCategory(actCategory, bodyData) {
         // 추가한 커테고리 콘솔 창에 뛰워줌(카테고리 생성되었는지 확인할 수 있도록)
         console.log(await res.json())
     }
-    else if (actCategory == "카테고리 수정하기") { 
+    else if (actCategory == "modifyCategory") { 
         
         const res = await fetch(`/api/subcategory?curSubCategoryName=${bodyData.categoryName}&updatedSubCategoryName=${bodyData.subCategoryName}`, {
             method: "PATCH",
@@ -59,7 +59,7 @@ async function actByCategory(actCategory, bodyData) {
         })
         console.log(await res.json())
     }
-    else if (actCategory == "카테고리 삭제하기") {
+    else if (actCategory == "deleteCategory") {
         const res = await fetch("/api/subcategory", {
             method: "DELETE",
             headers: {
@@ -86,6 +86,9 @@ submitButton.addEventListener("click", (e) => {
     e.preventDefault();
     
     const actCategory = categorySelectBox.options[categorySelectBox.selectedIndex].value
+    console.log(mainInput.value);
+    console.log(subInput.value);
+    console.log(actCategory);
     const bodyData = {
         categoryName: mainInput.value,
         subCategoryName:subInput.value,

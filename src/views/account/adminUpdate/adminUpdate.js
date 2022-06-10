@@ -25,6 +25,9 @@ async function updateAdmin() {
     
         throw new Error(reason);
       }
+      const result = await res.json();
+      alert("관리자 권한이 부여되었습니다.");
+      window.location.href="/";
     
 }
 
