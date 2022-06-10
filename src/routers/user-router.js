@@ -4,41 +4,36 @@ import { loginRequired } from "../middlewares";
 import { userService } from "../services";
 import { body, validationResult } from "express-validator";
 
-
 const userRouter = Router();
 
-const validationFunc = (req, res, next)=>{
+const validationFunc = (req, res, next) => {
   const error = validationResult(req);
-  if(!error.isEmpty()) return res.status(400).json(error);
+  if (!error.isEmpty()) return res.status(400).json(error);
   next();
-}
+};
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-userRouter.post("/register",
+userRouter.post(
+  "/register",
   [
-    body('fullName', '이름을 입력해 주세요.')
-      .trim()
-      .notEmpty(),
-
-    body('email', '이메일 형식이 올바르지 않습니다.')
-      .trim()
-      .notEmpty()
-      .isEmail(),
-
-    body('password', '패스워드는 4자리 이상으로 입력해주세요.')
-      .trim()
-      .isLength({min:4}),
-
-    body('phoneNumber', '올바르지 않은 핸드폰 번호입니다.')
-      .trim()
-      .notEmpty()
-      .isMobilePhone(),
-
-    body('telNumber', '전화번호를 확인해 주세요.')
-      .trim()
-      .notEmpty(),
-
-    validationFunc
+    // body('fullName', '이름을 입력해 주세요.')
+    //   .trim()
+    //   .notEmpty(),
+    // body('email', '이메일 형식이 올바르지 않습니다.')
+    //   .trim()
+    //   .notEmpty()
+    //   .isEmail(),
+    // body('password', '패스워드는 4자리 이상으로 입력해주세요.')
+    //   .tm()
+    //   .notEmpty()
+    //   .isMobilePhone(),
+    // body('telNumber', '전화번호를 확인해 주세요.')
+    //   .trim()
+    //   .notEmpty(),
+    // validationFuncrim()
+    //   .isLength({min:4}),
+    // body('phoneNumber', '올바르지 않은 핸드폰 번호입니다.')
+    //   .tri
   ],
   async (req, res, next) => {
     try {
@@ -69,10 +64,11 @@ userRouter.post("/register",
       // 추가된 유저의 db 데이터를 프론트에 다시 보내줌
       // 물론 프론트에서 안 쓸 수도 있지만, 편의상 일단 보내 줌
       res.status(201).json(newUser);
-  } catch (error) {
-    next(error);
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
 userRouter.post("/login", async function (req, res, next) {
