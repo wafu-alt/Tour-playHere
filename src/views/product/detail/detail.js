@@ -1,9 +1,26 @@
 import renderUserNavbar from "/components/user_navbar/user_navbar.js";
 import * as Api from "/api.js";
 
+async function compareDate(departureAt) {
+  const departureDate = await departureAt
+    .split("-")
+    .map((elem) => Number(elem));
+
+  const date = new Date();
+  //년도 비교
+  if (departureDate[0] < date.getFullYear()) return false;
+  //월 비교
+  if (departureDate[1] < date.getMonth() + 1) return false;
+  //일 비교
+  if (departureDate[1] === date.getMonth() + 1) {
+    if (departureDate[2] < date.getDay()) return false;
+    return false;
+  }
+  return true;
+}
+
 async function Data() {
   /* url받기 */
-
 
   /* url분리해서 맨끝 상품번호만 빼기 */
   const urlPathname = window.location.pathname;
@@ -11,7 +28,6 @@ async function Data() {
   const productId = urlPathname
     .split("/")
     .filter((element) => element !== "")[2];
-  //62996552d8674984f2b07073
 
   /* 상품 번호로 상품 정보 불러오기 */
   const res = await Api.get("/api/package", productId);
@@ -21,6 +37,12 @@ async function Data() {
   const departureAt = res.departureAt.split("T")[0];
   const arrivalAt = res.arrivalAt.split("T")[0];
 
+  //지난 상품 찾기 기능
+  const compareResult = await compareDate(departureAt);
+  if (!compareResult) {
+    alert("출발일이 지난 상품입니다.");
+    return history.back();
+  }
   /* 아래 html을 삽입 */
   const body = document.querySelector("body");
   body.insertAdjacentHTML(

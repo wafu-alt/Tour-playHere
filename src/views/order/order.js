@@ -142,7 +142,7 @@ async function renderHtml() {
         <p id="productInfo">
           <b>${packageName}</b> ${days - 1}박 ${days}일<br>
           ${substance}<br>
-          예약 현황 : ${persons}명<br>
+          예약하신 인원 : ${persons}명<br>
           (총 인원 : ${countNumber}/${totalNumber}) 
         </p>
       </div>
