@@ -1,6 +1,8 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
 import { categoryService } from "../services";
+import { errorHandler } from "../middlewares";
+
 
 const categoryRouter = Router();
 
@@ -22,7 +24,7 @@ categoryRouter.post("/category", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 categoryRouter.get("/category/list", async (req, res, next) => {
   try {
@@ -32,6 +34,6 @@ categoryRouter.get("/category/list", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-});
+}, errorHandler);
 
 export { categoryRouter };
