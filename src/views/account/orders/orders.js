@@ -4,9 +4,11 @@ const ordersContainer = document.querySelector("#ordersContainer");
 const today = new Date();
 const todayDate =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+const nowLoginId = sessionStorage.getItem("nowLoginId");
 // 로그인한 사용자의 주문을 조회하는 페이지 로딩
 async function loadPage() {
-  const res = await Api.get("/api", "orders");
+  const res = await Api.get(`/api", "orders/?email=${nowLoginId}`);
 
   console.log(res);
   // const fetchData = await fetch("../orders_sample.json").then((response) =>
@@ -27,7 +29,7 @@ async function loadPage() {
         <div class="column is-2">${data.packageName}</div>        
         <div class="column is-2">상품 준비중</div>
         <div class="column is-2">
-          <button class="button" id="deleteButton-${data.index}">주문 취소</button>
+          <button class="button" id="deleteButton-${data._id}">주문 취소</button>
         </div>
       </div>`;
 
