@@ -2,12 +2,17 @@
   display: block;
   width: 100%;
   height: 100%;
+  padding-top: 0.5%;
+}
+#guideWord {
+  padding-left: 5%;
 }
 #inner {
   margin: 0 auto;
   width: 100%;
   height: 100%;
   padding: 5%;
+  padding-top: 0%;
 }
 .flexBox {
   display: flex;
@@ -15,6 +20,7 @@
 #infoBox {
   display: inline-block;
   width: 100%;
+  height: 100%;
   margin-left: 2%;
   margin-right: 2%;
 }
@@ -23,8 +29,10 @@
   margin-bottom: 10px;
 }
 
-#infoBox #cartBreadcrumb ul li:first-child #allCheckSelect {
-  padding-left: 10px;
+#infoBox #cartBreadcrumb ul li {
+  text-indent: 10px;
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 #onelineCartList ul {
@@ -57,7 +65,7 @@
 
 #paymentBox {
   width: 60%;
-  height: 500px;
+  height: 65vh;
   margin-left: 2%;
   margin-right: 2%;
 }
