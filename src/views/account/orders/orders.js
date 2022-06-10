@@ -1,6 +1,6 @@
 import * as Api from "/api.js";
 
-const ordersContainer = document.querySelector("#ordersContainer");
+const ordersContainer = document.getElementById("ordersContainer");
 const today = new Date();
 const todayDate =
   today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
@@ -11,14 +11,6 @@ const nowLoginId = sessionStorage.getItem("nowLoginId");
 async function loadPage() {
   const res = await Api.get("/api/orders/forUser", `?email=${nowLoginId}`);
   
-  
-  // const fetchData = await fetch("../orders_sample.json").then((response) =>
-  //   response.json()
-  // );
-  // TODO : 모든 주문서?? 들을 볼수있는 api활용해서 데이터 가져오기
-  //  innerHTML안의 data를 다루는 부분도 그에따라 수정해야함
-  //  가져온 데이터 에서 로그인한 사람의 데이터를 가져오기
-
   res.forEach((data) => {
     console.log(data.email);
     const date = data.departureAt.substr(0, 10);
@@ -26,15 +18,35 @@ async function loadPage() {
 
     if (data.email == nowLoginId) {
       if (today < departureAt) {
-        ordersContainer.innerHTML += `
-      <div class="columns orders-item" id="${data._id}">
-        <div class="column is-2">${date}</div>
-        <div class="column is-6">${data.packageName}</div>        
-        <div class="column is-2">상품 준비중</div>        
-        <div class="column is-2">
-        <button class="button" id="deleteButton-${data._id}">주문 취소</button>
-        </div>
-      </div>`;
+        const orderItemBox = document.createElement('div');
+        const dateDiv = document.createElement("div");
+        const packageNameDiv = document.createElement("div");
+        const productStatusDiv = document.createElement("div");
+        const deleteBtnDiv = document.createElement("div");
+        const deleteBtn = document.createElement("button");
+
+        orderItemBox.setAttribute("class", "columns orders-item");
+        orderItemBox.setAttribute("id", `${data._id}`);
+        dateDiv.setAttribute("class", "column is-2");
+        packageNameDiv.setAttribute("class", "column is-6");
+        productStatusDiv.setAttribute("class", "column is-2");
+        deleteBtnDiv.setAttribute("class", "column is-2");
+        deleteBtn.setAttribute("class", "button");
+        deleteBtn.setAttribute("id", `deleteButton-${data._id}`);        
+
+        dateDiv.textContent = `${date}`;
+        packageNameDiv.textContent = `${data.packageName}`;
+        productStatusDiv.textContent = "상품 준비중";
+        deleteBtn.textContent = "주문 취소"
+
+        ordersContainer.appendChild(orderItemBox);
+        orderItemBox.appendChild(dateDiv);
+        orderItemBox.appendChild(packageNameDiv);
+        orderItemBox.appendChild(productStatusDiv);
+        orderItemBox.appendChild(deleteBtnDiv);
+        deleteBtnDiv.appendChild(deleteBtn);
+
+
 
         const deleteButton = document.querySelector(
           `#deleteButton-${data._id}`
@@ -78,16 +90,39 @@ async function adminPageLoad() {
     const departureAt = new Date(data.departureAt);
 
     if (today < departureAt) {
-      ordersContainer.innerHTML += `
-        <div class="columns orders-item" id="${data._id}">
-          <div class="column is-2">${date}</div>
-          <div class="column is-4 order-summary">${data.packageName}</div>
-          <div class="column is-2">${data.email}</div>
-          <div class="column is-2">상품 준비중</div>
-          <div class="column is-2">
-          <button class="button" id="deleteButton-${data._id}">주문 취소</button>
-          </div>
-        </div>`;
+      const orderItemDiv = document.createElement("div");
+      const dateDiv = document.createElement("div");
+      const packageNameDiv = document.createElement("div");
+      const emailDiv = document.createElement("div");
+      const productStatusDiv = document.createElement("div");
+      const deleteBtnDiv = document.createElement("div");
+      const deletebtn = document.createElement("button");
+
+      orderItemDiv.setAttribute("class", "columns orders-item");
+      orderItemDiv.setAttribute("id", `${data._id}`);
+      dateDiv.setAttribute("class", "column is-2");
+      packageNameDiv.setAttribute("class", "column is-4");
+      emailDiv.setAttribute("class", "column is-2");
+      productStatusDiv.setAttribute("class", "column is-2");
+      deleteBtnDiv.setAttribute("class", "column is-2");
+      deletebtn.setAttribute("class", "button");
+      deletebtn.setAttribute("id", `deleteButton-${data._id}`);
+
+      dateDiv.textContent = `${date}`;
+      packageNameDiv.textContent = `${data.packageName}`;
+      emailDiv.textContent = `${data.email}`;
+      productStatusDiv.textContent = "상품 준비중";
+      deletebtn.textContent = "주문 취소";
+
+      ordersContainer.appendChild(orderItemDiv);
+      orderItemDiv.appendChild(dateDiv);
+      orderItemDiv.appendChild(packageNameDiv);
+      orderItemDiv.appendChild(emailDiv);
+      orderItemDiv.appendChild(productStatusDiv);
+      orderItemDiv.appendChild(deleteBtnDiv);
+      deleteBtnDiv.appendChild(deletebtn);
+      
+
 
       const deleteButton = document.querySelector(`#deleteButton-${data._id}`);
       console.log(deleteButton);
