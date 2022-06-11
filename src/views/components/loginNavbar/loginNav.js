@@ -1,7 +1,7 @@
 const loginCheck = document.querySelector("#navbar");
 const domain = "http://kdt-sw2-busan-team03.elicecoding.com";
 
-// console.log(secretKey);
+
 // http://kdt-sw2-busan-team03.elicecoding.com/
 
 const loginHTMLInMain = () => {
@@ -73,7 +73,7 @@ const logoutBtnActive = () => {
 
 const navBarLoad = () => {
   // url에 맞는 Nav로딩하기
-  if (document.location.href == `http://localhost:5000/`) {
+  if (document.location.href == `http://localhost:5000/` || document.location.href ==`${domain}/`) {
     if (sessionStorage.getItem("token")) {
       loginHTMLInMain();
     } else {

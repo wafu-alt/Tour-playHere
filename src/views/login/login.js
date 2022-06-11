@@ -48,11 +48,17 @@ async function handleSubmit(e) {
     // 로그인 성공
 
     // 로그인 성공 시 전 사용하려던 페이지로 이동.
-    if(window.location.href!="http://localhost:5000/login/"){window.location.href = document.referrer.substring(
-      21,
-      document.referrer.length
-    );
-    } else { window.location.href = "/"; }
+    if (
+      document.referrer != "http://localhost:5000/login/" ||
+      document.referrer != "kdt-sw2-busan-team03.elicecoding.com/login/"
+    ) {
+      window.location.href = document.referrer.substring(
+        21,
+        document.referrer.length
+      );
+    } else {
+      window.location.href = "/";
+    }
     
   } catch (err) {
     console.error(err.stack);
