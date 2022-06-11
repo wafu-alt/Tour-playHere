@@ -2,8 +2,6 @@ const loginCheck = document.querySelector("#navbar");
 const domain = "http://kdt-sw2-busan-team03.elicecoding.com";
 
 
-// http://kdt-sw2-busan-team03.elicecoding.com/
-
 const loginHTMLInMain = () => {
   // 로그인 했을때 메인 화면 Nav
   loginCheck.innerHTML = `
@@ -102,7 +100,7 @@ const navBarLoad = () => {
         loginHTMLInMain();
         break;
       default:
-        console.log("loginNav.js에서 경로를 수정해주세요.경로가 잘못됬습니다.");
+        break;
     }
   }
 };

@@ -10,15 +10,15 @@ const nowLoginId = sessionStorage.getItem("nowLoginId");
 // 로그인한 사용자의 주문을 조회하는 페이지 로딩
 async function loadPage() {
   const res = await Api.get("/api/orders/forUser", `?email=${nowLoginId}`);
-  
+
   res.forEach((data) => {
-    console.log(data.email);
+    
     const date = data.departureAt.substr(0, 10);
     const departureAt = new Date(data.departureAt);
 
     if (data.email == nowLoginId) {
       if (today < departureAt) {
-        const orderItemBox = document.createElement('div');
+        const orderItemBox = document.createElement("div");
         const dateDiv = document.createElement("div");
         const packageNameDiv = document.createElement("div");
         const productStatusDiv = document.createElement("div");
@@ -32,12 +32,12 @@ async function loadPage() {
         productStatusDiv.setAttribute("class", "column is-2");
         deleteBtnDiv.setAttribute("class", "column is-2");
         deleteBtn.setAttribute("class", "button");
-        deleteBtn.setAttribute("id", `deleteButton-${data._id}`);        
+        deleteBtn.setAttribute("id", `deleteButton-${data._id}`);
 
         dateDiv.textContent = `${date}`;
         packageNameDiv.textContent = `${data.packageName}`;
         productStatusDiv.textContent = "상품 준비중";
-        deleteBtn.textContent = "주문 취소"
+        deleteBtn.textContent = "주문 취소";
 
         ordersContainer.appendChild(orderItemBox);
         orderItemBox.appendChild(dateDiv);
@@ -46,12 +46,10 @@ async function loadPage() {
         orderItemBox.appendChild(deleteBtnDiv);
         deleteBtnDiv.appendChild(deleteBtn);
 
-
-
         const deleteButton = document.querySelector(
           `#deleteButton-${data._id}`
         );
-        console.log(deleteButton);
+        
         deleteButton.addEventListener("click", async function () {
           const res = await fetch(`/api/order/${data._id}`, {
             method: "DELETE",
@@ -60,7 +58,7 @@ async function loadPage() {
               Authorization: `Bearer ${sessionStorage.getItem("token")}`,
             },
           });
-          alert(`${data._id}삭제함`);
+          alert(`주문을 취소하였습니다.`);
           window.location.href = "/account/orders";
         });
       }
@@ -72,7 +70,7 @@ async function loadPage() {
 async function adminPageLoad() {
   const res = await Api.get("/api", "orders");
   // const result = await res.json();
-  console.log(res);
+  
   // const fetchData = await fetch("../orders_sample.json").then((response) =>
   //   response.json()
   // );
@@ -121,11 +119,9 @@ async function adminPageLoad() {
       orderItemDiv.appendChild(productStatusDiv);
       orderItemDiv.appendChild(deleteBtnDiv);
       deleteBtnDiv.appendChild(deletebtn);
-      
-
 
       const deleteButton = document.querySelector(`#deleteButton-${data._id}`);
-      console.log(deleteButton);
+      
       deleteButton.addEventListener("click", async function () {
         const res = await fetch(`/api/order/${data._id}`, {
           method: "DELETE",

@@ -14,7 +14,6 @@ async function compareDate(departureAt) {
   //일 비교
   if (departureDate[1] === date.getMonth() + 1) {
     if (departureDate[2] < date.getDay()) return false;
-    return false;
   }
   return true;
 }
@@ -128,8 +127,14 @@ async function Data() {
     };
     if (sessionStorage.getItem("cartToken")) {
       const sessionCartToken = JSON.parse(sessionStorage.getItem("cartToken"));
+      //같은 사용자가 같은 상품을 카트에 담으면 패스함
       if (sessionCartToken.find((element) => element.objectId === productId)) {
-        return;
+        const sameProduct = sessionCartToken.filter(
+          (element) => element.objectId === productId
+        );
+        if (sameProduct.find((element) => element.email === nowLoginIdEmail)) {
+          return;
+        }
       }
       cartToken.push(...sessionCartToken);
     }
