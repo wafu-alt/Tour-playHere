@@ -49,12 +49,19 @@ async function handleSubmit(e) {
 
     // 로그인 성공 시 전 사용하려던 페이지로 이동.
     if (
-      document.referrer != "http://localhost:5000/login/" ||
-      document.referrer != "http://kdt-sw2-busan-team03.elicecoding.com/login/"
+      document.referrer == "http://localhost:5000/login/" 
+      
     ) {
-      alert(document.referrer.substring(21, document.referrer.length));
+      
       window.location.href = document.referrer.substring(
         21,
+        document.referrer.length
+      );
+    } else if (
+      document.referrer == "http://kdt-sw2-busan-team03.elicecoding.com/login/"
+    ) {
+      window.location.href = document.referrer.substring(
+        44,
         document.referrer.length
       );
     } else {
