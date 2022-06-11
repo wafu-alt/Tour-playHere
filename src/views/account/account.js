@@ -50,7 +50,7 @@ async function adminPage() {
             </div>
           </a>
 
-          <a class="menu-card" href="/account/adminCategoryupdate">
+          <a class="menu-card" href="/account/adminCategoryUpdate">
             <div class="menu-icon">
               <span class="icon has-text-info">
               <i class="fa-solid fa-user-plus"></i>
