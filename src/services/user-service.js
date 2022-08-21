@@ -175,7 +175,6 @@ class UserService {
     return user;
   }
 
-  
   // 유저 삭제
   async DeleteUser(userId, userPassword, inputPassword) {
     // 객체 destructuring
@@ -196,6 +195,62 @@ class UserService {
     const deleteUser = await this.userModel.delete(userId);
 
     return deleteUser;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // 카카오 Oauth 로그인
+  async getUserTokenWithKakao(email) {
+    if (!email) {
+      throw new Error("로그인을 위해서는 이메일 필요합니다");
+    }
+
+    // 이메일 db에 존재 여부 확인
+    const user = await this.userModel.findByEmail(email);
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+
+    // 로그인 성공 -> JWT 웹 토큰 생성
+    const secretKey = process.env.JWT_SECRET_KEY || "secret-key";
+    const token = jwt.sign({ userId: user._id, role: user.role }, secretKey);
+
+    const isAdmin = user.role === "admin";
+
+    return { token, isAdmin };
+  }
+
+  // 카카오 Oauth 회원가입
+  async addUserWithKakao(email, nickname) {
+    if (!email || !nickname) {
+      throw new Error("회원가입을 위해서는 이메일과 이름이 필요합니다");
+    }
+
+    // 이메일 중복 확인
+    const user = await this.userModel.findByEmail(email);
+    if (user) {
+      throw new Error(
+        "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요."
+      );
+    }
+
+    // 비밀번호는 임시로 설정
+    const password = "kakao";
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUserInfo = {
+      fullName: nickname,
+      email,
+      password: hashedPassword,
+      isOAuth: true,
+    };
+
+    // db에 저장
+    const createdNewUser = await this.userModel.create(newUserInfo);
+
+    return createdNewUser;
   }
 }
 

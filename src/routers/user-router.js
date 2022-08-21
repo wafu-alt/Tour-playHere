@@ -12,6 +12,37 @@ const validationFunc = (req, res, next) => {
   next();
 };
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+// 카카오 OAuth 용
+userRouter.post('/register/kakao', async (req, res, next) => {
+  try {
+    const email = req.body.email;
+    const nickname = req.body.nickname;
+
+    const newUser = await userService.addUserWithKakao(email, nickname);
+
+    res.status(201).json(newUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userRouter.post("/login/kakao", async function (req, res, next) {
+  try {
+    const email = req.body.email;
+
+    const loginResult = await userService.getUserTokenWithKakao(email);
+
+    res.status(200).json(loginResult);
+  } catch (error) {
+    next(error);
+  }
+});
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 userRouter.post(
   "/register",
