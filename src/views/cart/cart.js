@@ -165,13 +165,14 @@ async function loadedCartToken() {
     const selectCheckboxs = document.querySelectorAll(".selectCheckboxs");
     const allCheckbox = document.querySelector("#allCheckbox");
     if (!this.checked) {
-      //TODO: 체크박스중 하나만 체크가 되어있으면 그 상품 정보를 오른쪽 보여줌
       let count = 0;
       for (let i = 0; i < selectCheckboxs.length; i++) {
         if (selectCheckboxs[i].checked) count++;
-        console.log(count);
+        
       }
       resetRenderProductInfo();
+
+      //마지막으로 체크되어있는 상품 html에 뿌려주기
       if (count === 1) return rederSelectedProduct(this.id);
       return;
     }
@@ -184,7 +185,7 @@ async function loadedCartToken() {
     this.checked = true;
 
     rederSelectedProduct(this.id);
-    //
+    //해당 상품 html에 뿌려주기
     async function rederSelectedProduct(thisProduct) {
       const objectId = thisProduct.split("-")[1];
       const res = await Api.get("/api/package", objectId);

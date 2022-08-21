@@ -31,7 +31,7 @@ async function updateAdmin() {
 
 submitButton.addEventListener("click", (e) => {
   e.preventDefault();
-  console.log("작동 시작");
+  
   updateAdmin();
-  console.log("작동 완료");
+  
 });

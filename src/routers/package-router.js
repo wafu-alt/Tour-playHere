@@ -48,7 +48,8 @@ packageRouter.post(
         );
       }
       console.log(req.body);
-      const url = req.protocol + "://" + req.get("host");
+      //const url = req.protocol + "://" + req.get("host");
+      const url = "http://kdt-sw2-busan-team03.elicecoding.com";
       // req (request)의 body 에서 데이터 가져오기
       const packageName = req.body.packageName;
       const category = req.body.category;

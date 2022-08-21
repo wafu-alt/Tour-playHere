@@ -1,13 +1,11 @@
 const loginCheck = document.querySelector("#navbar");
-// const domain = process.env.DOMAIN;
+const domain = "http://kdt-sw2-busan-team03.elicecoding.com";
 
-// console.log(secretKey);
-// http://kdt-sw2-busan-team03.elicecoding.com/
 
 const loginHTMLInMain = () => {
   // 로그인 했을때 메인 화면 Nav
   loginCheck.innerHTML = `
-      <li><a href="/account">계정관리 </a></li>
+      <li><a href="/account">계정&상품 관리 </a></li>
       <li><a id="logOut"href="#"> 로그아웃 </a></li>
       <li>
                 <a href="/cart" aria-current="page">
@@ -73,7 +71,7 @@ const logoutBtnActive = () => {
 
 const navBarLoad = () => {
   // url에 맞는 Nav로딩하기
-  if (document.location.href == `http://localhost:5000/`) {
+  if (document.location.href == `http://localhost:5000/` || document.location.href ==`${domain}/`) {
     if (sessionStorage.getItem("token")) {
       loginHTMLInMain();
     } else {
@@ -102,7 +100,7 @@ const navBarLoad = () => {
         loginHTMLInMain();
         break;
       default:
-        console.log("loginNav.js에서 경로를 수정해주세요.경로가 잘못됬습니다.");
+        break;
     }
   }
 };

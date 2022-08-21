@@ -1,7 +1,7 @@
-import { Router } from "express";
-import is from "@sindresorhus/is";
-import { adminRequired } from "../middlewares";
-import { subCategoryService } from "../services";
+import { Router } from 'express';
+import is from '@sindresorhus/is';
+import { adminRequired, errorHandler } from '../middlewares';
+import { subCategoryService } from '../services';
 
 const subCategoryRouter = Router();
 
@@ -24,13 +24,11 @@ subCategoryRouter.post(
         subCategoryName
       );
 
-      res.status(201).json(newCategory);
-    } catch (error) {
-      console.log(error);
-      next(error);
-    }
+    res.status(201).json(newCategory);
+  } catch (error) {
+    next(error);
   }
-);
+}, errorHandler);
 
 subCategoryRouter.patch(
   "/subcategory",
@@ -52,12 +50,12 @@ subCategoryRouter.patch(
         updatedSubCategoryName.replace(/"/g, "")
       );
 
-      res.status(200).json(changedSubCategory);
-    } catch (error) {
-      next(error);
-    }
+
+  } catch (error){
+    next(error);
   }
-);
+
+}, errorHandler);
 
 // subcategory delete router
 subCategoryRouter.delete(
@@ -79,7 +77,7 @@ subCategoryRouter.delete(
     } catch (error) {
       next(error);
     }
-  }
+  }, errorHandler
 );
 
 export { subCategoryRouter };
