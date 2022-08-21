@@ -1,50 +1,49 @@
-// import { renderItemDetail } from "./detail-com.js";
-//console.log(renderItemDetail());
+import renderUserNavbar from "/components/user_navbar/user_navbar.js";
+import * as Api from "/api.js";
 
-// let data = fetch("./detail-sampleData.json")
-// .then (res => res.json())
-// .then (value => {
-//     console.log(value[0])
-//     data = value[0]
-//     return data
-// })
-// .catch((err) => console.log(err))
+async function compareDate(departureAt) {
+  const departureDate = await departureAt
+    .split("-")
+    .map((elem) => Number(elem));
+
+  const date = new Date();
+  //년도 비교
+  if (departureDate[0] < date.getFullYear()) return false;
+  //월 비교
+  if (departureDate[1] < date.getMonth() + 1) return false;
+  //일 비교
+  if (departureDate[1] === date.getMonth() + 1) {
+    if (departureDate[2] < date.getDay()) return false;
+  }
+  return true;
+}
 
 async function Data() {
-  let res = await fetch("./detail-sampleData.json");
+  /* url받기 */
 
-  let resData = await res.json();
-  const data = resData.filter(
-    (data) => data.pacakge_id === "6278ad6f927a0d0520ff626a"
-  );
+  /* url분리해서 맨끝 상품번호만 빼기 */
+  const urlPathname = window.location.pathname;
+  // result : /product/detail/629dbba1251a88738ef214b6/
+  const productId = urlPathname
+    .split("/")
+    .filter((element) => element !== "")[2];
 
-  //return data[0];
-  //console.log(data[0].images)
+  /* 상품 번호로 상품 정보 불러오기 */
+  const res = await Api.get("/api/package", productId);
+  const { packageName, days, totalNumber, countNumber, imgUrl, substance } =
+    res;
+  const price = res.price.toLocaleString("ko-KR");
+  const departureAt = res.departureAt.split("T")[0];
+  const arrivalAt = res.arrivalAt.split("T")[0];
 
-  const body = document.querySelector("body");
-
-  // 여행 출발일 input값 현재 날짜로 고정
-  function date() {
-    let curDate = new Date();
-    let year = curDate.getFullYear();
-    let month = "";
-    let date = "";
-    if (curDate.getMonth() + 1 < 10) {
-      month = `0${curDate.getMonth() + 1}`;
-    } else {
-      month = curDate.getMonth();
-    }
-
-    if (curDate.getDate() < 10) {
-      date = `0${curDate.getDate()}`;
-    } else {
-      date = curDate.getDate();
-    }
-
-    return `${year}-${month}-${date}`;
+  //지난 상품 찾기 기능
+  const compareResult = await compareDate(departureAt);
+  if (!compareResult) {
+    alert("출발일이 지난 상품입니다.");
+    return history.back();
   }
-  const curDate = date();
-
+  /* 아래 html을 삽입 */
+  const body = document.querySelector("body");
   body.insertAdjacentHTML(
     "beforeend",
 
@@ -52,23 +51,26 @@ async function Data() {
       <section id="inner" class="columns" >
         <div id="imgArea" class="column is-half">
           <figure class="image is-400x400">
-            <img src="${data[0].images}" alt="제주도 상품">
+            <img src="${imgUrl}" alt="상품 이미지">
           </figure>
         </div>
         <div id="textArea" class="column is-half">
           <div class="mb-6">
-            <h3 class="title is-3">${data[0].pacakge_name}</h3>
+            <h3 class="title is-3">
+              ${days - 1}박${days}일의 ${packageName}여행
+            </h3>
             <hr>
             <div id="tourDes">
-              <p class="title is-5 has-text-left">${data[0].price}원</p>
-              <p>여행 간단한 설명</p>
+              <p class="title is-5 has-text-left">여행 기간 : ${departureAt} ~ ${arrivalAt}</p>
+              <p class="title is-5 has-text-left">가격 : ${price}원</p>
+              <p>${substance}</p>
             </div>
             <hr class="mt-6">
             <div class="mt-1 pt-1">
-              <label id="howPerson" for="howPerson">인 원</label>
-              <input id="howPersonInput" class="input is-info" type="text" placeholder="몇명이신가요?" ><br>
-              <label id="startDays" for="start">출발일 선택</label>
-              <input id="startDaysInput" type="date" name="start"  value="${curDate}" >
+              <label id="howPerson" for="howPerson">예약현황 : </label>
+              <input id="howPersonInput" class="input is-info" type="text" placeholder="잔여 예약원은  ${
+                totalNumber - countNumber
+              }명입니다." <br>
             </div>
           </div>
         </div>
@@ -86,44 +88,89 @@ async function Data() {
     </article>
   `
   );
+
+  /* 버튼을 위한 dom 가져오기 */
   const cartAddBtn = document.querySelector("#cartAddBtn");
   const orderBtn = document.querySelector("#orderBtn");
   const howPersonInput = document.querySelector("#howPersonInput");
-  const startDaysInput = document.querySelector("#startDaysInput").value;
 
+  //로그인 중인지 체크
+  function loginCheck() {
+    if (!sessionStorage.getItem("token")) {
+      alert(`로그인된 사용자만 사용 가능합니다.`);
+      return false;
+    }
+    return true;
+  }
+
+  //인원 체크하는 기능
   function personsCheck(persons, maxPersons) {
     if (persons === 0) {
       alert(`인원을 ${persons}명을 입력하셨습니다.`);
       return false;
     }
     if (persons > maxPersons) {
-      alert(`최대 인원을 넘어서 ${persons}명을 입력하셨습니다.`);
+      alert(`예약 인원을 초과하셨습니다.`);
       return false;
     }
     return true;
   }
 
-  function cartAddFnc() {
-    // console.log(window.location);
-    // console.log(window.location.href);
-    window.location.href = `/cart`;
-    alert("cartAddBtn을 클릭하셨습니다.");
+  //버튼 클릭시 토큰 생성
+  function createdToken(persons) {
+    const nowLoginIdEmail = sessionStorage.getItem("nowLoginId");
+    const cartToken = [];
+    const obj = {
+      email: nowLoginIdEmail,
+      objectId: productId,
+      persons: persons,
+    };
+    if (sessionStorage.getItem("cartToken")) {
+      const sessionCartToken = JSON.parse(sessionStorage.getItem("cartToken"));
+      //같은 사용자가 같은 상품을 카트에 담으면 패스함
+      if (sessionCartToken.find((element) => element.objectId === productId)) {
+        const sameProduct = sessionCartToken.filter(
+          (element) => element.objectId === productId
+        );
+        if (sameProduct.find((element) => element.email === nowLoginIdEmail)) {
+          return;
+        }
+      }
+      cartToken.push(...sessionCartToken);
+    }
+    cartToken.push(obj);
+    sessionStorage.setItem("cartToken", JSON.stringify(cartToken));
   }
 
-  function orderFnc() {
-    console.log(howPersonInput.value);
-    console.log(startDaysInput);
+  //장바구니추가 버튼 기능
+  function cartAddFnc() {
+    const persons = Number(howPersonInput.value);
+    const maxPersons = totalNumber - countNumber;
+
+    if (!loginCheck()) return;
+    if (!personsCheck(persons, maxPersons)) return;
+    createdToken(persons);
+    alert("장바구니에 담으셨습니다.");
+  }
+
+  //예약하러가기 버튼 기능
+  async function orderFnc() {
+    // const loginChecking = loginCheck();
 
     const persons = Number(howPersonInput.value);
-    const maxPersons = 7; //todo : 최대인원에 대한 정보가 있을경우 연결해주기
-    const checking = personsCheck(persons, maxPersons);
-    if (checking === true) {
-      window.location.href = `/order`;
-    }
-    // alert("orderBtn을 클릭하셨습니다.");
+    const maxPersons = totalNumber - countNumber;
+    // const personsChecking = personsCheck(persons, maxPersons);
+
+    if (!loginCheck()) return;
+    if (!personsCheck(persons, maxPersons)) return;
+    createdToken(persons);
+    window.location.href = `/order/${productId}`; //-> veiws/order/order.html
   }
 
   cartAddBtn.addEventListener("click", cartAddFnc);
   orderBtn.addEventListener("click", orderFnc);
 }
 Data();
+
+const loginCheck = document.querySelector(".navbar-end");
+loginCheck.insertAdjacentElement("beforeend", renderUserNavbar());

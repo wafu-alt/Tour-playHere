@@ -1,68 +1,88 @@
-import { categoryModel } from '../db';
-import { subCategoryModel } from '../db'
+import { categoryModel } from "../db";
+import { subCategoryModel } from "../db";
 
 class SubCategoryService {
-    constructor(categoryModel, subCategoryModel) {
-      this.categoryModel = categoryModel;
-      this.subCategoryModel = subCategoryModel;
+  constructor(categoryModel, subCategoryModel) {
+    this.categoryModel = categoryModel;
+    this.subCategoryModel = subCategoryModel;
+  }
+
+  async addSubCategory(categoryName, subCategoryName) {
+    const category = await this.categoryModel.findByName(categoryName);
+
+    if (!category) {
+      throw new Error("메인 카테고리명이 올바르지 않습니다.");
     }
 
-    async addSubCategory(categoryName, subCategoryName) {
-      const category  = await this.categoryModel.findByName(categoryName);
+    const subCategory = await this.subCategoryModel.findBySubCategoryName(
+      subCategoryName
+    );
+    const subcategoryName = subCategoryName;
+    const categoryid = category.categoryId;
 
-      if (!category) {
-        throw new Error(
-          '메인 카테고리명이 올바르지 않습니다.'
-        );
-      }
+    console.log(subCategory);
 
-      const subCategory  = await this.subCategoryModel.findBySubCategoryName(subCategoryName);
-      const subcategoryName  = subCategoryName;
-      const categoryid = category.categoryId;
-
-      if (subCategory) {
-        throw new Error(
-          `'${subcategoryName}'는(은) 이미 등록된 서브카테고리 입니다.`
-        )
-      }
-
-      const createdNewSubCategory = await this.subCategoryModel.create(categoryid, subcategoryName);
-
-      return createdNewSubCategory;
-      
+    if (subCategory) {
+      throw new Error(
+        `'${subcategoryName}'는(은) 이미 등록된 서브카테고리 입니다.`
+      );
     }
-    
-    async updateSubCategory(curSubCategoryName, updatedSubCategoryName) {
-      const subCategory = await this.subCategoryModel.findBySubCategoryName(curSubCategoryName);
-      if (!subCategory) {
-        throw new Error(
-          `'${curSubCategoryName}'는(은) 존재하지 않는 서브카테고리 입니다.`
-        )
-      }
 
-      const filter = { subCategoryId : subCategory.subCategoryId};
-      const update = { subCategoryName : updatedSubCategoryName };
+    const createdNewSubCategory = await this.subCategoryModel.create(
+      categoryid,
+      subcategoryName
+    );
 
-      const updatedSubCategory = await this.subCategoryModel.updateSubCategoryName(filter, update);
+    return createdNewSubCategory;
+  }
 
-      return updatedSubCategory;
+  async updateSubCategory(curSubCategoryName, updatedSubCategoryName) {
+    const subCategory = await this.subCategoryModel.findBySubCategoryName(
+      curSubCategoryName
+    );
+    if (!subCategory) {
+      throw new Error(
+        `'${curSubCategoryName}'는(은) 존재하지 않는 서브카테고리 입니다.`
+      );
     }
-    async deleteSubCategory(subCategoryName) {
-      const subcategoryName = subCategoryName.subCategoryName;
-      const subCategory = await this.subCategoryModel.findBySubCategoryName(subcategoryName);
 
-      if (!subCategory) {
-        throw new Error(
-          `'${subcategoryName}'는(은) 존재하지 않는 서브카테고리 입니다.`
-        )
-      }
-      
-      const deletedSubCategory = await this.subCategoryModel.delete(subCategory.subCategoryId);
+    const filter = { subCategoryId: subCategory.subCategoryId };
+    const update = { subCategoryName: updatedSubCategoryName };
 
-      return deletedSubCategory;
+    let updatedSubCategory = await this.subCategoryModel.updateSubCategoryName(
+      filter,
+      update
+    );
+
+    updatedSubCategory = await this.subCategoryModel.findBySubCategoryName(
+      updatedSubCategoryName
+    );
+
+    return updatedSubCategory;
+  }
+  async deleteSubCategory(subCategoryName) {
+    const subcategoryName = subCategoryName.subCategoryName;
+    const subCategory = await this.subCategoryModel.findBySubCategoryName(
+      subcategoryName
+    );
+
+    if (!subCategory) {
+      throw new Error(
+        `'${subcategoryName}'는(은) 존재하지 않는 서브카테고리 입니다.`
+      );
     }
+
+    const deletedSubCategory = await this.subCategoryModel.delete(
+      subCategory.subCategoryId
+    );
+
+    return deletedSubCategory;
+  }
 }
 
-const subCategoryService = new SubCategoryService(categoryModel, subCategoryModel);
+const subCategoryService = new SubCategoryService(
+  categoryModel,
+  subCategoryModel
+);
 
 export { subCategoryService };

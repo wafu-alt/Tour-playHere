@@ -23,7 +23,6 @@ phoneNumberToggle.addEventListener("click", function () {
 });
 
 function changeDisabled(tagElement) {
-  console.log("change작동");
   if (tagElement.disabled == true) {
     tagElement.disabled = false;
   } else if (tagElement.disabled == false) {
