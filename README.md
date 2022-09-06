@@ -51,7 +51,7 @@
 ### 9. 주문하기   
 ![image27](https://user-images.githubusercontent.com/83447120/188661236-10426c52-1208-471a-b872-a4e49b1ec75b.gif)
 
-### 10. 주문 조회 및 메일로   
+### 10. 주문 조회 및 메일로 확  
 ![image30](https://user-images.githubusercontent.com/83447120/188661378-6bb9c2d5-725f-4f48-9473-5f5f33296fce.gif)
 
 
