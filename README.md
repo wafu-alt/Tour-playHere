@@ -22,3 +22,4 @@
 - 이외
 
 
+![image](https://user-images.githubusercontent.com/83447120/188596573-5e45e840-1b98-4747-9ccc-ba9092897b8a.png)
