@@ -1,8 +1,5 @@
 import "dotenv/config";
-const express = require("express");
-
-const app = express();
-app.get("/", (req, res) => res.send("Home Page Route"));
+import { app } from "./src/app.js";
 
 // .env 파일에 예를 들어 PORT="3000" 을 작성하면, process.env.PORT가 3000이 됨
 const PORT = process.env.PORT || 5000;
