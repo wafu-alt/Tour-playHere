@@ -8,7 +8,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "babel-node ./index.js"
+    "start": "node ./index.js"
   },
   "dependencies": {
     "@sindresorhus/is": "^4.6.0",
