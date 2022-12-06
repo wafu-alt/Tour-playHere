@@ -8,7 +8,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node ./src/app.js"
   },
   "dependencies": {
     "@sindresorhus/is": "^4.6.0",
