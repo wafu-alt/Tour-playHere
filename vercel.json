@@ -1,5 +1,5 @@
 {
   "redirects": [
-    { "source": "./index.js", "destination": "/" }
+    { "source": "./src/app.js", "destination": "/" }
   ]
 }
