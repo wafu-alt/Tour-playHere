@@ -2,8 +2,11 @@
   "name": "shopping-mall",
   "author": "team-n",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.js", 
   "license": "MIT",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "babel-node ./index.js"
   },
